@@ -7,19 +7,15 @@
  * Author:  Folio
  * Created: 09-Oct-2020
  */
-
--- Create Database To Store All Tables
-CREATE DATABASE mms;
 USE mms;
 
 
 -- Create Table For The administrator Account
 CREATE TABLE adminaccount (
-    adminsno int NOT NULL AUTO_INCREMENT,
     adminId VARCHAR(100) PRIMARY KEY,
     adminFirstName VARCHAR(20) NOT NULL,
     adminLastName VARCHAR(20) ,
-    adminPass VARCHAR(100) NOT NULL,
+    adminPass VARCHAR(100) NOT NULL
 );
 
 
@@ -27,7 +23,7 @@ CREATE TABLE adminaccount (
 -- Registered In This portal or Not
 CREATE TABLE useridentity (
     userId VARCHAR(50) PRIMARY KEY NOT NULL,
-    userPass VARCHAR(100) NOT NULL,
+    userPass VARCHAR(100) NOT NULL
 );
 
 -- Create Table For The Users Login Information
@@ -37,8 +33,7 @@ CREATE TABLE userlogin (
     userPass VARCHAR(100) NOT NULL,
     userFirstName VARCHAR(50) NOT NULL,
     userLastName VARCHAR(50),
-    userState VARCHAR(10) NOT NULL,
-    usersno int NOT NULL AUTO_INCREMENT,
+    userState VARCHAR(10) NOT NULL
 );
 
 
@@ -59,8 +54,8 @@ CREATE TABLE traininfo (
     cancel INT DEFAULT 0
 );
 
---Create firstClass Table To Store Information of available seats
---of First Class
+-- Create firstClass Table To Store Information of available seats
+-- of First Class
 CREATE TABLE firstClass (
     trainNum VARCHAR(50) PRIMARY KEY,
     uppers INT NOT NULL,
@@ -71,8 +66,8 @@ CREATE TABLE firstClass (
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
 
---Create secondClass Table To Store Information of available seats
---of Second Class
+-- Create secondClass Table To Store Information of available seats
+-- of Second Class
 CREATE TABLE secondClass (
     trainNum VARCHAR(50) PRIMARY KEY,
     uppers INT NOT NULL,
@@ -83,8 +78,8 @@ CREATE TABLE secondClass (
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
 
---Create sleeperClass Table To Store Information of available seats
---of Sleeper Class
+-- Create sleeperClass Table To Store Information of available seats
+-- of Sleeper Class
 CREATE TABLE sleeperClass (
     trainNum VARCHAR(50) PRIMARY KEY,
     uppers INT NOT NULL,
@@ -99,10 +94,10 @@ CREATE TABLE sleeperClass (
 -- Create Table For The Passengers 
 -- Who Are Registered For The Travel
 CREATE TABLE passengerdetail (
-    ID int IDENTITY(1,1) NOT NULL,
+    ID INT AUTO_INCREMENT NOT NULL UNIQUE,
     trainNum VARCHAR(10) NOT NULL,
     userId VARCHAR(50) NOT NULL,
-    passengerTicketId AS (userId + RIGHT('0000000'+CAST(ID AS VARCHAR(7)),7)) PERSISTED,
+    passengerTicketId VARCHAR(70) NOT NULL PRIMARY KEY,
     passengerFirstName VARCHAR(50) NOT NULL,
     passengerLastName VARCHAR(50),
     passengerAge INT NOT NULL,
