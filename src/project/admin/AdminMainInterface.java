@@ -27,22 +27,392 @@ public class AdminMainInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panAdminHome = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        panAdminAddtrain = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtAdmintrainnumaddtrain = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtAdminTrainnameaddtrain = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtAdminStartaddtrain = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtAdminStopaddtrain = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtAdminstarttimeaddtrain = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtAdminstoptimeaddtrain = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtAdminNOSfirstclassaddtrain = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtAdminNOSsecondclassaddtrain = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtAdminNOSsleeperclassaddtrain = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtAdminFarefirstclassaddtrain = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtAdminFaresecondclassaddtrain = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtAdminFaresleeperclassaddtrain = new javax.swing.JTextField();
+        btnAdminAddtrain = new javax.swing.JButton();
+        panAdminRemovetrain = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtAdminTrainnumremovetrain = new javax.swing.JTextField();
+        btnAdminRemovetrain = new javax.swing.JButton();
+        panAdminViewtrains = new javax.swing.JPanel();
+        panAdminpassdetails = new javax.swing.JPanel();
+        panAdmincanceltrain = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        txtAdminTrainnumcanceltrain = new javax.swing.JTextField();
+        btnAdminCanceltrain = new javax.swing.JButton();
+        btnAdminUncanceltrain = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel1.setText("MMS Railway Enquiry System");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setText("Admin Panel");
+
+        javax.swing.GroupLayout panAdminHomeLayout = new javax.swing.GroupLayout(panAdminHome);
+        panAdminHome.setLayout(panAdminHomeLayout);
+        panAdminHomeLayout.setHorizontalGroup(
+            panAdminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAdminHomeLayout.createSequentialGroup()
+                .addContainerGap(163, Short.MAX_VALUE)
+                .addGroup(panAdminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminHomeLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(126, 126, 126))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminHomeLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(289, 289, 289))))
+        );
+        panAdminHomeLayout.setVerticalGroup(
+            panAdminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAdminHomeLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(jLabel1)
+                .addGap(49, 49, 49)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(241, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Home", panAdminHome);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setText("Add Trains");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Train Num:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Train Name:");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Starting Station:");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Stoppage Station:");
+
+        txtAdminStopaddtrain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAdminStopaddtrainActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("Start Time:");
+
+        txtAdminstarttimeaddtrain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAdminstarttimeaddtrainActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("Stop Time:");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setText("NOS First Class:");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setText("NOS Second Class:");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setText("NOS Sleeper Class:");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setText("Fare First Class:");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setText("Fare Second Class:");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setText("Fare Sleeper Class:");
+
+        btnAdminAddtrain.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnAdminAddtrain.setText("Add Train");
+
+        javax.swing.GroupLayout panAdminAddtrainLayout = new javax.swing.GroupLayout(panAdminAddtrain);
+        panAdminAddtrain.setLayout(panAdminAddtrainLayout);
+        panAdminAddtrainLayout.setHorizontalGroup(
+            panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                        .addGap(330, 330, 330)
+                        .addComponent(jLabel3))
+                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(txtAdmintrainnumaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAdminstarttimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtAdminFarefirstclassaddtrain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                            .addComponent(txtAdminNOSfirstclassaddtrain, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(33, 33, 33)
+                                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminAddtrainLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtAdminStartaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)))
+                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(27, 27, 27)
+                                .addComponent(txtAdminTrainnameaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtAdminStopaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panAdminAddtrainLayout.createSequentialGroup()
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtAdminstoptimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panAdminAddtrainLayout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtAdminFaresecondclassaddtrain, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                                        .addComponent(txtAdminNOSsecondclassaddtrain))
+                                    .addGap(29, 29, 29)
+                                    .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtAdminNOSsleeperclassaddtrain)
+                                        .addComponent(txtAdminFaresleeperclassaddtrain)))))))
+                .addContainerGap(44, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminAddtrainLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAdminAddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(305, 305, 305))
+        );
+        panAdminAddtrainLayout.setVerticalGroup(
+            panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(9, 9, 9)
+                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtAdmintrainnumaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtAdminTrainnameaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(73, 73, 73))
+                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtAdminStartaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(txtAdminStopaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtAdminstarttimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtAdminstoptimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))))
+                .addGap(18, 18, 18)
+                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtAdminNOSfirstclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtAdminNOSsecondclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtAdminNOSsleeperclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtAdminFarefirstclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(txtAdminFaresecondclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtAdminFaresleeperclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77)
+                .addComponent(btnAdminAddtrain)
+                .addContainerGap(106, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Add Train", panAdminAddtrain);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel16.setText("Remove Trains");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel17.setText("Train Number:");
+
+        btnAdminRemovetrain.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnAdminRemovetrain.setText("Remove Train");
+
+        javax.swing.GroupLayout panAdminRemovetrainLayout = new javax.swing.GroupLayout(panAdminRemovetrain);
+        panAdminRemovetrain.setLayout(panAdminRemovetrainLayout);
+        panAdminRemovetrainLayout.setHorizontalGroup(
+            panAdminRemovetrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminRemovetrainLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addGap(296, 296, 296))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminRemovetrainLayout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(txtAdminTrainnumremovetrain, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
+            .addGroup(panAdminRemovetrainLayout.createSequentialGroup()
+                .addGap(302, 302, 302)
+                .addComponent(btnAdminRemovetrain)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panAdminRemovetrainLayout.setVerticalGroup(
+            panAdminRemovetrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAdminRemovetrainLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addGroup(panAdminRemovetrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAdminTrainnumremovetrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
+                .addComponent(btnAdminRemovetrain)
+                .addContainerGap(227, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Remove Train", panAdminRemovetrain);
+
+        javax.swing.GroupLayout panAdminViewtrainsLayout = new javax.swing.GroupLayout(panAdminViewtrains);
+        panAdminViewtrains.setLayout(panAdminViewtrainsLayout);
+        panAdminViewtrainsLayout.setHorizontalGroup(
+            panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 761, Short.MAX_VALUE)
+        );
+        panAdminViewtrainsLayout.setVerticalGroup(
+            panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 419, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("View Trains", panAdminViewtrains);
+
+        javax.swing.GroupLayout panAdminpassdetailsLayout = new javax.swing.GroupLayout(panAdminpassdetails);
+        panAdminpassdetails.setLayout(panAdminpassdetailsLayout);
+        panAdminpassdetailsLayout.setHorizontalGroup(
+            panAdminpassdetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 761, Short.MAX_VALUE)
+        );
+        panAdminpassdetailsLayout.setVerticalGroup(
+            panAdminpassdetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 419, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Passenger Details", panAdminpassdetails);
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel18.setText("Train Number:");
+
+        btnAdminCanceltrain.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnAdminCanceltrain.setText("Cancel Train");
+
+        btnAdminUncanceltrain.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnAdminUncanceltrain.setText("Uncancel Train");
+
+        javax.swing.GroupLayout panAdmincanceltrainLayout = new javax.swing.GroupLayout(panAdmincanceltrain);
+        panAdmincanceltrain.setLayout(panAdmincanceltrainLayout);
+        panAdmincanceltrainLayout.setHorizontalGroup(
+            panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAdmincanceltrainLayout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(jLabel18)
+                .addGap(43, 43, 43)
+                .addComponent(txtAdminTrainnumcanceltrain, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(231, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdmincanceltrainLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAdminCanceltrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdminUncanceltrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(300, 300, 300))
+        );
+        panAdmincanceltrainLayout.setVerticalGroup(
+            panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAdmincanceltrainLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtAdminTrainnumcanceltrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addGap(39, 39, 39)
+                .addComponent(btnAdminCanceltrain)
+                .addGap(32, 32, 32)
+                .addComponent(btnAdminUncanceltrain)
+                .addContainerGap(219, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Cancel and Uncancel Train", panAdmincanceltrain);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 766, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 447, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtAdminstarttimeaddtrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminstarttimeaddtrainActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAdminstarttimeaddtrainActionPerformed
+
+    private void txtAdminStopaddtrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminStopaddtrainActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAdminStopaddtrainActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +450,48 @@ public class AdminMainInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdminAddtrain;
+    private javax.swing.JButton btnAdminCanceltrain;
+    private javax.swing.JButton btnAdminRemovetrain;
+    private javax.swing.JButton btnAdminUncanceltrain;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel panAdminAddtrain;
+    private javax.swing.JPanel panAdminHome;
+    private javax.swing.JPanel panAdminRemovetrain;
+    private javax.swing.JPanel panAdminViewtrains;
+    private javax.swing.JPanel panAdmincanceltrain;
+    private javax.swing.JPanel panAdminpassdetails;
+    private javax.swing.JTextField txtAdminFarefirstclassaddtrain;
+    private javax.swing.JTextField txtAdminFaresecondclassaddtrain;
+    private javax.swing.JTextField txtAdminFaresleeperclassaddtrain;
+    private javax.swing.JTextField txtAdminNOSfirstclassaddtrain;
+    private javax.swing.JTextField txtAdminNOSsecondclassaddtrain;
+    private javax.swing.JTextField txtAdminNOSsleeperclassaddtrain;
+    private javax.swing.JTextField txtAdminStartaddtrain;
+    private javax.swing.JTextField txtAdminStopaddtrain;
+    private javax.swing.JTextField txtAdminTrainnameaddtrain;
+    private javax.swing.JTextField txtAdminTrainnumcanceltrain;
+    private javax.swing.JTextField txtAdminTrainnumremovetrain;
+    private javax.swing.JTextField txtAdminstarttimeaddtrain;
+    private javax.swing.JTextField txtAdminstoptimeaddtrain;
+    private javax.swing.JTextField txtAdmintrainnumaddtrain;
     // End of variables declaration//GEN-END:variables
 }
