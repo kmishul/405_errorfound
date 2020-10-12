@@ -38,7 +38,7 @@
               </Group>
               <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="txtAdminssnlogin" max="32767" attributes="0"/>
+                  <Component id="txtAdminIDlogin" max="32767" attributes="0"/>
                   <Component id="txtAdminpasswordlogin" pref="174" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -66,7 +66,7 @@
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAdminssnlogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAdminIDlogin" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -94,10 +94,13 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Admin SSN:"/>
+        <Property name="text" type="java.lang.String" value="Admin ID:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtAdminssnlogin">
+    <Component class="javax.swing.JTextField" name="txtAdminIDlogin">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAdminIDloginActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>

@@ -4,13 +4,19 @@
  * and open the template in the editor.
  */
 package project.admin;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Folio
  */
 public class AdminLogin extends javax.swing.JFrame {
-
+    Connection con= null;
+    PreparedStatement pst= null;
+    ResultSet rs= null;
     /**
      * Creates new form AdminLogin
      */
@@ -31,7 +37,7 @@ public class AdminLogin extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtAdminssnlogin = new javax.swing.JTextField();
+        txtAdminIDlogin = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtAdminpasswordlogin = new javax.swing.JPasswordField();
         btnAdminlogin = new javax.swing.JButton();
@@ -44,7 +50,13 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel1.setText("Admin Login");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Admin SSN:");
+        jLabel2.setText("Admin ID:");
+
+        txtAdminIDlogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAdminIDloginActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Password:");
@@ -68,7 +80,7 @@ public class AdminLogin extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtAdminssnlogin)
+                    .addComponent(txtAdminIDlogin)
                     .addComponent(txtAdminpasswordlogin, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -89,7 +101,7 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtAdminssnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAdminIDlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -104,9 +116,37 @@ public class AdminLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdminloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminloginActionPerformed
-        // TODO add your handling code here:
-        new AdminMainInterface().setVisible(true);
+        try{
+            String query=("SELECT * FROM `adminaccount` WHERE adminId=? and adminPass=?");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+            pst= con.prepareStatement(query);
+            pst.setString(1, txtAdminIDlogin.getText());
+            String password= String.valueOf(txtAdminpasswordlogin.getPassword());
+            pst.setString(2, password);
+            rs=pst.executeQuery();
+            if(rs.next()){
+            
+                AdminMainInterface form=new AdminMainInterface();
+                form.setVisible(true);
+                form.pack();
+                form.setLocationRelativeTo(null);
+                this.dispose();
+            }
+            else{
+            
+                JOptionPane.showMessageDialog(null,"hello!!!dhyaan  kidhar hai tera.theek se password daal");
+            }
+            //JOptionPane.showMessageDialog(this, "you are logged in congratulations and celebrations!!!");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        //new AdminMainInterface().setVisible(true);
     }//GEN-LAST:event_btnAdminloginActionPerformed
+
+    private void txtAdminIDloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminIDloginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAdminIDloginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,7 +189,7 @@ public class AdminLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JTextField txtAdminIDlogin;
     private javax.swing.JPasswordField txtAdminpasswordlogin;
-    private javax.swing.JTextField txtAdminssnlogin;
     // End of variables declaration//GEN-END:variables
 }

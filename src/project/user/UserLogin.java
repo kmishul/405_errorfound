@@ -141,7 +141,19 @@ public class UserLogin extends javax.swing.JFrame {
             String password= String.valueOf(txtUserLoginPwd.getPassword());
             pst.setString(2, password);
             rs=pst.executeQuery();
-            JOptionPane.showMessageDialog(this, "you are logged in congratulations and celebrations!!!");
+            if(rs.next()){
+            
+                UserMainInterface form=new UserMainInterface();
+                form.setVisible(true);
+                form.pack();
+                form.setLocationRelativeTo(null);
+                this.dispose();
+            }
+            else{
+            
+                JOptionPane.showMessageDialog(null,"hello!!!dhyaan  kidhar hai tera.theek se password daal");
+            }
+            //JOptionPane.showMessageDialog(this, "you are logged in congratulations and celebrations!!!");
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
