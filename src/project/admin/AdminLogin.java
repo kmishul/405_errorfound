@@ -14,6 +14,7 @@ public class AdminLogin extends javax.swing.JFrame {
     /**
      * Creates new form AdminLogin
      */
+    
     public AdminLogin() {
         initComponents();
     }

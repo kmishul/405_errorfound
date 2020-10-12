@@ -5,12 +5,20 @@
  */
 package project.user;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Folio
  */
 public class UserLogin extends javax.swing.JFrame {
-
+    Connection con= null;
+    PreparedStatement pst= null;
+    ResultSet rs= null;
     /**
      * Creates new form UserLogin
      */
@@ -29,7 +37,7 @@ public class UserLogin extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtUserLoginSSN = new javax.swing.JTextField();
+        txtUserLoginID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtUserLoginPwd = new javax.swing.JPasswordField();
         btnUserSignin = new javax.swing.JButton();
@@ -43,13 +51,18 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel2.setText("           User Login");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("   User SSN:");
+        jLabel1.setText("   User ID:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("User Password:");
 
         btnUserSignin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnUserSignin.setText("Login");
+        btnUserSignin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserSigninActionPerformed(evt);
+            }
+        });
 
         btnUserCreateAcc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnUserCreateAcc.setText("Create New Account");
@@ -74,7 +87,7 @@ public class UserLogin extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
-                                .addComponent(txtUserLoginSSN, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtUserLoginID, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -98,7 +111,7 @@ public class UserLogin extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUserLoginSSN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUserLoginID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,6 +131,23 @@ public class UserLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         new UserSignup().setVisible(true);
     }//GEN-LAST:event_btnUserCreateAccActionPerformed
+
+    private void btnUserSigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserSigninActionPerformed
+        try{
+            String query=("SELECT * FROM `userlogin` WHERE userId=? and userPass=?");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+            pst= con.prepareStatement(query);
+            pst.setString(1, txtUserLoginID.getText());
+            String password= String.valueOf(txtUserLoginPwd.getPassword());
+            pst.setString(2, password);
+            rs=pst.executeQuery();
+            JOptionPane.showMessageDialog(this, "you are logged in congratulations and celebrations!!!");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUserSigninActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,7 +190,7 @@ public class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField txtUserLoginID;
     private javax.swing.JPasswordField txtUserLoginPwd;
-    private javax.swing.JTextField txtUserLoginSSN;
     // End of variables declaration//GEN-END:variables
 }
