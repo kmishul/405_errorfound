@@ -32,7 +32,7 @@ CREATE TABLE userlogin (
     userId VARCHAR(50) PRIMARY KEY NOT NULL UNIQUE,
     userFirstName VARCHAR(50) NOT NULL,
     userLastName VARCHAR(50) NOT NULL,
-    userEmailid VARCHAR(20) NOT NULL,
+    userEmailid VARCHAR(50) NOT NULL,
     userPass VARCHAR(100) NOT NULL,
     userContactNo VARCHAR(11) NOT NULL,
     userGender VARCHAR(10) NOT NULL

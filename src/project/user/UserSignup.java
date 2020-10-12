@@ -5,19 +5,35 @@
  */
 package project.user;
 
+//import com.sun.jdi.connect.spi.Connection;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.*;
+import java.sql.Connection;
 /**
  *
  * @author Folio
  */
-public class UserSignup extends javax.swing.JFrame {
 
+
+public class UserSignup extends javax.swing.JFrame {
+    Connection conn=null;
+    Connection con=null;
+    PreparedStatement st=null;
+    PreparedStatement stt=null;
+    ResultSet rs=null;
+    ResultSet rrs=null;
     /**
      * Creates new form UserSignup
      */
     public UserSignup() {
         initComponents();
     }
-
+   
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,14 +45,22 @@ public class UserSignup extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtUserFirstname = new javax.swing.JTextField();
+        txtUserSignupusername = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtUserlastname = new javax.swing.JTextField();
+        txtUserSignupfirstname = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtUserEmailid = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtUserSigninpwd = new javax.swing.JPasswordField();
         btnUserSignup = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtUserSignupCN = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtUserSignupgender = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtUserSignuplastname = new javax.swing.JTextField();
+        txtUserSignincnfrmpwd = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,16 +68,22 @@ public class UserSignup extends javax.swing.JFrame {
         jLabel1.setText("        User SignUp");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("First Name:");
+        jLabel2.setText("User Name:");
 
-        txtUserFirstname.addActionListener(new java.awt.event.ActionListener() {
+        txtUserSignupusername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserFirstnameActionPerformed(evt);
+                txtUserSignupusernameActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Last Name:");
+        jLabel3.setText("First Name:");
+
+        txtUserSignupfirstname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserSignupfirstnameActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("EmailID:");
@@ -63,6 +93,32 @@ public class UserSignup extends javax.swing.JFrame {
 
         btnUserSignup.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         btnUserSignup.setText("SignUp");
+        btnUserSignup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserSignupActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Contact No.:");
+
+        txtUserSignupCN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserSignupCNActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Confirm Password:");
+
+        txtUserSignupgender.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtUserSignupgender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Other" }));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("Gender:");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("Last Name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,23 +126,35 @@ public class UserSignup extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(268, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(222, 222, 222))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(222, 222, 222))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnUserSignup)
+                        .addGap(321, 321, 321))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(232, 232, 232)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUserSignup)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtUserFirstname)
-                        .addComponent(txtUserlastname)
-                        .addComponent(txtUserEmailid)
-                        .addComponent(txtUserSigninpwd, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)))
+                    .addComponent(jLabel7)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtUserSignupfirstname)
+                    .addComponent(txtUserSignupusername)
+                    .addComponent(txtUserEmailid)
+                    .addComponent(txtUserSigninpwd)
+                    .addComponent(txtUserSignupCN)
+                    .addComponent(txtUserSignupgender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUserSignuplastname)
+                    .addComponent(txtUserSignincnfrmpwd, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,32 +165,167 @@ public class UserSignup extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUserFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUserSignupusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUserlastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUserSignupfirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtUserSignuplastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUserEmailid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtUserSigninpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtUserSignincnfrmpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUserSignupCN, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtUserSignupgender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addComponent(btnUserSignup)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUserFirstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserFirstnameActionPerformed
+    private void txtUserSignupusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserSignupusernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserFirstnameActionPerformed
+    }//GEN-LAST:event_txtUserSignupusernameActionPerformed
 
+    private void txtUserSignupfirstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserSignupfirstnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserSignupfirstnameActionPerformed
+
+    private void btnUserSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserSignupActionPerformed
+        // TODO add your handling code here:
+        // get data from fields
+        String fname = txtUserSignupfirstname.getText();
+        String lname = txtUserSignuplastname.getText();
+        String uname = txtUserSignupusername.getText();
+        String phone = txtUserSignupCN.getText();
+        String pass1 = String.valueOf(txtUserSigninpwd.getPassword());
+        String pass2 = String.valueOf(txtUserSignincnfrmpwd.getPassword());
+        String email = txtUserEmailid.getText();
+        String gender = txtUserSignupgender.getSelectedItem().toString();
+        
+// check if the data are empty
+         if(verifyFields())
+         {
+// check if the username already exists
+             if(!checkUsername(txtUserSignupusername.getText()))
+             {
+                 //PreparedStatement ps;
+                 //ResultSet rrs;
+                 String Query = "INSERT INTO `userlogin`(`userId`, `userFirstName`, `userLastName`, `userEmailid`, `userPass`, `userContactNo`, `userGender`) VALUES (?,?,?,?,?,?,?)";
+                 
+                 try {
+                     con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+                     stt = conn.prepareStatement(Query);
+                     //stt = My_CNX.getConnection().prepareStatement(registerUserQuery);
+                     stt.setString(1, uname);
+                     stt.setString(2, fname);
+                     stt.setString(3, lname);
+                     stt.setString(4, email);
+                     stt.setString(5, pass1);
+                     stt.setString(6, phone);
+                     stt.setString(7, gender);
+                     if(stt.executeUpdate() != 0){
+                             JOptionPane.showMessageDialog(null, "Your Account Has Been Created");
+                             setVisible(false);
+                             UserLogin form=new UserLogin();
+                             form.setVisible(true);
+                         }else{
+                             JOptionPane.showMessageDialog(null, "Error: Check Your Information");
+                         }
+                     
+                 } catch (SQLException ex) {
+                     JOptionPane.showMessageDialog(this, ex.getMessage());
+                 }
+                 
+             }
+         }                                                                   
+
+    }//GEN-LAST:event_btnUserSignupActionPerformed
+
+    private void txtUserSignupCNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserSignupCNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserSignupCNActionPerformed
+    // creating a function to verify the empty fields  
+    public boolean verifyFields()
+    {
+        String fname = txtUserSignupusername.getText();
+        String lname = txtUserSignuplastname.getText();
+        String uname = txtUserSignupusername.getText();
+        String phone = txtUserSignupCN.getText();
+        String pass1 = String.valueOf(txtUserSigninpwd.getPassword());
+        String pass2 = String.valueOf(txtUserSignincnfrmpwd.getPassword());
+        String email = txtUserEmailid.getText();
+        String gender = txtUserSignupgender.getSelectedItem().toString();
+        
+        // check empty fields
+        if(fname.trim().equals("") ||lname.trim().equals("") || uname.trim().equals("") || phone.trim().equals("")
+           || pass1.trim().equals("") || pass2.trim().equals("")||email.trim().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty","Empty Fields",2);
+            return false;
+        }
+          // check if the two password are equals or not
+        else if(!pass1.equals(pass2))
+        {
+           JOptionPane.showMessageDialog(null, "Password Doesn't Match","Confirm Password",2); 
+           return false;
+        }
+        
+        // if everything is ok
+        else{
+            return true;
+        }
+    }
+     public boolean checkUsername(String username){
+        
+        //PreparedStatement st;
+        //ResultSet rs;
+        boolean username_exist = false;
+        
+        //String query = "SELECT * FROM `users` WHERE `userId` = ?";
+        
+        try {
+            String query = "SELECT * FROM `userlogin` WHERE `userId` = ?";
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+            st = conn.prepareStatement(query);
+            st.setString(1, txtUserSignupusername.getText());
+            rs = st.executeQuery();
+        
+            if(rs.next())
+            {
+                username_exist = true;
+                JOptionPane.showMessageDialog(null, "This Username is Already Taken, Choose Another One", "Username Failed", 2);
+            }
+            
+        } catch (HeadlessException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
+        return username_exist;
+    }
+    
+    
+        
     /**
      * @param args the command line arguments
      */
@@ -152,6 +355,7 @@ public class UserSignup extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new UserSignup().setVisible(true);
             }
@@ -165,9 +369,21 @@ public class UserSignup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtUserEmailid;
-    private javax.swing.JTextField txtUserFirstname;
+    private javax.swing.JPasswordField txtUserSignincnfrmpwd;
     private javax.swing.JPasswordField txtUserSigninpwd;
-    private javax.swing.JTextField txtUserlastname;
+    private javax.swing.JTextField txtUserSignupCN;
+    private javax.swing.JTextField txtUserSignupfirstname;
+    private javax.swing.JComboBox<String> txtUserSignupgender;
+    private javax.swing.JTextField txtUserSignuplastname;
+    private javax.swing.JTextField txtUserSignupusername;
     // End of variables declaration//GEN-END:variables
+
+   /* private void initComponents() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
 }
