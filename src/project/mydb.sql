@@ -1,4 +1,4 @@
-/* 
+* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -30,10 +30,12 @@ CREATE TABLE useridentity (
 -- Used To Authenicate The Users To The Application
 CREATE TABLE userlogin (
     userId VARCHAR(50) PRIMARY KEY NOT NULL UNIQUE,
-    userPass VARCHAR(100) NOT NULL,
     userFirstName VARCHAR(50) NOT NULL,
-    userLastName VARCHAR(50),
-    userState VARCHAR(10) NOT NULL
+    userLastName VARCHAR(50) NOT NULL,
+    userEmailid VARCHAR(20) NOT NULL,
+    userPass VARCHAR(100) NOT NULL,
+    userContactNo VARCHAR(11) NOT NULL,
+    userGender VARCHAR(10) NOT NULL
 );
 
 
