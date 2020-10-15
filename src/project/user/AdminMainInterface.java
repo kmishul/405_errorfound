@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project.admin;
+package project.user;
 
 /**
  *
@@ -27,6 +27,15 @@ public class AdminMainInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButton1 = new javax.swing.JRadioButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        buttonGroup6 = new javax.swing.ButtonGroup();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panAdminHome = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -70,6 +79,12 @@ public class AdminMainInterface extends javax.swing.JFrame {
         txtAdminTrainnumcanceltrain = new javax.swing.JTextField();
         btnAdminCanceltrain = new javax.swing.JButton();
         btnAdminUncanceltrain = new javax.swing.JButton();
+
+        jRadioButton1.setText("jRadioButton1");
+
+        jToggleButton1.setText("jToggleButton1");
+
+        jRadioButton2.setText("jRadioButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,6 +178,10 @@ public class AdminMainInterface extends javax.swing.JFrame {
         panAdminAddtrain.setLayout(panAdminAddtrainLayout);
         panAdminAddtrainLayout.setHorizontalGroup(
             panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminAddtrainLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAdminAddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(305, 305, 305))
             .addGroup(panAdminAddtrainLayout.createSequentialGroup()
                 .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panAdminAddtrainLayout.createSequentialGroup()
@@ -225,10 +244,6 @@ public class AdminMainInterface extends javax.swing.JFrame {
                                         .addComponent(txtAdminNOSsleeperclassaddtrain)
                                         .addComponent(txtAdminFaresleeperclassaddtrain)))))))
                 .addContainerGap(44, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminAddtrainLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnAdminAddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(305, 305, 305))
         );
         panAdminAddtrainLayout.setVerticalGroup(
             panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,18 +377,18 @@ public class AdminMainInterface extends javax.swing.JFrame {
         panAdmincanceltrain.setLayout(panAdmincanceltrainLayout);
         panAdmincanceltrainLayout.setHorizontalGroup(
             panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panAdmincanceltrainLayout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(jLabel18)
-                .addGap(43, 43, 43)
-                .addComponent(txtAdminTrainnumcanceltrain, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(231, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdmincanceltrainLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAdminCanceltrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAdminUncanceltrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(300, 300, 300))
+            .addGroup(panAdmincanceltrainLayout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(jLabel18)
+                .addGap(43, 43, 43)
+                .addComponent(txtAdminTrainnumcanceltrain, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(231, Short.MAX_VALUE))
         );
         panAdmincanceltrainLayout.setVerticalGroup(
             panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,6 +469,12 @@ public class AdminMainInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnAdminCanceltrain;
     private javax.swing.JButton btnAdminRemovetrain;
     private javax.swing.JButton btnAdminUncanceltrain;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.ButtonGroup buttonGroup6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -472,7 +493,10 @@ public class AdminMainInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel panAdminAddtrain;
     private javax.swing.JPanel panAdminHome;
     private javax.swing.JPanel panAdminRemovetrain;

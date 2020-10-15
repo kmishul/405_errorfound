@@ -5,10 +5,12 @@
  */
 package project.user;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -155,7 +157,7 @@ public class UserLogin extends javax.swing.JFrame {
             }
             //JOptionPane.showMessageDialog(this, "you are logged in congratulations and celebrations!!!");
             
-        } catch (Exception ex) {
+        } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
         // TODO add your handling code here:
@@ -190,6 +192,7 @@ public class UserLogin extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new UserLogin().setVisible(true);
             }
