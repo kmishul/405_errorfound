@@ -4,23 +4,38 @@
  * and open the template in the editor.
  */
 package project.user;
+//import project.user.AdminMainInterface
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
  * @author Folio
  */
-public class AdminLogin extends javax.swing.JFrame {
+public class AdminLogin extends javax.swing.JFrame implements Serializable {
     Connection con= null;
     PreparedStatement pst= null;
     ResultSet rs= null;
     /**
      * Creates new form AdminLogin
      */
-    
+    String ip="localhost";
+    int port=8000;
+    private ObjectOutputStream oos;
+    private ObjectInputStream ois;
+    private DataInputStream dis;
+    private DataOutputStream dos;
     public AdminLogin() {
         initComponents();
     }
@@ -116,7 +131,7 @@ public class AdminLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdminloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminloginActionPerformed
-        try{
+       /* try{
             String query=("SELECT * FROM `adminaccount` WHERE adminId=? and adminPass=?");
             con = DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             pst= con.prepareStatement(query);
@@ -141,7 +156,35 @@ public class AdminLogin extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
-        //new AdminMainInterface().setVisible(true);
+        //new AdminMainInterface().setVisible(true);*/
+        String Adminid=txtAdminIDlogin.getText();
+        String password= String.valueOf(txtAdminpasswordlogin.getPassword());
+        try 
+                    {
+                        Socket s=new Socket(ip,port);
+                        System.out.println("Connected To Server As A new Customer");
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("Admin login");
+                        dos.writeUTF(Adminid);
+                        dos.writeUTF(password);
+                        
+                        // Verification Message If Inserted Successfully
+                        String done=dis.readUTF();
+                        if(done.equals("Valid"))
+                        {
+                            JOptionPane.showMessageDialog(this,"Successful Login To Continue");
+                            new AdminMainInterface().show();
+                            this.dispose();
+                        }
+                        else
+                            JOptionPane.showMessageDialog(this, "Login Failed At Server End");
+                    } 
+                    catch (IOException ex) 
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                        Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
     }//GEN-LAST:event_btnAdminloginActionPerformed
 
     private void txtAdminIDloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminIDloginActionPerformed

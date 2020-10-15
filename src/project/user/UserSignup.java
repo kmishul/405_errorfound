@@ -7,25 +7,36 @@ package project.user;
 
 //import com.sun.jdi.connect.spi.Connection;
 import java.awt.HeadlessException;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.Socket;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.*;
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Folio
  */
 
 
-public class UserSignup extends javax.swing.JFrame {
+public class UserSignup extends javax.swing.JFrame implements Serializable {
     Connection conn=null;
     Connection con=null;
     PreparedStatement st=null;
     PreparedStatement stt=null;
     ResultSet rs=null;
     ResultSet rrs=null;
+    String ip="localhost";
+    int port=8806;
+    private DataInputStream dis;
+    private DataOutputStream dos;
     /**
      * Creates new form UserSignup
      */
@@ -113,6 +124,11 @@ public class UserSignup extends javax.swing.JFrame {
 
         txtUserSignupgender.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtUserSignupgender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Other" }));
+        txtUserSignupgender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserSignupgenderActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Gender:");
@@ -204,7 +220,7 @@ public class UserSignup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUserSignupusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserSignupusernameActionPerformed
-        // TODO add your handling code here:
+                // TODO add your handling code here:
     }//GEN-LAST:event_txtUserSignupusernameActionPerformed
 
     private void txtUserSignupfirstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserSignupfirstnameActionPerformed
@@ -212,59 +228,44 @@ public class UserSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserSignupfirstnameActionPerformed
 
     private void btnUserSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserSignupActionPerformed
-        // TODO add your handling code here:
-        // get data from fields
-        String fname = txtUserSignupfirstname.getText();
-        String lname = txtUserSignuplastname.getText();
-        String uname = txtUserSignupusername.getText();
-        String phone = txtUserSignupCN.getText();
-        String pass1 = String.valueOf(txtUserSigninpwd.getPassword());
-        String pass2 = String.valueOf(txtUserSignincnfrmpwd.getPassword());
-        String email = txtUserEmailid.getText();
-        String gender = txtUserSignupgender.getSelectedItem().toString();
         
-// check if the data are empty
-         if(verifyFields())
-         {
-// check if the username already exists
-             if(!checkUsername(txtUserSignupusername.getText()))
-             {
-                 //PreparedStatement ps;
-                 //ResultSet rrs;
-                 String Query = "INSERT INTO `userlogin`(`userId`, `userFirstName`, `userLastName`, `userEmailid`, `userPass`, `userContactNo`, `userGender`) VALUES (?,?,?,?,?,?,?)";
-                 
-                 try {
-                     con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
-                     stt = conn.prepareStatement(Query);
-                     //stt = My_CNX.getConnection().prepareStatement(registerUserQuery);
-                     stt.setString(1, uname);
-                     stt.setString(2, fname);
-                     stt.setString(3, lname);
-                     stt.setString(4, email);
-                     stt.setString(5, pass1);
-                     stt.setString(6, phone);
-                     stt.setString(7, gender);
-                     if(stt.executeUpdate() != 0){
-                             JOptionPane.showMessageDialog(null, "Your Account Has Been Created");
-                             setVisible(false);
-                             UserLogin form=new UserLogin();
-                             form.setVisible(true);
-                         }else{
-                             JOptionPane.showMessageDialog(null, "Error: Check Your Information");
-                         }
-                     
-                 } catch (SQLException ex) {
-                     JOptionPane.showMessageDialog(this, ex.getMessage());
-                 }
-                 
-             }
-         }                                                                   
+        if(verifyFields()){
+            try 
+                    {
+                        Socket s=new Socket(ip,port);
+                        System.out.println("Connected To Server As A new Customer");
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("New Customer");
+                        sendDetails(s);
+                        // Verification Message If Inserted Successfully
+                        String done=dis.readUTF();
+                        if(done.equals("ho_gya"))
+                        {
+                            JOptionPane.showMessageDialog(this,"Successful Sign Up Login To Continue");
+                            new UserMainInterface().show();
+                            this.dispose();
+                        }
+                        else
+                            JOptionPane.showMessageDialog(this, "Sign Up Failed At Server End");
+                    } 
+                    catch (IOException ex) 
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                        Logger.getLogger(UserSignup.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+        }
+                                                                        
 
     }//GEN-LAST:event_btnUserSignupActionPerformed
 
     private void txtUserSignupCNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserSignupCNActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserSignupCNActionPerformed
+
+    private void txtUserSignupgenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserSignupgenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserSignupgenderActionPerformed
     // creating a function to verify the empty fields  
     public boolean verifyFields()
     {
@@ -295,7 +296,7 @@ public class UserSignup extends javax.swing.JFrame {
         else{
             return true;
         }
-    }
+    }/*
      public boolean checkUsername(String username){
         
         //PreparedStatement st;
@@ -322,8 +323,39 @@ public class UserSignup extends javax.swing.JFrame {
         }
         
         return username_exist;
-    }
-    
+    }*/
+    public void sendDetails(Socket s)
+        {
+            String g="";
+            try 
+            {
+                String details="";
+                System.out.println("Sending Details");
+                String userName=txtUserSignupusername.getText();
+                details=details+userName+"~";
+                String firstName=txtUserSignupfirstname.getText();
+                details=details+firstName+"~";
+                String lastName=txtUserSignuplastname.getText();
+                details=details+lastName+"~";
+                String contactNumber=txtUserSignincnfrmpwd.getText();
+                details=details+contactNumber+"~";
+                String emailid=txtUserEmailid.getText();
+                details=details+emailid+"~";
+                String pass=txtUserSigninpwd.getText();
+                details=details+pass;
+                String gender=(String) txtUserSignupgender.getSelectedItem();
+                details=details+gender+"~";
+                System.out.println(details);
+                dos.writeUTF(details);
+            }
+            catch (IOException ex) 
+            {
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+                Logger.getLogger(UserSignup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+        }
     
         
     /**

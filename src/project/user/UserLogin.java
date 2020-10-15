@@ -6,21 +6,35 @@
 package project.user;
 
 import java.awt.HeadlessException;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
+import java.io.IOException;
+;
+
 
 /**
  *
  * @author Folio
  */
 public class UserLogin extends javax.swing.JFrame {
-    Connection con= null;
-    PreparedStatement pst= null;
-    ResultSet rs= null;
+    private String user_name="";
+    private String pass="";
+    private String ip="localhost";
+    private int port=8000;
+    private DataInputStream dis;
+    private DataOutputStream dos;
+    
     /**
      * Creates new form UserLogin
      */
@@ -42,8 +56,9 @@ public class UserLogin extends javax.swing.JFrame {
         txtUserLoginID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtUserLoginPwd = new javax.swing.JPasswordField();
-        btnUserSignin = new javax.swing.JButton();
+        btnUserLogin = new javax.swing.JButton();
         btnUserCreateAcc = new javax.swing.JButton();
+        SigninasAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UserLogin");
@@ -58,11 +73,11 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("User Password:");
 
-        btnUserSignin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnUserSignin.setText("Login");
-        btnUserSignin.addActionListener(new java.awt.event.ActionListener() {
+        btnUserLogin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnUserLogin.setText("Login");
+        btnUserLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserSigninActionPerformed(evt);
+                btnUserLoginActionPerformed(evt);
             }
         });
 
@@ -71,6 +86,13 @@ public class UserLogin extends javax.swing.JFrame {
         btnUserCreateAcc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserCreateAccActionPerformed(evt);
+            }
+        });
+
+        SigninasAdmin.setText("Tu Admin Hain Kya");
+        SigninasAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SigninasAdminActionPerformed(evt);
             }
         });
 
@@ -99,11 +121,13 @@ public class UserLogin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnUserCreateAcc)
-                        .addGap(279, 279, 279))
+                        .addComponent(btnUserLogin)
+                        .addGap(338, 338, 338))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnUserSignin)
-                        .addGap(338, 338, 338))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnUserCreateAcc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SigninasAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(279, 279, 279))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,10 +143,12 @@ public class UserLogin extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUserLoginPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(73, 73, 73)
-                .addComponent(btnUserSignin)
+                .addComponent(btnUserLogin)
                 .addGap(42, 42, 42)
                 .addComponent(btnUserCreateAcc)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(SigninasAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,8 +160,38 @@ public class UserLogin extends javax.swing.JFrame {
         new UserSignup().setVisible(true);
     }//GEN-LAST:event_btnUserCreateAccActionPerformed
 
-    private void btnUserSigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserSigninActionPerformed
-        try{
+    private void btnUserLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserLoginActionPerformed
+        user_name=txtUserLoginID.getText();
+        pass=txtUserLoginPwd.getText();
+        System.out.println("Connecting To Server...!!");
+        try 
+        {
+            Socket s=new Socket(ip,port);
+            System.out.println("Verifying Credentials...!!");
+            dis=new DataInputStream(s.getInputStream());
+            dos=new DataOutputStream(s.getOutputStream());
+            dos.writeUTF(user_name);
+            dos.writeUTF(pass);
+            if(dis.readUTF().equals("Valid"))
+            {
+                System.out.println("Connected To a Existing Customer "+user_name);
+                JOptionPane.showMessageDialog(this,"Welcome Back To Sacred Bazar");
+                new UserMainInterface().show();
+                this.dispose();
+            }
+            else
+            {
+                System.out.println("Verification Failed...!!");
+                JOptionPane.showMessageDialog(this,"Wrong Credentials");
+                closeConnection(s);
+            }
+        }
+        catch (IOException ex) 
+        {
+            JOptionPane.showMessageDialog(this,ex.getMessage());
+            Logger.getLogger(UserMainInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /*try{
             String query=("SELECT * FROM `userlogin` WHERE userId=? and userPass=?");
             con = DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             pst= con.prepareStatement(query);
@@ -160,9 +216,26 @@ public class UserLogin extends javax.swing.JFrame {
         } catch (HeadlessException | SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserSigninActionPerformed
+        // TODO add your handling code here:*/
+    }//GEN-LAST:event_btnUserLoginActionPerformed
 
+    private void SigninasAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SigninasAdminActionPerformed
+        new AdminLogin().setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_SigninasAdminActionPerformed
+    private void closeConnection(Socket s)
+    {
+        System.out.println("Closing The Connection "+s);
+        try 
+        {
+            s.close();
+        }
+        catch (IOException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -200,8 +273,9 @@ public class UserLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SigninasAdmin;
     private javax.swing.JButton btnUserCreateAcc;
-    private javax.swing.JButton btnUserSignin;
+    private javax.swing.JButton btnUserLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

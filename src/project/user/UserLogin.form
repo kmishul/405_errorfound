@@ -55,12 +55,15 @@
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnUserCreateAcc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="279" max="-2" attributes="0"/>
+                      <Component id="btnUserLogin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="338" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnUserSignin" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="338" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="btnUserCreateAcc" max="32767" attributes="0"/>
+                          <Component id="SigninasAdmin" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="279" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -82,10 +85,12 @@
                   <Component id="txtUserLoginPwd" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-              <Component id="btnUserSignin" min="-2" max="-2" attributes="0"/>
+              <Component id="btnUserLogin" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Component id="btnUserCreateAcc" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="112" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+              <Component id="SigninasAdmin" min="-2" pref="34" max="-2" attributes="0"/>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -119,7 +124,7 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtUserLoginPwd">
     </Component>
-    <Component class="javax.swing.JButton" name="btnUserSignin">
+    <Component class="javax.swing.JButton" name="btnUserLogin">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="1"/>
@@ -127,7 +132,7 @@
         <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserSigninActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserLoginActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnUserCreateAcc">
@@ -139,6 +144,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserCreateAccActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="SigninasAdmin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tu Admin Hain Kya"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SigninasAdminActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
