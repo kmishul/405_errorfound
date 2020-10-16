@@ -247,7 +247,7 @@ public class UserSignup extends javax.swing.JFrame implements Serializable {
                             this.dispose();
                         }
                         else{
-                            JOptionPane.showMessageDialog(this, "Sign Up Failed At Server End");
+                            JOptionPane.showMessageDialog(this,done);
                             System.out.println("\n"+done);
                         }
                     } 
