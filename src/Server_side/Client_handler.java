@@ -30,7 +30,7 @@ public class Client_handler implements Runnable {
     private String user_name;
     private Connection con;
     private static Statement stmt;
-    PreparedStatement st=null;
+    private PreparedStatement st;
     
     Client_handler(Socket client){
         this.client=client;
@@ -82,7 +82,7 @@ public class Client_handler implements Runnable {
                 String actual_pass=getPasswordadmin(Adminid); //password fetched from database
                 if(actual_pass.equals(pass2))
                 {
-                    dos.writeUTF("Valids"); 
+                    dos.writeUTF("Valid"); 
                     System.out.println("Connection Successfully made");
                     //updateLoginStatus(1);
                 }
@@ -151,14 +151,27 @@ public class Client_handler implements Runnable {
     {
         System.out.println("Recieving details");
         String details=dis.readUTF();
+        String[] data=new String[7];
+        data=details.split("~");
+        System.out.println(data[0]+data[1]+data[2]+data[3]+data[4]+data[5]+data[6]);
+        PreparedStatement pss;
         try
         {
            // if(!checkUsername(user_name)){
-            String data[];
-            data=details.split("~");
+           
             if(!checkUsername(data[0])){
-                String q1="INSERT INTO `userlogin`(`userId`, `userFirstName`, `userLastName`, `userEmailid`, `userPass`, `userContactNo`, `userGender`) VALUES (data[0],data[1],data[2],data[3],data[4],data[5],data[6])";
-                stmt.executeUpdate(q1);
+                //String q1="INSERT INTO `userlogin`(`userId`, `userFirstName`, `userLastName`, `userEmailid`, `userPass`, `userContactNo`, `userGender`) VALUES (?,?,?,?,?,?,?)";
+                pss=con.prepareStatement("INSERT INTO userlogin "
+                        + "(`userId`, `userFirstName`, `userLastName`, `userEmailid`, `userPass`,"
+                        + " `userContactNo`, `userGender`) VALUES (?,?,?,?,?,?,?)");
+                pss.setString(1, data[0]);
+                pss.setString(2, data[1]);
+                pss.setString(3, data[2]);
+                pss.setString(4, data[3]);
+                pss.setString(5, data[4]);
+                pss.setString(6, data[5]);
+                pss.setString(7, data[6]);
+                pss.execute();
                 return true;
             }
             else
@@ -184,6 +197,7 @@ public class Client_handler implements Runnable {
             st = con.prepareStatement(query);
             st.setString(1,username);
             ResultSet rs = st.executeQuery();
+            System.out.println("checkk\n");
         
             if(rs.next())
             {
@@ -193,6 +207,7 @@ public class Client_handler implements Runnable {
             
         } catch (HeadlessException | SQLException ex) {
             //JOptionPane.showMessageDialog(this, ex.getMessage());
+            System.out.println("checkusername\n");
         }
         
         return username_exist;

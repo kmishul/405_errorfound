@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import java.io.IOException;
-;
+
 
 
 /**
@@ -31,7 +31,7 @@ public class UserLogin extends javax.swing.JFrame {
     private String user_name="";
     private String pass="";
     private String ip="localhost";
-    private int port=8000;
+    private int port=8806;
     private DataInputStream dis;
     private DataOutputStream dos;
     

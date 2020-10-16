@@ -240,14 +240,16 @@ public class UserSignup extends javax.swing.JFrame implements Serializable {
                         sendDetails(s);
                         // Verification Message If Inserted Successfully
                         String done=dis.readUTF();
-                        if(done.equals("ho_gya"))
+                        if(done.equals("Sign Up done"))
                         {
                             JOptionPane.showMessageDialog(this,"Successful Sign Up Login To Continue");
                             new UserMainInterface().show();
                             this.dispose();
                         }
-                        else
+                        else{
                             JOptionPane.showMessageDialog(this, "Sign Up Failed At Server End");
+                            System.out.println("\n"+done);
+                        }
                     } 
                     catch (IOException ex) 
                     {
@@ -342,9 +344,9 @@ public class UserSignup extends javax.swing.JFrame implements Serializable {
                 String emailid=txtUserEmailid.getText();
                 details=details+emailid+"~";
                 String pass=txtUserSigninpwd.getText();
-                details=details+pass;
+                details=details+pass+"~";
                 String gender=(String) txtUserSignupgender.getSelectedItem();
-                details=details+gender+"~";
+                details=details+gender;
                 System.out.println(details);
                 dos.writeUTF(details);
             }

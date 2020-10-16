@@ -31,7 +31,7 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable {
      * Creates new form AdminLogin
      */
     String ip="localhost";
-    int port=8000;
+    int port=8806;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
     private DataInputStream dis;
