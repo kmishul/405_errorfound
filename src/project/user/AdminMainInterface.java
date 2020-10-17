@@ -25,6 +25,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
     private DataInputStream dis;
     private DefaultTableModel model;
     private DefaultTableModel model1;
+    String ip="localhost";
 
     /**
      * Creates new form AdminMainInterface
@@ -82,6 +83,13 @@ public class AdminMainInterface extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtAdminFaresleeperclassaddtrain = new javax.swing.JTextField();
         btnAdminAddtrain = new javax.swing.JButton();
+        MonRB = new javax.swing.JRadioButton();
+        TueRB = new javax.swing.JRadioButton();
+        WedRB = new javax.swing.JRadioButton();
+        ThuRB = new javax.swing.JRadioButton();
+        FriRB = new javax.swing.JRadioButton();
+        SatRB = new javax.swing.JRadioButton();
+        SunRB = new javax.swing.JRadioButton();
         panAdminRemovetrain = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -122,7 +130,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
         panAdminHomeLayout.setHorizontalGroup(
             panAdminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panAdminHomeLayout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addContainerGap(212, Short.MAX_VALUE)
                 .addGroup(panAdminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminHomeLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -196,13 +204,69 @@ public class AdminMainInterface extends javax.swing.JFrame {
 
         btnAdminAddtrain.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnAdminAddtrain.setText("Add Train");
+        btnAdminAddtrain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminAddtrainActionPerformed(evt);
+            }
+        });
+
+        MonRB.setText("monday");
+        MonRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MonRBActionPerformed(evt);
+            }
+        });
+
+        TueRB.setText("tuesday");
+        TueRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TueRBActionPerformed(evt);
+            }
+        });
+
+        WedRB.setText("wednesday");
+        WedRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WedRBActionPerformed(evt);
+            }
+        });
+
+        ThuRB.setText("thursday");
+        ThuRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ThuRBActionPerformed(evt);
+            }
+        });
+
+        FriRB.setText("friday");
+        FriRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FriRBActionPerformed(evt);
+            }
+        });
+
+        SatRB.setText("saturday");
+        SatRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SatRBActionPerformed(evt);
+            }
+        });
+
+        SunRB.setText("sunday");
+        SunRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SunRBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panAdminAddtrainLayout = new javax.swing.GroupLayout(panAdminAddtrain);
         panAdminAddtrain.setLayout(panAdminAddtrainLayout);
         panAdminAddtrainLayout.setHorizontalGroup(
             panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminAddtrainLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(77, 77, 77)
+                .addComponent(SunRB, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAdminAddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(305, 305, 305))
             .addGroup(panAdminAddtrainLayout.createSequentialGroup()
@@ -213,32 +277,43 @@ public class AdminMainInterface extends javax.swing.JFrame {
                     .addGroup(panAdminAddtrainLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(txtAdmintrainnumaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
-                                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAdminstarttimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
-                                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtAdminFarefirstclassaddtrain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                            .addComponent(txtAdminNOSfirstclassaddtrain, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(33, 33, 33)
-                                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminAddtrainLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtAdminStartaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)))
+                                .addGap(44, 44, 44))
+                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(txtAdmintrainnumaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(MonRB, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtAdminstarttimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(txtAdminFarefirstclassaddtrain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                                    .addComponent(txtAdminNOSfirstclassaddtrain, javax.swing.GroupLayout.Alignment.LEADING))
+                                                .addGap(33, 33, 33)
+                                                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                                .addComponent(TueRB, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(WedRB, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(ThuRB, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)))
                         .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panAdminAddtrainLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -265,8 +340,12 @@ public class AdminMainInterface extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtAdminNOSsleeperclassaddtrain)
-                                        .addComponent(txtAdminFaresleeperclassaddtrain)))))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                                        .addComponent(txtAdminFaresleeperclassaddtrain))))
+                            .addGroup(panAdminAddtrainLayout.createSequentialGroup()
+                                .addComponent(FriRB, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(SatRB, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panAdminAddtrainLayout.setVerticalGroup(
             panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,8 +388,18 @@ public class AdminMainInterface extends javax.swing.JFrame {
                     .addComponent(txtAdminFaresecondclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(txtAdminFaresleeperclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(77, 77, 77)
-                .addComponent(btnAdminAddtrain)
+                .addGap(29, 29, 29)
+                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MonRB)
+                    .addComponent(TueRB)
+                    .addComponent(WedRB)
+                    .addComponent(ThuRB)
+                    .addComponent(FriRB)
+                    .addComponent(SatRB))
+                .addGap(25, 25, 25)
+                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdminAddtrain)
+                    .addComponent(SunRB))
                 .addContainerGap(152, Short.MAX_VALUE))
         );
 
@@ -341,7 +430,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminRemovetrainLayout.createSequentialGroup()
                 .addGap(166, 166, 166)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addComponent(txtAdminTrainnumremovetrain, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(160, 160, 160))
             .addGroup(panAdminRemovetrainLayout.createSequentialGroup()
@@ -419,7 +508,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
                     .addGroup(panAdminViewtrainsLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         panAdminViewtrainsLayout.setVerticalGroup(
             panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,7 +571,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
             .addGroup(panAdminpassdetailsLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
             .addGroup(panAdminpassdetailsLayout.createSequentialGroup()
                 .addGap(147, 147, 147)
                 .addComponent(jButton3)
@@ -528,7 +617,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addGap(43, 43, 43)
                 .addComponent(txtAdminTrainnumcanceltrain, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
         panAdmincanceltrainLayout.setVerticalGroup(
             panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,7 +639,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -712,6 +801,172 @@ public class AdminMainInterface extends javax.swing.JFrame {
         model1.setRowCount(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void btnAdminAddtrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminAddtrainActionPerformed
+        if(verifyTrains()){
+            try 
+                    {
+                        Socket s=new Socket(ip,port);
+                        System.out.println("trying to add train");
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("Add Train");
+                        sendtraindetails(s);
+                        // Verification Message If Inserted Successfully
+                        String done=dis.readUTF();
+
+
+                        if(done.equals("Valid"))
+                        {
+                            JOptionPane.showMessageDialog(this,"Successfully added train");
+                            new UserLogin().show();
+                            this.dispose();
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(this,done);
+                            System.out.println("\n"+done);
+
+                        }
+                    } 
+                    catch (IOException ex) 
+                    {
+                        System.out.println("su 2\n");
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                        Logger.getLogger(UserSignup.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+        }
+    }//GEN-LAST:event_btnAdminAddtrainActionPerformed
+
+    private void ThuRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThuRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ThuRBActionPerformed
+
+    private void MonRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MonRBActionPerformed
+
+    private void TueRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TueRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TueRBActionPerformed
+
+    private void WedRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WedRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_WedRBActionPerformed
+
+    private void FriRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FriRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FriRBActionPerformed
+
+    private void SatRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SatRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SatRBActionPerformed
+
+    private void SunRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SunRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SunRBActionPerformed
+    boolean verifyTrains(){ 
+            String tnum=txtAdmintrainnumaddtrain.getText();
+            String tname= txtAdminTrainnameaddtrain.getText();
+            String StartStation=txtAdminStartaddtrain.getText();
+            String StopStation=txtAdminStopaddtrain.getText();
+            String StartTime=txtAdminstarttimeaddtrain.getText();
+            String StopTime=txtAdminstoptimeaddtrain.getText();
+            String NOSFirst=txtAdminNOSfirstclassaddtrain.getText();
+            String NOSSecond=txtAdminNOSsecondclassaddtrain.getText();
+            String NOSSleeper=txtAdminNOSsleeperclassaddtrain.getText();
+            String FareFirst=txtAdminFarefirstclassaddtrain.getText();
+            String FareSecond=txtAdminFaresecondclassaddtrain.getText();
+            String FareSleeper=txtAdminFaresleeperclassaddtrain.getText();
+            String rundays=null;
+            if(MonRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(TueRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(WedRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(ThuRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(FriRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(SatRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(SunRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(tnum.trim().equals("") ||tname.trim().equals("") || StartStation.trim().equals("") || StopStation.trim().equals("")
+               || StartTime.trim().equals("") || StopTime.trim().equals("")||NOSFirst.trim().equals("")||NOSSecond.trim().equals("")||NOSSleeper.trim().equals("")||FareFirst.trim().equals("")||FareSecond.trim().equals("")||FareSleeper.trim().equals("")||rundays.trim().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty","Empty Fields",2);
+                return false;
+            }
+            else{
+                return false;
+            }
+    }
+    public void sendtraindetails(Socket s) throws IOException{
+        try{
+            String tnum=txtAdmintrainnumaddtrain.getText();
+            String tname= txtAdminTrainnameaddtrain.getText();
+            String StartStation=txtAdminStartaddtrain.getText();
+            String StopStation=txtAdminStopaddtrain.getText();
+            String StartTime=txtAdminstarttimeaddtrain.getText();
+            String StopTime=txtAdminstoptimeaddtrain.getText();
+            String NOSFirst=txtAdminNOSfirstclassaddtrain.getText();
+            String NOSSecond=txtAdminNOSsecondclassaddtrain.getText();
+            String NOSSleeper=txtAdminNOSsleeperclassaddtrain.getText();
+            String FareFirst=txtAdminFarefirstclassaddtrain.getText();
+            String FareSecond=txtAdminFaresecondclassaddtrain.getText();
+            String FareSleeper=txtAdminFaresleeperclassaddtrain.getText();
+            String rundays=null;
+            String traindetails="";
+            traindetails=traindetails+tnum+"~";
+            traindetails=traindetails+tname+"~";
+            traindetails=traindetails+StartStation+"~";
+            traindetails=traindetails+StopStation+"~";
+            traindetails=traindetails+StartTime+"~";
+            traindetails=traindetails+StopTime+"~";
+            traindetails=traindetails+FareFirst+"~";
+            traindetails=traindetails+FareSecond+"~";
+            traindetails=traindetails+FareSleeper+"~";
+            traindetails=traindetails+NOSFirst+"~";
+            traindetails=traindetails+NOSSecond+"~";
+            traindetails=traindetails+NOSSleeper+"~";
+            System.out.println(traindetails);
+            dos.writeUTF(traindetails);
+        }
+        catch (IOException ex) 
+            {    
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+                Logger.getLogger(UserSignup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
     /**
      * @param args the command line arguments
      */
@@ -748,6 +1003,13 @@ public class AdminMainInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton FriRB;
+    private javax.swing.JRadioButton MonRB;
+    private javax.swing.JRadioButton SatRB;
+    private javax.swing.JRadioButton SunRB;
+    private javax.swing.JRadioButton ThuRB;
+    private javax.swing.JRadioButton TueRB;
+    private javax.swing.JRadioButton WedRB;
     private javax.swing.JButton btnAdminAddtrain;
     private javax.swing.JButton btnAdminCanceltrain;
     private javax.swing.JButton btnAdminRemovetrain;
