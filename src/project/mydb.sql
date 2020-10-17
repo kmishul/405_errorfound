@@ -19,12 +19,6 @@ CREATE TABLE adminaccount (
 );
 
 
--- Create Table To Check if The User is
--- Registered In This portal or Not
-CREATE TABLE useridentity (
-    userId VARCHAR(50) PRIMARY KEY NOT NULL,
-    userPass VARCHAR(100) NOT NULL
-);
 
 -- Create Table For The Users Login Information
 -- Used To Authenicate The Users To The Application
