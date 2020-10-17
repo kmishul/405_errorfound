@@ -5,11 +5,26 @@
  */
 package project.user;
 
+import static Server_side.server.port;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Folio
  */
 public class AdminMainInterface extends javax.swing.JFrame {
+
+    private DataOutputStream dos;
+    private DataInputStream dis;
+    private DefaultTableModel model;
+    private DefaultTableModel model1;
 
     /**
      * Creates new form AdminMainInterface
@@ -73,7 +88,15 @@ public class AdminMainInterface extends javax.swing.JFrame {
         txtAdminTrainnumremovetrain = new javax.swing.JTextField();
         btnAdminRemovetrain = new javax.swing.JButton();
         panAdminViewtrains = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         panAdminpassdetails = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ptbl = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         panAdmincanceltrain = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         txtAdminTrainnumcanceltrain = new javax.swing.JTextField();
@@ -115,7 +138,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(49, 49, 49)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(268, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Home", panAdminHome);
@@ -271,7 +294,6 @@ public class AdminMainInterface extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(txtAdminstoptimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))))
-                .addGap(18, 18, 18)
                 .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtAdminNOSfirstclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,7 +311,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
                     .addComponent(txtAdminFaresleeperclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(77, 77, 77)
                 .addComponent(btnAdminAddtrain)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add Train", panAdminAddtrain);
@@ -302,6 +324,11 @@ public class AdminMainInterface extends javax.swing.JFrame {
 
         btnAdminRemovetrain.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnAdminRemovetrain.setText("Remove Train");
+        btnAdminRemovetrain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminRemovetrainActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panAdminRemovetrainLayout = new javax.swing.GroupLayout(panAdminRemovetrain);
         panAdminRemovetrain.setLayout(panAdminRemovetrainLayout);
@@ -333,33 +360,146 @@ public class AdminMainInterface extends javax.swing.JFrame {
                     .addComponent(txtAdminTrainnumremovetrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61)
                 .addComponent(btnAdminRemovetrain)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Remove Train", panAdminRemovetrain);
+
+        tbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Train No.", "Train Name", "Start Station", "End Station", "Departure Time", "Arrival Time", "WeekDays"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tbl);
+
+        jButton1.setText("View Trains");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Clear");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panAdminViewtrainsLayout = new javax.swing.GroupLayout(panAdminViewtrains);
         panAdminViewtrains.setLayout(panAdminViewtrainsLayout);
         panAdminViewtrainsLayout.setHorizontalGroup(
             panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addGroup(panAdminViewtrainsLayout.createSequentialGroup()
+                .addGroup(panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panAdminViewtrainsLayout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(jButton1)
+                        .addGap(217, 217, 217)
+                        .addComponent(jButton2))
+                    .addGroup(panAdminViewtrainsLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         panAdminViewtrainsLayout.setVerticalGroup(
             panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+            .addGroup(panAdminViewtrainsLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addGroup(panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("View Trains", panAdminViewtrains);
+
+        ptbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Train No.", "UserID", "Class", "Seat no.", "TicketID", "Name", "Age", "Gender", "Travell. Date"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        ptbl.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(ptbl);
+
+        jButton3.setText("View Passenger Details");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Clear");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panAdminpassdetailsLayout = new javax.swing.GroupLayout(panAdminpassdetails);
         panAdminpassdetails.setLayout(panAdminpassdetailsLayout);
         panAdminpassdetailsLayout.setHorizontalGroup(
             panAdminpassdetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addGroup(panAdminpassdetailsLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(panAdminpassdetailsLayout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(199, 199, 199))
         );
         panAdminpassdetailsLayout.setVerticalGroup(
             panAdminpassdetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+            .addGroup(panAdminpassdetailsLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addGroup(panAdminpassdetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Passenger Details", panAdminpassdetails);
@@ -401,7 +541,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
                 .addComponent(btnAdminCanceltrain)
                 .addGap(32, 32, 32)
                 .addComponent(btnAdminUncanceltrain)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cancel and Uncancel Train", panAdmincanceltrain);
@@ -428,6 +568,149 @@ public class AdminMainInterface extends javax.swing.JFrame {
     private void txtAdminStopaddtrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminStopaddtrainActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAdminStopaddtrainActionPerformed
+
+    private void btnAdminRemovetrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminRemovetrainActionPerformed
+        // TODO add your handling code here:
+        String trainid=txtAdminTrainnumremovetrain.getText().trim();
+        try 
+                    {
+            String ip="localhost";
+                        Socket s=new Socket(ip,port);
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("Remove Train");
+                        dos.writeUTF(trainid);
+                        
+                        // Verification Message If Removed Successfully
+                        String done=dis.readUTF();
+                        if(done.equals("Valid"))
+                        {
+                            JOptionPane.showMessageDialog(this,"Successfully Removed");
+                            new AdminMainInterface().show();
+                            this.dispose();
+                        }
+                        else   
+                        {   txtAdminTrainnumremovetrain.setText("");
+                            JOptionPane.showMessageDialog(this, "Wrong Train Number");
+                        }
+                        
+                    } 
+                    catch (IOException ex) 
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                       
+                    }
+        
+        
+    }//GEN-LAST:event_btnAdminRemovetrainActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        model=(DefaultTableModel) tbl.getModel();
+                try 
+                    {
+                        String ip="localhost";
+                        Socket s=new Socket(ip,port);
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("View Trains");
+                        
+                        // Verification Message If Fetched Successfully
+                        String done=dis.readUTF();
+                        if(done.equals("Valid"))
+                        {
+                            while(!dis.readUTF().equals("viewtraindone"))
+                            {
+                                model.insertRow(tbl.getRowCount(), new Object[]{
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString()
+                                
+                                });
+                            }
+                            
+                            this.dispose();
+                        }
+                        else   
+                        { 
+                            JOptionPane.showMessageDialog(this, "No Train");
+                        }
+                        
+                    } 
+                    catch (IOException ex) 
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                       
+                    }
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        model.setRowCount(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+                model1=(DefaultTableModel) ptbl.getModel();
+                try 
+                    {
+                        String ip="localhost";
+                        Socket s=new Socket(ip,port);
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("View Passengers");
+                        
+                        // Verification Message If Fetched Successfully
+                        String done=dis.readUTF();
+                        if(done.equals("Valid"))
+                        {
+                            while(!dis.readUTF().equals("viewpassdone"))
+                            {
+                                model.insertRow(ptbl.getRowCount(), new Object[]{
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString()+dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString()
+                                
+                                });
+                            }
+                            
+                            this.dispose();
+                        }
+                        else   
+                        { 
+                            JOptionPane.showMessageDialog(this, "No Train");
+                        }
+                        
+                    } 
+                    catch (IOException ex) 
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                       
+                    }
+        
+        
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        model1.setRowCount(0);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -475,6 +758,10 @@ public class AdminMainInterface extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.ButtonGroup buttonGroup6;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -495,6 +782,8 @@ public class AdminMainInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel panAdminAddtrain;
@@ -503,6 +792,8 @@ public class AdminMainInterface extends javax.swing.JFrame {
     private javax.swing.JPanel panAdminViewtrains;
     private javax.swing.JPanel panAdmincanceltrain;
     private javax.swing.JPanel panAdminpassdetails;
+    private javax.swing.JTable ptbl;
+    private javax.swing.JTable tbl;
     private javax.swing.JTextField txtAdminFarefirstclassaddtrain;
     private javax.swing.JTextField txtAdminFaresecondclassaddtrain;
     private javax.swing.JTextField txtAdminFaresleeperclassaddtrain;
