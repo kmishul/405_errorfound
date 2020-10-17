@@ -19,8 +19,12 @@ CREATE TABLE adminaccount (
 );
 
 
+<<<<<<< HEAD
 -- Create Table To Check if The User is
 -- Registered In This portal or Not
+=======
+
+>>>>>>> d79b74918a148395cdcfc5e95c33a06f499acc28
 -- Create Table For The Users Login Information
 -- Used To Authenicate The Users To The Application
 CREATE TABLE userlogin (
