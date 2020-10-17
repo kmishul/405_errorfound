@@ -21,11 +21,6 @@ CREATE TABLE adminaccount (
 
 -- Create Table To Check if The User is
 -- Registered In This portal or Not
-CREATE TABLE useridentity (
-    userId VARCHAR(50) PRIMARY KEY NOT NULL,
-    userPass VARCHAR(100) NOT NULL
-);
-
 -- Create Table For The Users Login Information
 -- Used To Authenicate The Users To The Application
 CREATE TABLE userlogin (
@@ -47,12 +42,13 @@ CREATE TABLE traininfo (
     lastStation VARCHAR(30) NOT NULL,
     departureTime VARCHAR(10) NOT NULL,
     arrivalTime VARCHAR(10) NOT NULL,
-    seatsFirstClass INT DEFAULT 0 NOT NULL,
-    seatsSecondClass INT DEFAULT 0 NOT NULL,
-    seatsSleeperClass INT DEFAULT 0,
+    --seatsFirstClass INT DEFAULT 0 NOT NULL,
+    --seatsSecondClass INT DEFAULT 0 NOT NULL,
+    --seatsSleeperClass INT DEFAULT 0,
     feeFirstClass INT DEFAULT 0 NOT NULL,
     feeSecondClass INT DEFAULT 0 NOT NULL,
     feeSleeperClass INT DEFAULT 0,
+    days VARCHAR(7) NOT NULL,
     cancel INT DEFAULT 0
 );
 
@@ -60,11 +56,12 @@ CREATE TABLE traininfo (
 -- of First Class
 CREATE TABLE firstClass (
     trainNum VARCHAR(50) PRIMARY KEY,
-    uppers INT NOT NULL,
-    lowers INT NOT NULL,
-    middles INT NOT NULL,
-    sideuppers INT NOT NULL,
-    sidelowers INT NOT NULL,
+    totalseats INT DEFAULT 0 NOT NULL,
+    uppers INT DEFAULT 0 NOT NULL,
+    lowers INT DEFAULT 0 NOT NULL,
+    --middles INT DEFAULT 0 NOT NULL,
+    sideuppers INT DEFAULT 0 NOT NULL,
+    sidelowers INT DEFAULT 0 NOT NULL,
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
 
@@ -72,11 +69,12 @@ CREATE TABLE firstClass (
 -- of Second Class
 CREATE TABLE secondClass (
     trainNum VARCHAR(50) PRIMARY KEY,
-    uppers INT NOT NULL,
-    lowers INT NOT NULL,
-    middles INT NOT NULL,
-    sideuppers INT NOT NULL,
-    sidelowers INT NOT NULL,
+    totalseats INT DEFAULT 0 NOT NULL,
+    uppers INT DEFAULT 0 NOT NULL,
+    lowers INT DEFAULT 0 NOT NULL,
+    --middles INT DEFAULT 0 NOT NULL,
+    sideuppers INT DEFAULT 0 NOT NULL,
+    sidelowers INT DEFAULT 0 NOT NULL,
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
 
@@ -84,11 +82,12 @@ CREATE TABLE secondClass (
 -- of Sleeper Class
 CREATE TABLE sleeperClass (
     trainNum VARCHAR(50) PRIMARY KEY,
-    uppers INT NOT NULL,
-    lowers INT NOT NULL,
-    middles INT NOT NULL,
-    sideuppers INT NOT NULL,
-    sidelowers INT NOT NULL,
+    totalseats INT DEFAULT 0 NOT NULL,
+    uppers INT DEFAULT 0 NOT NULL,
+    lowers INT DEFAULT 0 NOT NULL,
+    middles INT DEFAULT 0 NOT NULL,
+    sideuppers INT DEFAULT 0 NOT NULL,
+    sidelowers INT DEFAULT 0 NOT NULL,
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
 
@@ -96,13 +95,17 @@ CREATE TABLE sleeperClass (
 -- Create Table For The Passengers 
 -- Who Are Registered For The Travel
 CREATE TABLE passengerdetail (
-    ID INT AUTO_INCREMENT NOT NULL UNIQUE,
+    --ID INT AUTO_INCREMENT NOT NULL UNIQUE,
     trainNum VARCHAR(10) NOT NULL,
     userId VARCHAR(50) NOT NULL,
+    passclass VARCHAR(20) NOT NULL,
+    passseatNo INT DEFAULT 0 NOT NULL,
     passengerTicketId VARCHAR(70) NOT NULL PRIMARY KEY,
     passengerFirstName VARCHAR(50) NOT NULL,
     passengerLastName VARCHAR(50),
     passengerAge INT NOT NULL,
+    passengergender VARCHAR(10) NOT NULL,
+    travdate DATE NOT NULL,
     FOREIGN KEY(userId) REFERENCES userlogin(userId),
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );

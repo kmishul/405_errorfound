@@ -89,7 +89,8 @@ public class UserLogin extends javax.swing.JFrame {
             }
         });
 
-        SigninasAdmin.setText("Tu Admin Hain Kya");
+        SigninasAdmin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        SigninasAdmin.setText("Login as Admin");
         SigninasAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SigninasAdminActionPerformed(evt);
