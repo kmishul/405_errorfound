@@ -176,7 +176,7 @@ public class UserLogin extends javax.swing.JFrame {
             if(dis.readUTF().equals("Valid"))
             {
                 System.out.println("Connected To a Existing Customer "+user_name);
-                JOptionPane.showMessageDialog(this,"Welcome Back To Sacred Bazar");
+                JOptionPane.showMessageDialog(this,"Welcome Back To MMS Railway Enquiry System ");
                 new UserMainInterface().show();
                 this.dispose();
             }

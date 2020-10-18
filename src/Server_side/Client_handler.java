@@ -183,7 +183,7 @@ public class Client_handler implements Runnable {
             return false;
         }
     }
-    public boolean checkUsername(String username){
+    private boolean checkUsername(String username){
         
         //PreparedStatement st;
         //ResultSet rs;
@@ -212,6 +212,61 @@ public class Client_handler implements Runnable {
         
         return username_exist;
     }
+    private boolean addtrain() throws IOException{
+        System.out.println("Recieving details");
+        String details=dis.readUTF();
+        try{
+            String data[];
+            data=details.split("~");
+            if(!checktrainname(data[0])){
+            String q1="INSERT INTO traininfo(`trainNum`, `trainName`, `firstStation`, `lastStation`, `departureTime`, `arrivalTime`, `feeFirstClass`, `feeSecondClass`, `feeSleeperClass`, `days`) VALUES ('"+(data[0])+"','"+(data[1])+"','"+(data[2])+"','"+(data[3])+"','"+(data[4])+"','"+(data[5])+"','"+(data[6])+"','"+(data[7])+"','"+(data[8])+"','"+(data[12])+"')";
+            String q2="INSERT INTO firstclass(`trainNum`, `totalseats`) VALUES ('"+(data[0])+"','"+(data[9])+"')";
+            String q3="INSERT INTO secondclass(`trainNum`, `totalseats`) VALUES ('"+(data[0])+"','"+(data[10])+"')";
+            String q4="INSERT INTO sleeperclass(`trainNum`, `totalseats`) VALUES ('"+(data[0])+"','"+(data[11])+"')";
+            stmt.executeQuery(q1);
+            stmt.executeQuery(q2);
+            stmt.executeQuery(q3);
+            stmt.executeQuery(q4);
+            return true;
+            }
+            else
+                return false;
+        }
+        catch(SQLException e){
+            System.out.println("Server Error"+e.getMessage());
+            return false;
+        }
     }
+    private boolean checktrainname(String trainname){
+        
+        //PreparedStatement st;
+        //ResultSet rs;
+        boolean tname_exist = false;
+        
+        //String query = "SELECT * FROM `users` WHERE `userId` = ?";
+        
+        try {
+            String query = "SELECT * FROM `traininfo` WHERE `trainNum` = ?";
+            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+            st = con.prepareStatement(query);
+            st.setString(1,trainname);
+            ResultSet rs = st.executeQuery();
+            System.out.println("checkk\n");
+        
+            if(rs.next())
+            {
+                tname_exist = true;
+               // JOptionPane.showMessageDialog(null, "This Username is Already Taken, Choose Another One", "Username Failed", 2);
+            }
+            
+        } catch (HeadlessException | SQLException ex) {
+            //JOptionPane.showMessageDialog(this, ex.getMessage());
+            System.out.println("checkTrainname\n");
+        }
+        
+        return tname_exist;
+    }
+ }
+
     
 

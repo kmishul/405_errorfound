@@ -18,13 +18,9 @@ CREATE TABLE adminaccount (
     adminPass VARCHAR(100) NOT NULL
 );
 
-
-<<<<<<< HEAD
 -- Create Table To Check if The User is
 -- Registered In This portal or Not
-=======
 
->>>>>>> d79b74918a148395cdcfc5e95c33a06f499acc28
 -- Create Table For The Users Login Information
 -- Used To Authenicate The Users To The Application
 CREATE TABLE userlogin (
@@ -109,7 +105,7 @@ CREATE TABLE passengerdetail (
     passengerLastName VARCHAR(50),
     passengerAge INT NOT NULL,
     passengergender VARCHAR(10) NOT NULL,
-    travdate DATE NOT NULL,
+    travdate VARCHAR(15) NOT NULL,
     FOREIGN KEY(userId) REFERENCES userlogin(userId),
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );

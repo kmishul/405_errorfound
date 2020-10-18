@@ -172,7 +172,7 @@ public class UserMainInterface extends javax.swing.JFrame {
         jLabel5.setText("Reserve Seats in Train");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("User SSN:");
+        jLabel6.setText("User ID:");
 
         txtUserssnreserveseat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
