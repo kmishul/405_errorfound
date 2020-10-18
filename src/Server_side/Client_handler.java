@@ -149,7 +149,7 @@ public class Client_handler implements Runnable {
     }
     private boolean addCustomer() throws IOException
     {
-        System.out.println("Recieving details");
+        System.out.println("Receiving details");
         String details=dis.readUTF();
         String[] data=new String[7];
         data=details.split("~");

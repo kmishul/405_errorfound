@@ -5,11 +5,27 @@
  */
 package project.user;
 
+import static Server_side.server.port;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Folio
  */
 public class AdminMainInterface extends javax.swing.JFrame {
+
+    private DataOutputStream dos;
+    private DataInputStream dis;
+    private DefaultTableModel model;
+    private DefaultTableModel model1;
+    String ip="localhost";
 
     /**
      * Creates new form AdminMainInterface
@@ -165,12 +181,6 @@ public class AdminMainInterface extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Fare First Class:");
 
-        txtAdminFarefirstclassaddtrain.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAdminFarefirstclassaddtrainActionPerformed(evt);
-            }
-        });
-
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("Fare Second Class:");
 
@@ -210,7 +220,6 @@ public class AdminMainInterface extends javax.swing.JFrame {
                                 .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtAdminstarttimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(panAdminAddtrainLayout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
                                         .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(txtAdminFarefirstclassaddtrain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                                             .addComponent(txtAdminNOSfirstclassaddtrain, javax.swing.GroupLayout.Alignment.LEADING))
@@ -250,7 +259,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
                                     .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtAdminNOSsleeperclassaddtrain)
                                         .addComponent(txtAdminFaresleeperclassaddtrain)))))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         panAdminAddtrainLayout.setVerticalGroup(
             panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,29 +287,24 @@ public class AdminMainInterface extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(txtAdminstoptimeaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))))
-                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
-                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAdminNOSfirstclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)
-                            .addComponent(txtAdminNOSsecondclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtAdminNOSsleeperclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(txtAdminFaresecondclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(txtAdminFaresleeperclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panAdminAddtrainLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(txtAdminFarefirstclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(65, 65, 65)
+                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtAdminNOSfirstclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtAdminNOSsecondclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtAdminNOSsleeperclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtAdminFarefirstclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(txtAdminFaresecondclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtAdminFaresleeperclassaddtrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77)
                 .addComponent(btnAdminAddtrain)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add Train", panAdminAddtrain);
@@ -440,10 +444,321 @@ public class AdminMainInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAdminStopaddtrainActionPerformed
 
+
     private void txtAdminFarefirstclassaddtrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminFarefirstclassaddtrainActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAdminFarefirstclassaddtrainActionPerformed
 
+
+    private void btnAdminRemovetrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminRemovetrainActionPerformed
+        // TODO add your handling code here:
+        String trainid=txtAdminTrainnumremovetrain.getText().trim();
+        try 
+                    {
+            String ip="localhost";
+                        Socket s=new Socket(ip,port);
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("Remove Train");
+                        dos.writeUTF(trainid);
+                        
+                        // Verification Message If Removed Successfully
+                        String done=dis.readUTF();
+                        if(done.equals("Valid"))
+                        {
+                            JOptionPane.showMessageDialog(this,"Successfully Removed");
+                            new AdminMainInterface().show();
+                            this.dispose();
+                        }
+                        else   
+                        {   txtAdminTrainnumremovetrain.setText("");
+                            JOptionPane.showMessageDialog(this, "Wrong Train Number");
+                        }
+                        
+                    } 
+                    catch (IOException ex) 
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                       
+                    }
+        
+        
+    }//GEN-LAST:event_btnAdminRemovetrainActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        model=(DefaultTableModel) tbl.getModel();
+                try 
+                    {
+                        String ip="localhost";
+                        Socket s=new Socket(ip,port);
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("View Trains");
+                        
+                        // Verification Message If Fetched Successfully
+                        String done=dis.readUTF();
+                        if(done.equals("Valid"))
+                        {
+                            while(!dis.readUTF().equals("viewtraindone"))
+                            {
+                                model.insertRow(tbl.getRowCount(), new Object[]{
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString()
+                                
+                                });
+                            }
+                            
+                            this.dispose();
+                        }
+                        else   
+                        { 
+                            JOptionPane.showMessageDialog(this, "No Train");
+                        }
+                        
+                    } 
+                    catch (IOException ex) 
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                       
+                    }
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        model.setRowCount(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+                model1=(DefaultTableModel) ptbl.getModel();
+                try 
+                    {
+                        String ip="localhost";
+                        Socket s=new Socket(ip,port);
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("View Passengers");
+                        
+                        // Verification Message If Fetched Successfully
+                        String done=dis.readUTF();
+                        if(done.equals("Valid"))
+                        {
+                            while(!dis.readUTF().equals("viewpassdone"))
+                            {
+                                model.insertRow(ptbl.getRowCount(), new Object[]{
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString()+dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString(),
+                                    dis.readUTF().toString()
+                                
+                                });
+                            }
+                            
+                            this.dispose();
+                        }
+                        else   
+                        { 
+                            JOptionPane.showMessageDialog(this, "No Train");
+                        }
+                        
+                    } 
+                    catch (IOException ex) 
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                       
+                    }
+        
+        
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        model1.setRowCount(0);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnAdminAddtrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminAddtrainActionPerformed
+        if(verifyTrains()){
+            try 
+                    {
+                        Socket s=new Socket(ip,port);
+                        System.out.println("trying to add train");
+                        dos=new DataOutputStream(s.getOutputStream());
+                        dis=new DataInputStream((s.getInputStream()));
+                        dos.writeUTF("Add Train");
+                        sendtraindetails(s);
+                        // Verification Message If Inserted Successfully
+                        String done=dis.readUTF();
+
+
+                        if(done.equals("Valid"))
+                        {
+                            JOptionPane.showMessageDialog(this,"Successfully added train");
+                            new UserLogin().show();
+                            this.dispose();
+                        }
+                        else{
+
+                            JOptionPane.showMessageDialog(this,done);
+                            System.out.println("\n"+done);
+
+                        }
+                    } 
+                    catch (IOException ex) 
+                    {
+                        System.out.println("su 2\n");
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                        Logger.getLogger(UserSignup.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+        }
+    }//GEN-LAST:event_btnAdminAddtrainActionPerformed
+
+    private void ThuRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThuRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ThuRBActionPerformed
+
+    private void MonRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MonRBActionPerformed
+
+    private void TueRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TueRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TueRBActionPerformed
+
+    private void WedRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WedRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_WedRBActionPerformed
+
+    private void FriRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FriRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FriRBActionPerformed
+
+    private void SatRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SatRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SatRBActionPerformed
+
+    private void SunRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SunRBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SunRBActionPerformed
+    boolean verifyTrains(){ 
+            String tnum=txtAdmintrainnumaddtrain.getText();
+            String tname= txtAdminTrainnameaddtrain.getText();
+            String StartStation=txtAdminStartaddtrain.getText();
+            String StopStation=txtAdminStopaddtrain.getText();
+            String StartTime=txtAdminstarttimeaddtrain.getText();
+            String StopTime=txtAdminstoptimeaddtrain.getText();
+            String NOSFirst=txtAdminNOSfirstclassaddtrain.getText();
+            String NOSSecond=txtAdminNOSsecondclassaddtrain.getText();
+            String NOSSleeper=txtAdminNOSsleeperclassaddtrain.getText();
+            String FareFirst=txtAdminFarefirstclassaddtrain.getText();
+            String FareSecond=txtAdminFaresecondclassaddtrain.getText();
+            String FareSleeper=txtAdminFaresleeperclassaddtrain.getText();
+            String rundays=null;
+            if(MonRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(TueRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(WedRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(ThuRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(FriRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(SatRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(SunRB.isSelected()){
+                rundays=rundays+"1";
+            }
+            else{
+                rundays=rundays+"0";
+            }
+            if(tnum.trim().equals("") ||tname.trim().equals("") || StartStation.trim().equals("") || StopStation.trim().equals("")
+               || StartTime.trim().equals("") || StopTime.trim().equals("")||NOSFirst.trim().equals("")||NOSSecond.trim().equals("")||NOSSleeper.trim().equals("")||FareFirst.trim().equals("")||FareSecond.trim().equals("")||FareSleeper.trim().equals("")||rundays.trim().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty","Empty Fields",2);
+                return false;
+            }
+            else{
+                return false;
+            }
+    }
+    public void sendtraindetails(Socket s) throws IOException{
+        try{
+            String tnum=txtAdmintrainnumaddtrain.getText();
+            String tname= txtAdminTrainnameaddtrain.getText();
+            String StartStation=txtAdminStartaddtrain.getText();
+            String StopStation=txtAdminStopaddtrain.getText();
+            String StartTime=txtAdminstarttimeaddtrain.getText();
+            String StopTime=txtAdminstoptimeaddtrain.getText();
+            String NOSFirst=txtAdminNOSfirstclassaddtrain.getText();
+            String NOSSecond=txtAdminNOSsecondclassaddtrain.getText();
+            String NOSSleeper=txtAdminNOSsleeperclassaddtrain.getText();
+            String FareFirst=txtAdminFarefirstclassaddtrain.getText();
+            String FareSecond=txtAdminFaresecondclassaddtrain.getText();
+            String FareSleeper=txtAdminFaresleeperclassaddtrain.getText();
+            String rundays=null;
+            String traindetails="";
+            traindetails=traindetails+tnum+"~";
+            traindetails=traindetails+tname+"~";
+            traindetails=traindetails+StartStation+"~";
+            traindetails=traindetails+StopStation+"~";
+            traindetails=traindetails+StartTime+"~";
+            traindetails=traindetails+StopTime+"~";
+            traindetails=traindetails+FareFirst+"~";
+            traindetails=traindetails+FareSecond+"~";
+            traindetails=traindetails+FareSleeper+"~";
+            traindetails=traindetails+NOSFirst+"~";
+            traindetails=traindetails+NOSSecond+"~";
+            traindetails=traindetails+NOSSleeper+"~";
+            System.out.println(traindetails);
+            dos.writeUTF(traindetails);
+        }
+        catch (IOException ex) 
+            {    
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+                Logger.getLogger(UserSignup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
     /**
      * @param args the command line arguments
      */
@@ -473,6 +788,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new AdminMainInterface().setVisible(true);
             }
