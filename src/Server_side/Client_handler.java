@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,7 +40,7 @@ public class Client_handler implements Runnable {
             con=DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             stmt=con.createStatement();
         } 
-        catch (Exception ex) 
+        catch (ClassNotFoundException | SQLException ex) 
         {
             System.out.println(ex.getMessage());
             Logger.getLogger(Client_handler.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,12 +106,84 @@ public class Client_handler implements Runnable {
                 {
                     dos.writeUTF("Invalid");
                 }
-            }     
+            } 
+             while(client.isClosed()==false) // Connection Closes on log_out
+            {
+                String request=dis.readUTF();
+                System.out.println(request);
+                String response=getResponse(request);
+                System.out.println(response);
+                dos.writeUTF(response);
+            }
         }
         catch (IOException ex) 
         {
             System.out.println("Error IO "+ex.getMessage());
         } 
+    }
+    private String getResponse(String request ) throws IOException{
+        String Response="";
+        if(request.equals("Add Train")){
+            if(addtrain())
+                Response="done";
+            else;
+                Response="Not Done";  
+        }
+        else if(request.equals("View passengerDetails")){
+             try{
+            String q1="SELECT * FROM passengerdetail";
+            ResultSet rs=stmt.executeQuery(q1);
+            while(rs.next()){
+                dos.writeUTF(rs.getString("trainNum"));
+                dos.writeUTF(rs.getString("userId"));
+                dos.writeUTF(rs.getString("passclass"));
+                dos.writeInt(rs.getInt("passseatNo"));
+                dos.writeUTF(rs.getString("passengerTicketId"));
+                dos.writeUTF(rs.getString("passengerFirstName"));
+                dos.writeUTF(rs.getString("passengerLastName"));
+                dos.writeInt(rs.getInt("passengerAge"));
+                dos.writeUTF(rs.getString("passengergender"));
+                dos.writeUTF(rs.getString("travdate"));
+            }
+            Response="viewpassdone";
+        }
+        catch(IOException | SQLException e){
+            System.out.println("Server ERROR "+e.getMessage());
+            return "error";
+            }        
+        }
+        else if(request.equals("View Trains")){
+             try{
+            String q1="SELECT * FROM traininfo";
+            ResultSet rs=stmt.executeQuery(q1);
+            while(rs.next()){
+                dos.writeUTF(rs.getString("trainNum"));
+                dos.writeUTF(rs.getString("trainName"));
+                dos.writeUTF(rs.getString("firstStation"));
+                dos.writeUTF(rs.getString("lastStation"));
+                dos.writeUTF(rs.getString("departureTime"));
+                dos.writeUTF(rs.getString("arrivalTime"));
+                dos.writeInt(rs.getInt("feeFirstClass"));
+                dos.writeInt(rs.getInt("feeSecondClass"));
+                dos.writeInt(rs.getInt("feeSleeperClass"));
+                dos.writeUTF(rs.getString("days"));
+                dos.writeInt(rs.getInt("cancel"));
+            }
+            Response="viewtraindone";
+        }
+        catch(IOException | SQLException e){
+            System.out.println("Server ERROR "+e.getMessage());
+            return "error";
+            }        
+        }
+        else if(request.equals("Remove Train")){
+            String train_num=dis.readUTF();
+            if(removetrain(train_num))
+                Response="Done";
+            else
+                Response="Not Done";
+        }
+        return Response;
     }
     private String getPassword()
     {
@@ -141,7 +213,7 @@ public class Client_handler implements Runnable {
             rs.close();
             return actual_pass;            
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             System.out.println("Server ERROR "+e.getMessage());
             return "error";
@@ -177,7 +249,7 @@ public class Client_handler implements Runnable {
             else
                 return false;
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             System.out.println("Server Error"+e.getMessage());
             return false;
@@ -265,6 +337,23 @@ public class Client_handler implements Runnable {
         }
         
         return tname_exist;
+    }
+    private boolean removetrain(String train_num){
+        try
+        {
+            if(!checktrainname(train_num)){
+                String query="DELETE FROM traininfo WHERE trainNUM=train_num";
+                stmt.executeQuery(query);
+                return true;
+            }
+            else
+                return false;
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Server ERROR "+e.getMessage());
+            return false;
+        }        
     }
  }
 

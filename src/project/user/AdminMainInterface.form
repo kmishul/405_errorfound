@@ -52,7 +52,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -79,7 +83,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="163" max="32767" attributes="0"/>
+                      <EmptySpace pref="129" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -224,7 +228,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -449,7 +453,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
                       <Component id="jLabel17" min="-2" pref="146" max="-2" attributes="0"/>
-                      <EmptySpace pref="93" max="32767" attributes="0"/>
+                      <EmptySpace pref="59" max="32767" attributes="0"/>
                       <Component id="txtAdminTrainnumremovetrain" min="-2" pref="196" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
                   </Group>
@@ -518,7 +522,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="761" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="727" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -540,7 +544,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="761" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="727" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -575,7 +579,7 @@
                       <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="txtAdminTrainnumcanceltrain" min="-2" pref="163" max="-2" attributes="0"/>
-                      <EmptySpace pref="231" max="32767" attributes="0"/>
+                      <EmptySpace pref="197" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

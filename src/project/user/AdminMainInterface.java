@@ -115,7 +115,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
         panAdminHomeLayout.setHorizontalGroup(
             panAdminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panAdminHomeLayout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addContainerGap(129, Short.MAX_VALUE)
                 .addGroup(panAdminHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminHomeLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -259,7 +259,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
                                     .addGroup(panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtAdminNOSsleeperclassaddtrain)
                                         .addComponent(txtAdminFaresleeperclassaddtrain)))))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panAdminAddtrainLayout.setVerticalGroup(
             panAdminAddtrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +329,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panAdminRemovetrainLayout.createSequentialGroup()
                 .addGap(166, 166, 166)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(txtAdminTrainnumremovetrain, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(160, 160, 160))
             .addGroup(panAdminRemovetrainLayout.createSequentialGroup()
@@ -357,7 +357,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
         panAdminViewtrains.setLayout(panAdminViewtrainsLayout);
         panAdminViewtrainsLayout.setHorizontalGroup(
             panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addGap(0, 727, Short.MAX_VALUE)
         );
         panAdminViewtrainsLayout.setVerticalGroup(
             panAdminViewtrainsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,7 +370,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
         panAdminpassdetails.setLayout(panAdminpassdetailsLayout);
         panAdminpassdetailsLayout.setHorizontalGroup(
             panAdminpassdetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addGap(0, 727, Short.MAX_VALUE)
         );
         panAdminpassdetailsLayout.setVerticalGroup(
             panAdminpassdetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,7 +403,7 @@ public class AdminMainInterface extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addGap(43, 43, 43)
                 .addComponent(txtAdminTrainnumcanceltrain, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
         panAdmincanceltrainLayout.setVerticalGroup(
             panAdmincanceltrainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,7 +425,10 @@ public class AdminMainInterface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
