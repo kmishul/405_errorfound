@@ -9,6 +9,8 @@ package Req_Res;
 
 import User.UserLogin;
 import User.UserSignup;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -27,23 +29,28 @@ public class Req_Res implements Serializable{
     String ip="localhost";
     int port=8806;
     Socket socket = new Socket(ip,port);
-    ObjectOutputStream OOS=new ObjectOutputStream(socket.getOutputStream());
-    ObjectInputStream OIS=new ObjectInputStream(socket.getInputStream());
+    ObjectOutputStream OOS1=new ObjectOutputStream(socket.getOutputStream());
+    ObjectInputStream OIS1=new ObjectInputStream(socket.getInputStream());
+    DataOutputStream DOS1=new DataOutputStream(socket.getOutputStream());
+    DataInputStream DIS1=new DataInputStream(socket.getInputStream());
+    String s;
     //private Object OOS;
     public Req_Res() throws IOException{
          System.out.println("Connected!");
+          
+          
     }
     public String sendUserSignup(UserSignup user) throws IOException{
     //public void sendUserSignup(UserSignup user,String s) throws IOException{
-        OOS.writeUTF("User SignUp");
-        OOS.writeObject(user);
-        String s=OIS.readUTF();
+       DOS1.writeUTF("User SignUp");
+        OOS1.writeObject(user);
+        s=DIS1.readUTF();
         System.out.println(s);
         return s;
     }
     public void sendUserLogin(UserLogin user,String s) throws IOException{
-        OOS.writeUTF("User Login");
-        OOS.writeObject(user);
-        s=OIS.readUTF();
+        DOS1.writeUTF("User Login");
+        OOS1.writeObject(user);
+        s=DIS1.readUTF();
     }
 }

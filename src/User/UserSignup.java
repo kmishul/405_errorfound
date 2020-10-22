@@ -245,7 +245,9 @@ public class UserSignup extends javax.swing.JFrame{
                 Req_Res res=new Req_Res();
                 UserSignup user=new UserSignup(uname,fname,lname,email,pass1,phone,gender);
                 String Res=res.sendUserSignup(user);
+                System.out.println(Res+"1\n");
                 if(Res.equals("valid")){
+                    System.out.println(Res+"2\n");
                     JOptionPane.showMessageDialog(this,"Successful Sign Up Login To Continue");
                     new UserLogin().show();
                     this.dispose();
