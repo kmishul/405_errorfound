@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author kmish
  */
 public class UserSignup extends javax.swing.JFrame{
-    String UserId,Firstname,Lastname,emailid,password,contact,gender;
+    public String UserId,Firstname,Lastname,emailid,password,contact,gender;
   
     /**
      * Creates new form UserSignup
@@ -29,7 +29,7 @@ public class UserSignup extends javax.swing.JFrame{
         initComponents();
     }
     public UserSignup(String UserId,String Firstname,String Lastname,String emailid,String password,String contact,String gender) throws Exception{
-        this.gender = gender;
+        this.UserId = UserId;
         this.Firstname=Firstname;
         this.Lastname=Lastname;
         this.emailid=emailid;
@@ -243,16 +243,15 @@ public class UserSignup extends javax.swing.JFrame{
             try {
                 Req_Res res=new Req_Res();
                 UserSignup user=new UserSignup(uname,fname,lname,email,pass1,phone,gender);
-                String Response = null;
-                res.sendUserSignup(user,Response);
-                if(Response=="valid"){
+                String Res=res.sendUserSignup(user);
+                if(Res.equals("valid")){
                     JOptionPane.showMessageDialog(this,"Successful Sign Up Login To Continue");
                     new UserLogin().show();
                     this.dispose();
                 }
                 else{
-                    JOptionPane.showMessageDialog(this,Response);
-                    System.out.println("\n"+Response);
+                    JOptionPane.showMessageDialog(this,Res);
+                    System.out.println("\n"+Res);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(UserSignup.class.getName()).log(Level.SEVERE, null, ex);

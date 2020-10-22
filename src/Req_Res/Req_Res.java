@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Folio
  */
-public class Req_Res{
+public class Req_Res implements Serializable{
     String ip="localhost";
     int port=8806;
     Socket socket = new Socket(ip,port);
@@ -31,10 +32,12 @@ public class Req_Res{
     public Req_Res() throws IOException{
          System.out.println("Connected!");
     }
-    public void sendUserSignup(UserSignup user,String s) throws IOException, IOException{
+    public String sendUserSignup(UserSignup user) throws IOException{
         OOS.writeUTF("User SignUp");
         OOS.writeObject(user);
-        s=OIS.readUTF();
+        String s=OIS.readUTF();
+        System.out.println(s);
+        return s;
     }
     public void sendUserLogin(UserLogin user,String s) throws IOException{
         OOS.writeUTF("User Login");
