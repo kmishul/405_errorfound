@@ -25,17 +25,19 @@ import java.util.logging.Logger;
  */
 public class ClientHandler implements Runnable{
     private final Socket client;
-    private DataInputStream dis;
-    private DataOutputStream dos;
     private String user_name;
     private PreparedStatement st;
     private ObjectOutputStream OOS;
     private ObjectInputStream OIS;
+    private DataOutputStream DOS;
+    private DataInputStream DIS;
     
     ClientHandler(Socket client) throws IOException{
         this.client=client;
         OOS=new ObjectOutputStream(client.getOutputStream());
         OIS=new ObjectInputStream(client.getInputStream());
+        DOS=new DataOutputStream(client.getOutputStream());
+        DIS=new DataInputStream(client.getInputStream());
         System.out.println("\n done1");
     }
     
@@ -46,16 +48,17 @@ public class ClientHandler implements Runnable{
         System.out.println("\n done2");
         try {
             System.out.println("\n done3");
-            request=OIS.readUTF();
+            request=DIS.readUTF();
             if(request.equals("User SignUp")){
                 UserSignup user=(UserSignup)OIS.readObject();
                 //String userid=user.UserId;
                 UserSignupRequest userr=new UserSignupRequest(user);
                 if(userr.adduser()){
-                    OOS.writeUTF("valid");
+                    DOS.writeUTF("valid");
+                    System.out.println("valid check\n");
                 }
                 else
-                    OOS.writeUTF("Error: may be username already exist,try another one");
+                    DOS.writeUTF("Error: may be username already exist,try another one");
                 
             }
         } catch (IOException ex) {
