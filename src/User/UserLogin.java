@@ -1,22 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package User;
 
-/**
- *
- * @author kmish
- */
-public class UserLogin extends javax.swing.JFrame {
+import Req_Res.Req_Res;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
+public class UserLogin extends javax.swing.JFrame {
+    String username;
+    String upassword;
     /** Creates new form UserLogin */
     public UserLogin() {
         initComponents();
     }
-
+    public UserLogin(String uname, String upass){
+        this.username=uname;
+        this.upassword=upass;
+    }
+    public void setusername(String uname){
+        this.username=uname;
+    }
+    public void setuserpassword(String password){
+        this.upassword=password;
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -26,25 +32,123 @@ public class UserLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        UsernameTF = new javax.swing.JTextField();
+        UpasswordTF = new javax.swing.JPasswordField();
+        LoginBT = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Username");
+
+        jLabel2.setText("Password");
+
+        UsernameTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsernameTFActionPerformed(evt);
+            }
+        });
+
+        UpasswordTF.setText("jPasswordField1");
+        UpasswordTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpasswordTFActionPerformed(evt);
+            }
+        });
+
+        LoginBT.setText("Login");
+        LoginBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginBTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(UsernameTF)
+                            .addComponent(UpasswordTF, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(279, 279, 279)
+                        .addComponent(LoginBT, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(UsernameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UpasswordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addComponent(LoginBT, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void UsernameTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsernameTFActionPerformed
+
+    private void UpasswordTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpasswordTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UpasswordTFActionPerformed
+
+    private void LoginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginBTActionPerformed
+        if(verifyField()){
+            String uname=UsernameTF.getText();
+            String upass;
+            upass = UpasswordTF.getText();
+            try{
+                Req_Res res=new Req_Res();
+                UserLogin user=new UserLogin(uname,upass);
+                String Response = null;
+                res.sendUserLogin(user,Response);
+                if(Response=="valid"){
+                    JOptionPane.showMessageDialog(this,"Successful Login");
+                    new UserLogin().show();
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,Response);
+                    System.out.println("\n"+Response);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_LoginBTActionPerformed
+    public boolean verifyField(){
+        String uname=UsernameTF.getText();
+        String upass;
+        upass = UpasswordTF.getText();
+        if(uname.trim().equals("")||upass.trim().equals("")){
+            JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty","Empty Fields",2);
+            return false;
+        }
+        else{
+            return false;
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -69,7 +173,7 @@ public class UserLogin extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new UserLogin().setVisible(true);
@@ -78,6 +182,11 @@ public class UserLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton LoginBT;
+    private javax.swing.JPasswordField UpasswordTF;
+    private javax.swing.JTextField UsernameTF;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 
 }

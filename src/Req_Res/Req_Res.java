@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Req_Res;
 
 
@@ -33,6 +34,7 @@ public class Req_Res implements Serializable{
          System.out.println("Connected!");
     }
     public String sendUserSignup(UserSignup user) throws IOException{
+    //public void sendUserSignup(UserSignup user,String s) throws IOException{
         OOS.writeUTF("User SignUp");
         OOS.writeObject(user);
         String s=OIS.readUTF();
