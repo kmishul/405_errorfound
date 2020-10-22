@@ -17,9 +17,9 @@ import java.util.logging.Logger;
  * @author kmish
  */
 public class DBConnect {
-    protected Connection con;
+    protected static Connection con;
     protected static Statement stmt;
-    DBConnect()
+    public DBConnect()
     {
         try
         {
