@@ -8,6 +8,8 @@ package Server;
 import Admin.AdminLogin;
 import Server.Requests.AdminLoginRequest;
 import Server.Requests.UserLoginRequest;
+import Admin.AddTrain;
+import Server.Requests.AddTrainRequest;
 import Server.Requests.UserSignupRequest;
 import User.UserLogin;
 import User.UserSignup;
@@ -88,6 +90,19 @@ public class ClientHandler implements Runnable{
                 }
                 else{
                     DOS.writeUTF("Wrong credentials");
+                    //DOS.writeUTF("Error: this username already exists,try using another one");   
+                }
+            }
+            if(request.equals("Add Train")){
+                AddTrain train=(AddTrain)OIS.readObject();
+                AddTrainRequest trainn=new AddTrainRequest(train);
+                if(trainn.addtrain()){
+                    DOS.writeUTF("valid");
+                    System.out.println("valid check\n");
+                }
+                else{
+                    DOS.writeUTF("Error:this train num already exist");
+                    System.out.println("unvalid check\n");
                 }
             }
         } catch (IOException ex) {
