@@ -48,9 +48,13 @@ public class Req_Res implements Serializable{
         System.out.println(s);
         return s;
     }
-    public void sendUserLogin(UserLogin user,String s) throws IOException{
+    public String sendUserLogin(UserLogin user) throws IOException{
+        System.out.println("reached senduserlogin in req_ress");
         DOS1.writeUTF("User Login");
         OOS1.writeObject(user);
         s=DIS1.readUTF();
+        System.out.println(s+"  :this is s");
+        return s;
     }
 }
+        

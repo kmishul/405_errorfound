@@ -7,8 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class UserLogin extends javax.swing.JFrame {
-    String username;
-    String upassword;
+    public String username, upassword;
     /** Creates new form UserLogin */
     public UserLogin() {
         initComponents();
@@ -115,38 +114,41 @@ public class UserLogin extends javax.swing.JFrame {
 
     private void LoginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginBTActionPerformed
         if(verifyField()){
+            System.out.println("reached userlogin");
             String uname=UsernameTF.getText();
             String upass;
             upass = UpasswordTF.getText();
             try{
                 Req_Res res=new Req_Res();
                 UserLogin user=new UserLogin(uname,upass);
-                String Response = null;
-                res.sendUserLogin(user,Response);
-                if(Response=="valid"){
+                String Res =res.sendUserLogin(user);
+                if(Res.equals("validlogindetails")){
                     JOptionPane.showMessageDialog(this,"Successful Login");
-                    new UserLogin().show();
+                    new UserMainInterface().show();
                     this.dispose();
                 }
                 else{
-                    JOptionPane.showMessageDialog(this,Response);
-                    System.out.println("\n"+Response);
+                    JOptionPane.showMessageDialog(this,Res);
+                    System.out.println("\n"+Res);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch(Exception e) {
+                Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }//GEN-LAST:event_LoginBTActionPerformed
     public boolean verifyField(){
+        System.out.println("reached verifyfield");
         String uname=UsernameTF.getText();
         String upass;
         upass = UpasswordTF.getText();
         if(uname.trim().equals("")||upass.trim().equals("")){
             JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty","Empty Fields",2);
-            return false;
+            return true;
         }
         else{
-            return false;
+            return true;
         }
     }
     public static void main(String args[]) {
