@@ -5,7 +5,9 @@
  */
 package Server;
 
+import Server.Requests.UserLoginRequest;
 import Server.Requests.UserSignupRequest;
+import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -57,9 +59,22 @@ public class ClientHandler implements Runnable{
                     DOS.writeUTF("valid");
                     System.out.println("valid check\n");
                 }
-                else
+                else{
                     DOS.writeUTF("Error: may be username already exist,try another one");
-                
+                }
+            
+            }
+            if(request.equals("User Login")) {
+                System.out.println("reached client handler for login");
+                UserLogin userl=(UserLogin)OIS.readObject();
+                UserLoginRequest userlr=new UserLoginRequest(userl);
+                if(userlr.checklogininfo()){
+                    DOS.writeUTF("validlogindetails");
+                    System.out.println("Valid USer Login");
+                }
+                else{
+                    DOS.writeUTF("Wrong credentials");
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);

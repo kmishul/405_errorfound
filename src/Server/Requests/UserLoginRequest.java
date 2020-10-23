@@ -4,11 +4,63 @@
  * and open the template in the editor.
  */
 package Server.Requests;
-
+import Server.DBConnect;
+import Server.Server;
+import User.UserLogin;
+import User.UserSignup;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 /**
  *
  * @author kmish
  */
 public class UserLoginRequest {
+    private final Connection con;
+    private static Statement stmt;
+    private PreparedStatement st;
+    String userid, password;
+    public UserLoginRequest(UserLogin userl) throws SQLException{
+        this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+        userid=userl.username;
+        password=userl.upassword;
+    }
+    public boolean checklogininfo() {
+        
+        try{
+            System.out.println("reached checkloginifo");
+            System.out.println(userid +password);
+            String query="Select userPass From userlogin where userId='"+(userid)+"';";
+            st = con.prepareStatement(query);
     
+            
+            ResultSet rs=st.executeQuery(query);
+            rs.next();
+            String actual_password=rs.getString("userPass");
+            rs.close();
+            if (actual_password.equals(password)){
+                
+                return true;
+            }
+            else{
+                return false;
+            }
+           
+        }catch (HeadlessException | SQLException ex) {
+            //JOptionPane.showMessageDialog(this, ex.getMessage());
+            System.out.println(ex);
+            return false;
+            
+        }catch(Exception e){
+            //System.out.println(e);
+            System.out.println(e);
+            return false;
+            
+        }
+        
+    }
 }
