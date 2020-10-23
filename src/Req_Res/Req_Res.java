@@ -7,6 +7,7 @@
 package Req_Res;
 
 
+import Admin.AdminLogin;
 import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
@@ -52,6 +53,14 @@ public class Req_Res implements Serializable{
         System.out.println("reached senduserlogin in req_ress");
         DOS1.writeUTF("User Login");
         OOS1.writeObject(user);
+        s=DIS1.readUTF();
+        System.out.println(s+"  :this is s");
+        return s;
+    }
+    public String sendAdminLogin(AdminLogin admin) throws IOException{
+        System.out.println("reached sendAdminlogin in req_ress");
+        DOS1.writeUTF("Admin Login");
+        OOS1.writeObject(admin);
         s=DIS1.readUTF();
         System.out.println(s+"  :this is s");
         return s;

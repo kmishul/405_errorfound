@@ -132,7 +132,7 @@ public class UserLogin extends javax.swing.JFrame {
                     System.out.println("\n"+Res);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
             } catch(Exception e) {
                 Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, e);
             }

@@ -5,19 +5,37 @@
  */
 package Admin;
 
+import Req_Res.Req_Res;
+import User.UserLogin;
+import User.UserMainInterface;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kmish
  */
 public class AdminLogin extends javax.swing.JFrame {
-
+    public String adminid, adminpass;
     /**
      * Creates new form AdminLogin
      */
     public AdminLogin() {
         initComponents();
     }
-
+    public AdminLogin(String Adminid, String Adminpass){
+        this.adminid=Adminid;
+        this.adminpass=Adminpass;    
+    }
+    public void setadminid(String adminid){
+        this.adminid=adminid;
+    }
+    public void setadminpass(String adminpass){
+        this.adminpass=adminpass;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +49,8 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         AdminidTF = new javax.swing.JTextField();
-        AdminPasswordTF = new javax.swing.JPasswordField();
+        AdminpassTF = new javax.swing.JPasswordField();
+        AdminLoginBT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,7 +60,24 @@ public class AdminLogin extends javax.swing.JFrame {
 
         jLabel3.setText("Password ");
 
-        AdminPasswordTF.setText("jPasswordField1");
+        AdminidTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminidTFActionPerformed(evt);
+            }
+        });
+
+        AdminpassTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminpassTFActionPerformed(evt);
+            }
+        });
+
+        AdminLoginBT.setText("Apun heech bhgwaan hai");
+        AdminLoginBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminLoginBTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,14 +88,19 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(253, 253, 253))
             .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AdminPasswordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AdminidTF, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AdminpassTF, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AdminidTF, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(232, 232, 232)
+                        .addComponent(AdminLoginBT, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(165, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -74,16 +115,63 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AdminPasswordTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(236, Short.MAX_VALUE))
+                    .addComponent(AdminpassTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(AdminLoginBT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void AdminidTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminidTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AdminidTFActionPerformed
+
+    private void AdminpassTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminpassTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AdminpassTFActionPerformed
+
+    private void AdminLoginBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminLoginBTActionPerformed
+        if(verifyField()){
+            System.out.println("reached userlogin");
+            String adminid=AdminidTF.getText();
+            String adminpass;
+            adminpass = AdminpassTF.getText();
+            try{
+                Req_Res res=new Req_Res();
+                AdminLogin admin=new AdminLogin(adminid,adminpass);
+                String Res=res.sendAdminLogin(admin);
+                if(Res.equals("validlogindetailsforadmin")){
+                    JOptionPane.showMessageDialog(this,"Successful Admin Login");
+                    new AddTrain().show();
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,Res);
+                    System.out.println("\n"+Res);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch(Exception e) {
+                Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }//GEN-LAST:event_AdminLoginBTActionPerformed
+
+    public boolean verifyField(){
+        System.out.println("reached verifyfield");
+        String adminid=AdminidTF.getText();
+        String adminpass;
+        adminpass =AdminpassTF.getText();
+        if(adminid.trim().equals("")||adminpass.trim().equals("")){
+            JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty","Empty Fields",2);
+            return true;
+        }
+        else{
+            return true;
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -117,8 +205,9 @@ public class AdminLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField AdminPasswordTF;
+    private javax.swing.JButton AdminLoginBT;
     private javax.swing.JTextField AdminidTF;
+    private javax.swing.JPasswordField AdminpassTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
