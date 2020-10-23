@@ -5,9 +5,8 @@
  */
 
 package Req_Res;
-
-
 import Admin.AdminLogin;
+import Admin.AddTrain;
 import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
@@ -21,6 +20,14 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
+import java.io.IOException;
+
+import java.io.IOException;
+
+import java.io.IOException;
+
+import java.io.IOException;
 
 /**
  *
@@ -65,5 +72,17 @@ public class Req_Res implements Serializable{
         System.out.println(s+"  :this is s");
         return s;
     }
+    public String addtrain(AddTrain train) throws IOException{
+        DOS1.writeUTF("Add Train");
+        OOS1.writeObject(train);
+        s=DIS1.readUTF();
+        System.out.println(s);
+        return s;
+    }
+
 }
         
+
+    
+
+
