@@ -5,6 +5,8 @@
  */
 package Server;
 
+import Admin.AdminLogin;
+import Server.Requests.AdminLoginRequest;
 import Server.Requests.UserLoginRequest;
 import Server.Requests.UserSignupRequest;
 import User.UserLogin;
@@ -71,6 +73,18 @@ public class ClientHandler implements Runnable{
                 if(userlr.checklogininfo()){
                     DOS.writeUTF("validlogindetails");
                     System.out.println("Valid USer Login");
+                }
+                else{
+                    DOS.writeUTF("Wrong credentials");
+                }
+            }
+            if(request.equals("Admin Login")) {
+                System.out.println("reached client handler for adminlogin");
+                AdminLogin adminl=(AdminLogin)OIS.readObject();
+                AdminLoginRequest userlr=new AdminLoginRequest(adminl);
+                if(userlr.checkadminlogininfo()){
+                    DOS.writeUTF("validlogindetailsforadmin");
+                    System.out.println("Valid Admin Login");
                 }
                 else{
                     DOS.writeUTF("Wrong credentials");
