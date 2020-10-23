@@ -9,7 +9,9 @@ import Admin.AdminLogin;
 import Server.Requests.AdminLoginRequest;
 import Server.Requests.UserLoginRequest;
 import Admin.AddTrain;
+import Admin.CancelTrain;
 import Server.Requests.AddTrainRequest;
+import Server.Requests.CancelTrainRequest;
 import Server.Requests.UserSignupRequest;
 import User.UserLogin;
 import User.UserSignup;
@@ -102,6 +104,30 @@ public class ClientHandler implements Runnable{
                 }
                 else{
                     DOS.writeUTF("Error:this train num already exist");
+                    System.out.println("unvalid check\n");
+                }
+            }
+            if(request.equals("Cancel Train")){
+                CancelTrain train=(CancelTrain)OIS.readObject();
+                CancelTrainRequest trainn=new CancelTrainRequest(train);
+                if(trainn.canceltrain()){
+                    DOS.writeUTF("valid");
+                    System.out.println("valid check\n");
+                }
+                else{
+                    DOS.writeUTF("Error:this train is already cancelled");
+                    System.out.println("unvalid check\n");
+                }
+            }
+            if(request.equals("Uncancel Train")){
+                CancelTrain train=(CancelTrain)OIS.readObject();
+                CancelTrainRequest trainn=new CancelTrainRequest(train);
+                if(trainn.uncanceltrain()){
+                    DOS.writeUTF("valid");
+                    System.out.println("valid check\n");
+                }
+                else{
+                    DOS.writeUTF("Error:this train is not cancelled");
                     System.out.println("unvalid check\n");
                 }
             }
