@@ -7,6 +7,7 @@
 package Req_Res;
 import Admin.AdminLogin;
 import Admin.AddTrain;
+import Admin.RemoveTrain;
 import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
@@ -79,7 +80,13 @@ public class Req_Res implements Serializable{
         System.out.println(s);
         return s;
     }
-
+    public String removeTrain(RemoveTrain remtr)throws IOException{
+        DOS1.writeUTF("Remove Train");
+        OOS1.writeObject(remtr);
+        s=DIS1.readUTF();
+        System.out.println(s);
+        return s;
+    }
 }
         
 
