@@ -7,7 +7,11 @@
 package Req_Res;
 import Admin.AdminLogin;
 import Admin.AddTrain;
+
 import Admin.RemoveTrain;
+
+import Admin.CancelTrain;
+
 import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
@@ -80,6 +84,7 @@ public class Req_Res implements Serializable{
         System.out.println(s);
         return s;
     }
+
     public String removeTrain(RemoveTrain remtr)throws IOException{
         DOS1.writeUTF("Remove Train");
         OOS1.writeObject(remtr);
@@ -87,6 +92,22 @@ public class Req_Res implements Serializable{
         System.out.println(s);
         return s;
     }
+
+    public String canceltrain(CancelTrain train) throws IOException{
+        DOS1.writeUTF("Cancel Train");
+        OOS1.writeObject(train);
+        s=DIS1.readUTF();
+        return s;
+    }
+
+    public String uncanceltrain(CancelTrain train) throws IOException {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DOS1.writeUTF("Uncancel Train");
+        OOS1.writeObject(train);
+        s=DIS1.readUTF();
+        return s;
+    }
+
 }
         
 
