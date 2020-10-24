@@ -10,9 +10,14 @@ import Server.Requests.AdminLoginRequest;
 import Server.Requests.UserLoginRequest;
 import Admin.AddTrain;
 import Admin.CancelTrain;
+import Admin.PassDetails;
+import Admin.ViewTrain;
+import Admin.ViewTrains;
 import Server.Requests.AddTrainRequest;
 import Server.Requests.CancelTrainRequest;
+import Server.Requests.PassDetailsRequest;
 import Server.Requests.UserSignupRequest;
+import Server.Requests.ViewTrainsRequest;
 import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
@@ -20,10 +25,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +38,7 @@ import java.util.logging.Logger;
  *
  * @author kmish
  */
-public class ClientHandler implements Runnable{
+public class ClientHandler implements Runnable,Serializable{
     private final Socket client;
     private String user_name;
     private PreparedStatement st;
@@ -131,6 +138,50 @@ public class ClientHandler implements Runnable{
                     System.out.println("unvalid check\n");
                 }
             }
+            
+            if(request.equals("View Trains"))
+            { 
+                ViewTrainsRequest v=new ViewTrainsRequest();
+                String res=v.getTrain();
+                System.out.println("majorissue\n");
+                if(res.equals("valid"))
+                {   System.out.println("checkview1\n");
+                    ArrayList<ViewTrain> vt1;
+                    vt1=(ArrayList<ViewTrain>)v.getList();
+                    System.out.println("listcheck\n");
+                    OOS.writeObject("valid");
+                    OOS.writeObject(vt1);
+                    //OOS.flush();
+                    System.out.println("checkview2\n");
+                    DOS.writeUTF(res);
+                    System.out.println("checkview3\n");
+                }
+            
+            else {
+                OOS.writeObject("Invalid");
+                    System.out.println("Invalid\n");
+                }
+            }
+            
+            if(request.equalsIgnoreCase("Pass Details"))
+            {
+                PassDetailsRequest p=new PassDetailsRequest();
+                String res=p.getPassengers();
+                if(res.equalsIgnoreCase("valid"))
+                {
+                    ArrayList<PassDetails> vt2=new ArrayList();
+                    vt2=p.getList();
+                    OOS.writeObject(vt2);
+                    DOS.writeUTF("valid");
+                }
+            
+            else {
+                DOS.writeUTF("Invalid");
+                    System.out.println("Invalid\n");
+                }
+            }
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
