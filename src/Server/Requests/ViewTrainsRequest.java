@@ -51,7 +51,7 @@ public class ViewTrainsRequest implements Serializable {
                 v.setfee2(rs.getInt("feeSecondClass"));
                 v.setfee3(rs.getInt("feeSleeperClass"));
                 v.setdays(rs.getString("days"));
-                
+                v.setcancel(rs.getInt("cancel"));
                 vt.add(v);
               
            Response="valid";

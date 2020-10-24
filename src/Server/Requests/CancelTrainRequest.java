@@ -6,6 +6,7 @@
 package Server.Requests;
 
 import Admin.CancelTrain;
+import Admin.RemoveTrain;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,7 +23,9 @@ public class CancelTrainRequest {
     private PreparedStatement st;
     private static Statement stmt;
     String tnum;
-    public CancelTrainRequest(CancelTrain train) throws SQLException{
+
+    public CancelTrainRequest(CancelTrain train) throws SQLException {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=train.tnum;
     }

@@ -12,12 +12,14 @@ import Admin.AddTrain;
 import Admin.CancelTrain;
 import Admin.PassDetails;
 import Admin.ViewTrain;
-import Admin.ViewTrains;
+import Admin.RemoveTrain;
 import Server.Requests.AddTrainRequest;
-import Server.Requests.CancelTrainRequest;
 import Server.Requests.PassDetailsRequest;
 import Server.Requests.UserSignupRequest;
 import Server.Requests.ViewTrainsRequest;
+import Server.Requests.CancelTrainRequest;
+import Server.Requests.RemoveTrainRequest;
+import Server.Requests.SearchTrainRequest;
 import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
@@ -122,7 +124,7 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("valid check\n");
                 }
                 else{
-                    DOS.writeUTF("Error:this train is already cancelled");
+                    DOS.writeUTF("Error:this train is already cancelled or does not exist");
                     System.out.println("unvalid check\n");
                 }
             }
@@ -134,7 +136,7 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("valid check\n");
                 }
                 else{
-                    DOS.writeUTF("Error:this train is not cancelled");
+                    DOS.writeUTF("Error:this train is not cancelled or it does not exist");
                     System.out.println("unvalid check\n");
                 }
             }
@@ -162,6 +164,29 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("Invalid\n");
                 }
             }
+            if(request.equals("Search Train")){
+                String startstn=DIS.readUTF();
+                String stopstn=DIS.readUTF();
+                SearchTrainRequest s=new SearchTrainRequest();
+                String res=s.getTrain(startstn, stopstn);
+                if(res.equals("valid"))
+                {   System.out.println("checkview1\n");
+                    ArrayList<ViewTrain> vt1;
+                    vt1=(ArrayList<ViewTrain>)s.getList();
+                    System.out.println("listcheck\n");
+                    OOS.writeObject("valid");
+                    OOS.writeObject(vt1);
+                    //OOS.flush();
+                    System.out.println("checkview2\n");
+                    DOS.writeUTF(res);
+                    System.out.println("checkview3\n");
+                }
+            
+                else {
+                        OOS.writeObject("Invalid");
+                        System.out.println("Invalid\n");
+                    }
+            }
             
             if(request.equalsIgnoreCase("Pass Details"))
             {
@@ -181,7 +206,18 @@ public class ClientHandler implements Runnable,Serializable{
                 }
             }
             
-            
+            if(request.equals("Remove Train")){
+                RemoveTrain train=(RemoveTrain)OIS.readObject();
+                RemoveTrainRequest cncl=new RemoveTrainRequest(train);
+                if(cncl.removetrain()){
+                    DOS.writeUTF("removetrainvalid");
+                    System.out.println("valid check\n");
+                }
+                else{
+                    DOS.writeUTF("Error:this train does not exist");
+                    System.out.println("unvalid check\n");
+                }
+            }
         } catch (IOException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
