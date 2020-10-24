@@ -28,6 +28,47 @@ public String trainNum,userId,passclass,ticketid,fname,lname,gender,date;
     public PassDetails() {
         initComponents();
     }
+    
+    public void settrainNum(String s)
+    {
+        trainNum=s;
+    }
+    public void setuserId(String s)
+    {
+        userId=s;
+    }
+    public void setpassclass(String s)
+    {
+        passclass=s;
+    }
+    public void setticketid(String s)
+    {
+        ticketid=s;
+    }
+    public void setfname(String s)
+    {
+        fname=s;
+    }
+   public void setlname(String s)
+    {
+        lname=s;
+    }
+    public void setgender(String s)
+    {
+        gender=s;
+    }
+    public void setdate(String s)
+    {
+        date=s;
+    }
+    public void setseatno(int i)
+    {
+        seatno=i;
+    }
+    public void setage(int i)
+    {
+        age=i;
+    }
 public PassDetails(String trainNum,String userId,String passclass,int seatno,String ticketid,String fname,String lname,int age,String gender,String date) {
        this.trainNum=trainNum;
        this.userId=userId;

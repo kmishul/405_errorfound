@@ -5,11 +5,17 @@
  */
 package Admin;
 import Req_Res.Req_Res;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.awt.LayoutManager;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -23,8 +29,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author kmish
  */
-public class ViewTrains extends javax.swing.JFrame {
+public class ViewTrains extends javax.swing.JFrame implements Serializable{
 public String trainNum,trainName,fstation,lstation,dtime,atime,days;
+int fee1,fee2,fee3;
 private DefaultTableModel model;
     /**
      * Creates new form ViewTrains
@@ -32,14 +39,60 @@ private DefaultTableModel model;
     public ViewTrains() {
         initComponents();
     }
+    public void settrainName(String s)
+    {
+        trainName=s;
+    }
+    public void setfstation(String s)
+    {
+        fstation=s;
+    }
+    public void setlstation(String s)
+    {
+        lstation=s;
+    }
+    public void setdtime(String s)
+    {
+        dtime=s;
+    }
+    public void setatime(String s)
+    {
+        atime=s;
+    }
+    public void settrainNum(String s)
+    {
+        trainNum=s;
+    }
+    public void setdays(String s)
+    {
+        days=s;
+    }
+    public void setfee1(int i)
+    {
+        fee1=i;
+    }
+    public void setfee2(int i)
+    {
+        fee2=i;
+    }
+    public void setfee3(int i)
+    {
+        fee3=i;
+    }
     
-    public ViewTrains(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,String days) {
+    
+    
+    
+    public ViewTrains(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,int fee1,int fee2,int fee3,String days) {
        this.trainNum=trainNum;
        this.trainName=trainName;
        this.fstation=fstation;
        this.lstation=lstation;
        this.dtime=dtime;
        this.atime=atime;
+       this.fee1=fee1;
+       this.fee2=fee2;
+       this.fee3=fee3;
        this.days=days;
     }
 
@@ -65,14 +118,14 @@ private DefaultTableModel model;
 
             },
             new String [] {
-                "Train Num", "Train Name", "First Station", "Last Station", "Departure Time", "Arrival Time", "Days"
+                "Train Num", "Train Name", "First Station", "Last Station", "Departure Time", "Arrival Time", "FirstClassFee", "SecondClassFee", "SleeperClassFee", "Days"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,18 +160,18 @@ private DefaultTableModel model;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(307, 307, 307)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                 .addGap(359, 359, 359))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(127, 127, 127)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(198, 198, 198))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,26 +199,35 @@ private DefaultTableModel model;
         model=(DefaultTableModel) tbl.getModel();
         try {
                 Req_Res res=new Req_Res();
-                String Res=res.viewTrains();
+                //String Res=res.viewTrains();
+                res.viewTrains();
+                //String Res="valid";
                 ObjectInputStream ois=res.getObjectInputStream();
-                if(Res.equals("valid")){
-                    ArrayList<ViewTrains> vt = new ArrayList<ViewTrains>();
-                    vt=(ArrayList<ViewTrains>) ois.readObject();
+                String Res=(String) ois.readObject();
+                System.out.println("isme galti ni h\n");
+                
+                if(Res.equals("valid")){System.out.println("Clientif\n");
+                    ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
+                    vt=(ArrayList<ViewTrain>) ois.readObject();
                     for(int i=0;i<vt.size();i++)
                     {
-                            ViewTrains v=vt.get(i);
+                            ViewTrain v=vt.get(i);
+                            System.out.println("Client1\n");
                     model.insertRow(tbl.getRowCount(), new Object[]{
-                                    v.trainNum,
-                                    v.trainName,
-                                    v.fstation,
-                                    v.lstation,
-                                    v.dtime,
-                                    v.atime,
-                                    v.days
+                                    v.gettrainNum(),
+                                    v.gettrainName(),
+                                    v.getfstation(),
+                                    v.getlstation(),
+                                    v.getdtime(),
+                                    v.getatime(),
+                                    v.getfee1(),
+                                    v.getfee2(),
+                                    v.getfee3(),
+                                    v.getdays()
                                 });
-                    
+                    System.out.println("Client2\n");
                     }
-                    this.dispose();
+                   // this.dispose();
                 }
                 else{
                     JOptionPane.showMessageDialog(this,"No Train Found !");
@@ -221,4 +283,5 @@ private DefaultTableModel model;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl;
     // End of variables declaration//GEN-END:variables
+
 }

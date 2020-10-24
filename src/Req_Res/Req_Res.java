@@ -52,6 +52,10 @@ public class Req_Res implements Serializable{
     {
         return OIS1;
     }
+    public DataInputStream getdataInputStream()
+    {
+        return DIS1;
+    }
     
     public Req_Res() throws IOException{
          System.out.println("Connected!");
@@ -115,11 +119,10 @@ public class Req_Res implements Serializable{
 
         
 
-    public String viewTrains() throws IOException{
+    public void viewTrains() throws IOException{
     
        DOS1.writeUTF("View Trains");
-        s=DIS1.readUTF();
-        return s;
+       
     }
     public String passDetails() throws IOException{
     
