@@ -89,6 +89,15 @@ public class Req_Res implements Serializable{
         System.out.println(s);
         return s;
     }
+
+    public String removeTrain(RemoveTrain remtr)throws IOException{
+        DOS1.writeUTF("Remove Train");
+        OOS1.writeObject(remtr);
+        s=DIS1.readUTF();
+        System.out.println(s);
+        return s;
+    }
+
     public String canceltrain(CancelTrain train) throws IOException{
         DOS1.writeUTF("Cancel Train");
         OOS1.writeObject(train);
