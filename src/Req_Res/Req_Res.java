@@ -130,4 +130,11 @@ public class Req_Res implements Serializable{
         s=DIS1.readUTF();
         return s;
     }
+    public void searchtrain(String s1,String s2) throws IOException, ClassNotFoundException{
+        DOS1.writeUTF("Search Train");
+        DOS1.writeUTF(s1);
+        DOS1.writeUTF(s2);
+        //s=(String) OIS1.readObject();
+        //return s;
+    }
 }

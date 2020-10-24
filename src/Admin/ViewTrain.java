@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 public class ViewTrain implements Serializable{
     public String trainNum,trainName,fstation,lstation,dtime,atime,days;
-int fee1,fee2,fee3;
+int fee1,fee2,fee3,cancel;
 
     public ViewTrain() {
     
@@ -60,6 +60,9 @@ int fee1,fee2,fee3;
     {
         fee3=i;
     }
+    public void setcancel(int i){
+        cancel=i;
+    }
     //getter functions
     
     public String gettrainName()
@@ -102,11 +105,15 @@ int fee1,fee2,fee3;
     {
         return fee3;
     }
+     public int getcancel()
+    {
+        return cancel;
+    }
     
     
     
     
-    public ViewTrain(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,int fee1,int fee2,int fee3,String days) {
+    public ViewTrain(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,int fee1,int fee2,int fee3,String days,int cancel) {
        this.trainNum=trainNum;
        this.trainName=trainName;
        this.fstation=fstation;
@@ -117,6 +124,7 @@ int fee1,fee2,fee3;
        this.fee2=fee2;
        this.fee3=fee3;
        this.days=days;
+       this.cancel=cancel;
     }
 
 

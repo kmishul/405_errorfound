@@ -100,9 +100,9 @@ public class RemoveTrain extends javax.swing.JFrame {
     private void RemoveTrainBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveTrainBTActionPerformed
         if(verifyRemTrNo()){
             try{
-                String tnum=RemovetrainTF.getText();
+                String tNum=RemovetrainTF.getText();
                 Req_Res remtr=new Req_Res();
-                RemoveTrain train= new RemoveTrain(tnum);
+                RemoveTrain train= new RemoveTrain(tNum);
                 String Res=remtr.removeTrain(train);
                 if(Res.equals("removetrainvalid")){
                     JOptionPane.showMessageDialog(this, "train removed successfully");
@@ -122,8 +122,8 @@ public class RemoveTrain extends javax.swing.JFrame {
         
     }//GEN-LAST:event_RemoveTrainBTActionPerformed
     public boolean verifyRemTrNo(){
-        String tnum=RemovetrainTF.getText();
-        if(tnum.trim().equals("")){
+        String tum=RemovetrainTF.getText();
+        if(tum.trim().equals("")){
             JOptionPane.showMessageDialog(this,"Abe train number to daal yrr!!");
             return false;
         }
