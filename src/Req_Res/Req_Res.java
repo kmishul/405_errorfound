@@ -5,11 +5,8 @@
  */
 
 package Req_Res;
-import Admin.AdminLogin;
-import Admin.AddTrain;
-import Admin.CancelTrain;
-import User.UserLogin;
-import User.UserSignup;
+import Admin.*;
+import User.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -29,11 +26,13 @@ import java.io.IOException;
 import java.io.IOException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
  * @author Folio
  */
+
 public class Req_Res implements Serializable{
     String ip="localhost";
     int port=8806;
@@ -43,7 +42,17 @@ public class Req_Res implements Serializable{
     DataOutputStream DOS1=new DataOutputStream(socket.getOutputStream());
     DataInputStream DIS1=new DataInputStream(socket.getInputStream());
     String s;
+
     //private Object OOS;
+    public ObjectOutputStream getObjectOutputStream()
+    {
+        return OOS1;
+    }
+    public ObjectInputStream getObjectInputStream()
+    {
+        return OIS1;
+    }
+    
     public Req_Res() throws IOException{
          System.out.println("Connected!");
           
@@ -95,9 +104,18 @@ public class Req_Res implements Serializable{
         return s;
     }
 
-}
         
 
+    public String viewTrains() throws IOException{
     
-
-
+       DOS1.writeUTF("View Trains");
+        s=DIS1.readUTF();
+        return s;
+    }
+    public String passDetails() throws IOException{
+    
+       DOS1.writeUTF("Pass Details");
+        s=DIS1.readUTF();
+        return s;
+    }
+}
