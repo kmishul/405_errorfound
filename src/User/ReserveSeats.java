@@ -230,6 +230,7 @@ public class ReserveSeats extends javax.swing.JFrame {
             String gender=(String) scgender.getSelectedItem();
             PassDetail pass=new PassDetail();
             pass.setuserId(userid);
+            pass.settrainNum(trainno);
             pass.setfname(fname);
             pass.setlname(lname);
             pass.setdate(date);
@@ -239,11 +240,11 @@ public class ReserveSeats extends javax.swing.JFrame {
             pass.setgender(gender);
             ObjectOutputStream oos=rr.getObjectOutputStream();
             ObjectInputStream ois=rr.getObjectInputStream();
-            try {
+            try {rr.reserveseat();
                 oos.writeObject(pass);
                 String Res=(String) ois.readObject();
                 if(Res.equals("valid")){
-                    JOptionPane.showMessageDialog(null, "Seat booked successfully! Check your ticket now.");
+                    JOptionPane.showMessageDialog(this, "Seat booked successfully! Check your ticket now.");
                 }
                 else{
                     JOptionPane.showMessageDialog(this,Res);

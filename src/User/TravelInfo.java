@@ -146,19 +146,20 @@ private DefaultTableModel model1;
                 
                 if(Res.equals("valid")){
                     ArrayList<PassDetail> pd = new ArrayList<PassDetail>();
-                    ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
+                    //ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
                     pd=(ArrayList<PassDetail>) ois.readObject();
-                    vt=(ArrayList<ViewTrain>) ois.readObject();
+                    //vt=(ArrayList<ViewTrain>) ois.readObject();
                     for(int i=0;i<pd.size();i++)
                     {
                            PassDetail p=pd.get(i);
-                           ViewTrain v=vt.get(i);
+                       //    ViewTrain v=vt.get(i);
                            
                     model1.insertRow(tbl1.getRowCount(), new Object[]{
                     p.getticketid(),
                     p.getfname()+" "+p.getlname(),
                     p.gettrainNum(),
-                    v.gettrainName(),
+                   // v.gettrainName(),
+                    "hello",
                     p.getpassclass(),
                     p.getseatno(),
                     p.getdate()

@@ -35,6 +35,7 @@ public class UserMainInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,13 +46,22 @@ public class UserMainInterface extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(159, 159, 159)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addContainerGap(170, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -59,7 +69,9 @@ public class UserMainInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(128, 128, 128)
                 .addComponent(jButton1)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addComponent(jButton2)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -70,6 +82,11 @@ public class UserMainInterface extends javax.swing.JFrame {
         new TravelInfo(rr,userid).show();
         //this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         new ReserveSeats(rr,userid).show();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,5 +125,6 @@ public class UserMainInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }
