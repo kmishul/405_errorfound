@@ -38,10 +38,21 @@ public class ViewTrainsRequest implements Serializable {
             stmt=con.prepareStatement(q1);
             ResultSet rs=stmt.executeQuery();
             System.out.println("checexecute1\n");
+            String[] arr=new String[]{"M ","T ","W ","TH ","F ","SAT ","SUN "} ;
             while(rs.next()){
                 ViewTrain v=new ViewTrain();
+                String status,d1,days="";
+                if(rs.getInt("cancel")==0)
+                status="Cancelled";
+                else status="Running";
+                
+                 d1=rs.getString("days");
+                for(int i=0;i<7;i++)
+                    if(d1.charAt(i)=='1') days+=arr[i];
+      
+                
+                
                 v.settrainNum(rs.getString("trainNum"));
-                System.out.println(rs.getString("trainNum"));
                 v.settrainName(rs.getString("trainName"));
                 v.setfstation(rs.getString("firstStation"));
                 v.setlstation(rs.getString("lastStation"));
@@ -50,9 +61,11 @@ public class ViewTrainsRequest implements Serializable {
                 v.setfee1(rs.getInt("feeFirstClass"));
                 v.setfee2(rs.getInt("feeSecondClass"));
                 v.setfee3(rs.getInt("feeSleeperClass"));
-                v.setdays(rs.getString("days"));
-                v.setcancel(rs.getInt("cancel"));
-                vt.add(v);
+                v.setdays(days);
+                v.setstatus(status);
+                
+                
+                    vt.add(v);
               
            Response="valid";
             }

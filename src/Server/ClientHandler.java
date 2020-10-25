@@ -10,6 +10,7 @@ import Server.Requests.AdminLoginRequest;
 import Server.Requests.UserLoginRequest;
 import Admin.AddTrain;
 import Admin.CancelTrain;
+import Admin.PassDetail;
 import Admin.PassDetails;
 import Admin.ViewTrain;
 import Admin.RemoveTrain;
@@ -20,6 +21,8 @@ import Server.Requests.ViewTrainsRequest;
 import Server.Requests.CancelTrainRequest;
 import Server.Requests.RemoveTrainRequest;
 import Server.Requests.SearchTrainRequest;
+import Server.Requests.TravelInfoRequest;
+import User.UserDetail;
 import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
@@ -145,18 +148,12 @@ public class ClientHandler implements Runnable,Serializable{
             { 
                 ViewTrainsRequest v=new ViewTrainsRequest();
                 String res=v.getTrain();
-                System.out.println("majorissue\n");
                 if(res.equals("valid"))
-                {   System.out.println("checkview1\n");
-                    ArrayList<ViewTrain> vt1;
+                {   ArrayList<ViewTrain> vt1;
                     vt1=(ArrayList<ViewTrain>)v.getList();
-                    System.out.println("listcheck\n");
                     OOS.writeObject("valid");
                     OOS.writeObject(vt1);
-                    //OOS.flush();
-                    System.out.println("checkview2\n");
-                    DOS.writeUTF(res);
-                    System.out.println("checkview3\n");
+                   
                 }
             
             else {
@@ -194,14 +191,15 @@ public class ClientHandler implements Runnable,Serializable{
                 String res=p.getPassengers();
                 if(res.equalsIgnoreCase("valid"))
                 {
-                    ArrayList<PassDetails> vt2=new ArrayList();
-                    vt2=p.getList();
+                    ArrayList<PassDetail> vt2;
+                    vt2=(ArrayList<PassDetail>)p.getList();
+                    OOS.writeObject("valid");
                     OOS.writeObject(vt2);
-                    DOS.writeUTF("valid");
+                    
                 }
             
             else {
-                DOS.writeUTF("Invalid");
+                OOS.writeObject("Invalid");
                     System.out.println("Invalid\n");
                 }
             }
@@ -218,7 +216,33 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("unvalid check\n");
                 }
             }
-        } catch (IOException ex) {
+            
+            
+            if(request.equalsIgnoreCase("Travel Info"))
+            {
+                TravelInfoRequest t=new TravelInfoRequest();
+                String res=t.getInfo();
+                if(res.equalsIgnoreCase("valid"))
+                {
+                    ArrayList<PassDetail> pd;
+                    pd=(ArrayList<PassDetail>)t.getPassList();
+                    ArrayList<UserDetail> ud;
+                    ud=(ArrayList<UserDetail>)t.getUserList();
+                    ArrayList<ViewTrain> vt;
+                    vt=(ArrayList<ViewTrain>)t.getTrainList();
+                    OOS.writeObject("valid");
+                    OOS.writeObject(ud);
+                    OOS.writeObject(pd);
+                    OOS.writeObject(vt);
+                    
+                }
+            
+            else {
+                OOS.writeObject("Invalid");
+                    System.out.println("Invalid\n");
+                }
+        }
+        }catch (IOException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
