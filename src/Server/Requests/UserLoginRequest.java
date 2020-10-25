@@ -6,6 +6,7 @@
 package Server.Requests;
 import Server.DBConnect;
 import Server.Server;
+import User.UserDetail;
 import User.UserLogin;
 import User.UserSignup;
 import java.awt.HeadlessException;
@@ -24,10 +25,10 @@ public class UserLoginRequest {
     private static Statement stmt;
     private PreparedStatement st;
     String userid, password;
-    public UserLoginRequest(UserLogin userl) throws SQLException{
+    public UserLoginRequest(UserDetail userl) throws SQLException{
         this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
-        userid=userl.username;
-        password=userl.upassword;
+        userid=userl.getUserid();
+        password=userl.getPass();
     }
     public boolean checklogininfo() {
         

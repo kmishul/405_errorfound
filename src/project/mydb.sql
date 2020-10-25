@@ -105,7 +105,7 @@ CREATE TABLE passengerdetail (
     passengerLastName VARCHAR(50),
     passengerAge INT NOT NULL,
     passengergender VARCHAR(10) NOT NULL,
-    travdate VARCHAR(15) NOT NULL,
+    travdate DATE NOT NULL,
     FOREIGN KEY(userId) REFERENCES userlogin(userId),
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );

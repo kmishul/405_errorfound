@@ -5,6 +5,7 @@
  */
 package Server.Requests;
 
+import Admin.PassDetail;
 import Admin.PassDetails;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class PassDetailsRequest {
     private final Connection con;
     private PreparedStatement stmt;
-    private ArrayList<PassDetails> pd=new ArrayList();
+    private ArrayList<PassDetail> pd=new ArrayList();
     public PassDetailsRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
@@ -30,10 +31,11 @@ public class PassDetailsRequest {
     public String getPassengers() {
         String Response="";
         try{
-            String q2="SELECT * FROM passengerdetail";
+            String q2="SELECT * FROM passengerdetail;";
+            stmt=con.prepareStatement(q2);
             ResultSet rs=stmt.executeQuery(q2);
             while(rs.next()){
-                PassDetails p=new PassDetails();
+                PassDetail p=new PassDetail();
                 p.settrainNum(rs.getString("trainNum"));
                 p.setuserId(rs.getString("userId"));
                 p.setpassclass(rs.getString("passclass"));
@@ -45,8 +47,9 @@ public class PassDetailsRequest {
                 p.setgender(rs.getString("passengergender"));
                 p.setdate(rs.getString("travdate"));
                 pd.add(p);
-            }
             Response="valid";
+            }
+           
     
     
     return Response;
@@ -58,7 +61,7 @@ public class PassDetailsRequest {
             }
         }
 
-    public ArrayList<PassDetails> getList() {
+    public ArrayList<PassDetail> getList() {
         return pd;
         }
     

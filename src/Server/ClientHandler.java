@@ -10,6 +10,7 @@ import Server.Requests.AdminLoginRequest;
 import Server.Requests.UserLoginRequest;
 import Admin.AddTrain;
 import Admin.CancelTrain;
+import Admin.PassDetail;
 import Admin.PassDetails;
 import Admin.ViewTrain;
 import Admin.RemoveTrain;
@@ -20,6 +21,8 @@ import Server.Requests.ViewTrainsRequest;
 import Server.Requests.CancelTrainRequest;
 import Server.Requests.RemoveTrainRequest;
 import Server.Requests.SearchTrainRequest;
+import Server.Requests.TravelInfoRequest;
+import User.UserDetail;
 import User.UserLogin;
 import User.UserSignup;
 import java.io.DataInputStream;
@@ -48,6 +51,7 @@ public class ClientHandler implements Runnable,Serializable{
     private ObjectInputStream OIS;
     private DataOutputStream DOS;
     private DataInputStream DIS;
+    private UserDetail mainId;
     
     ClientHandler(Socket client) throws IOException{
         this.client=client;
@@ -58,15 +62,28 @@ public class ClientHandler implements Runnable,Serializable{
         System.out.println("\n done1");
     }
     
+    private UserDetail getUserMainID()
+    {
+        return this.mainId;
+       
+    }
+    private void setUserMainID(UserDetail u)
+    {
+        this.mainId=u;
+       
+    }
+    
     @Override
     public void run() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String request;
         System.out.println("\n done2");
-        try {
-            System.out.println("\n done3");
-            request=DIS.readUTF();
-            if(request.equals("User SignUp")){
+        try {   
+            while(true){
+                request=DIS.readUTF();
+                System.out.println("\n doubt clear");
+            
+                if(request.equals("User SignUp")){
                 UserSignup user=(UserSignup)OIS.readObject();
                 //String userid=user.UserId;
                 UserSignupRequest userr=new UserSignupRequest(user);
@@ -81,14 +98,18 @@ public class ClientHandler implements Runnable,Serializable{
             }
             if(request.equals("User Login")) {
                 System.out.println("reached client handler for login");
-                UserLogin userl=(UserLogin)OIS.readObject();
+                UserDetail userl=(UserDetail)OIS.readObject();
+                
                 UserLoginRequest userlr=new UserLoginRequest(userl);
                 if(userlr.checklogininfo()){
                     DOS.writeUTF("validlogindetails");
+                    DOS.flush();
+                    this.setUserMainID(userl);
                     System.out.println("Valid USer Login");
                 }
                 else{
                     DOS.writeUTF("Wrong credentials");
+                    DOS.flush();
                 }
             }
             if(request.equals("Admin Login")) {
@@ -128,6 +149,9 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("unvalid check\n");
                 }
             }
+            if(request.equals("Reserve Seat")){
+                PassDetail pass=(PassDetail)OIS.readObject();
+            }
             if(request.equals("Uncancel Train")){
                 CancelTrain train=(CancelTrain)OIS.readObject();
                 CancelTrainRequest trainn=new CancelTrainRequest(train);
@@ -145,18 +169,12 @@ public class ClientHandler implements Runnable,Serializable{
             { 
                 ViewTrainsRequest v=new ViewTrainsRequest();
                 String res=v.getTrain();
-                System.out.println("majorissue\n");
                 if(res.equals("valid"))
-                {   System.out.println("checkview1\n");
-                    ArrayList<ViewTrain> vt1;
+                {   ArrayList<ViewTrain> vt1;
                     vt1=(ArrayList<ViewTrain>)v.getList();
-                    System.out.println("listcheck\n");
                     OOS.writeObject("valid");
                     OOS.writeObject(vt1);
-                    //OOS.flush();
-                    System.out.println("checkview2\n");
-                    DOS.writeUTF(res);
-                    System.out.println("checkview3\n");
+                   
                 }
             
             else {
@@ -194,14 +212,15 @@ public class ClientHandler implements Runnable,Serializable{
                 String res=p.getPassengers();
                 if(res.equalsIgnoreCase("valid"))
                 {
-                    ArrayList<PassDetails> vt2=new ArrayList();
-                    vt2=p.getList();
+                    ArrayList<PassDetail> vt2;
+                    vt2=(ArrayList<PassDetail>)p.getList();
+                    OOS.writeObject("valid");
                     OOS.writeObject(vt2);
-                    DOS.writeUTF("valid");
+                    
                 }
             
             else {
-                DOS.writeUTF("Invalid");
+                OOS.writeObject("Invalid");
                     System.out.println("Invalid\n");
                 }
             }
@@ -218,7 +237,34 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("unvalid check\n");
                 }
             }
-        } catch (IOException ex) {
+            
+            if(request.equals("Travel Info"))
+            {   System.out.println("travel check\n");
+                TravelInfoRequest t=new TravelInfoRequest();
+                String res=t.getInfo(this.getUserMainID());
+                if(res.equalsIgnoreCase("valid"))
+                {
+                    ArrayList<PassDetail> pd;
+                    pd=(ArrayList<PassDetail>)t.getPassList();
+                   
+                    ArrayList<ViewTrain> vt;
+                    vt=(ArrayList<ViewTrain>)t.getTrainList();
+                    OOS.writeObject("valid");
+                    OOS.writeObject(pd);
+                    OOS.writeObject(vt);
+                    OOS.flush();
+                    System.out.println("last check\n");
+                
+                }
+            
+            else {
+                OOS.writeObject("Invalid");
+                OOS.flush();
+                    System.out.println("Invalid\n");
+                }
+            }
+        }
+        }catch (IOException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,7 +275,7 @@ public class ClientHandler implements Runnable,Serializable{
         }
         
         
-        
+         
     }
     
     
