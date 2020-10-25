@@ -59,7 +59,7 @@ public class TravelInfoRequest {
                 p.setlname(rs1.getString("passengerLastName"));
                 p.setage(rs1.getInt("passengerAge"));
                 p.setgender(rs1.getString("passengergender"));
-                p.setdate(rs1.getString("travdate"));
+                p.setdate(rs1.getDate("travdate"));
                 
                 v.settrainNum(rs2.getString("trainNum"));
                 v.settrainName(rs2.getString("trainName"));

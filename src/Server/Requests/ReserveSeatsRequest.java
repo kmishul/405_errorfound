@@ -6,6 +6,7 @@
 package Server.Requests;
 
 import Admin.PassDetail;
+import com.mysql.cj.protocol.Resultset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,10 +29,16 @@ public class ReserveSeatsRequest {
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         //String trainNum=pass.trainNum;
     }
-    public boolean bookticket(PassDetail pass){
+    public void bookticket(PassDetail pass) throws SQLException{
         passclass=pass.getpassclass();
+        berth=pass.getberth();
         if(passclass.equalsIgnoreCase("First AC")){
-           
+            String q1="SELECT * FROM firstclass";
+            st=con.prepareStatement(q1);
+            Resultset rs=(Resultset) st.executeQuery();
+           if(berth.equalsIgnoreCase("Lower")){
+               
+           }
         }
     }
     

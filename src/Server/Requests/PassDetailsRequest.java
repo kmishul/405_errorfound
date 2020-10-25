@@ -45,7 +45,7 @@ public class PassDetailsRequest {
                 p.setlname(rs.getString("passengerLastName"));
                 p.setage(rs.getInt("passengerAge"));
                 p.setgender(rs.getString("passengergender"));
-                p.setdate(rs.getString("travdate"));
+                p.setdate(rs.getDate("travdate"));
                 pd.add(p);
             Response="valid";
             }
