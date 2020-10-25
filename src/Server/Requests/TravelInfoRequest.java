@@ -40,15 +40,16 @@ public class TravelInfoRequest {
             stmt1=con.prepareStatement(q1);
             stmt1.setString(1,uid.getUserid());
             ResultSet rs1=stmt1.executeQuery();
-                String tnum=rs1.getString("trainNum");
-            String q2="SELECT * FROM traininfo WHERE trainNum=?";
-            stmt2=con.prepareStatement(q2);
-            stmt2.setString(1,tnum);
-            ResultSet rs2=stmt2.executeQuery();
-            
-            while(rs1.next() && rs2.next()){
-                PassDetail p=new PassDetail();
-                ViewTrain v=new ViewTrain();
+               // String tnum=rs1.getString("trainNum");
+//            String q2="SELECT * FROM traininfo WHERE trainNum=?";
+//            stmt2=con.prepareStatement(q2);
+//            stmt2.setString(1,tnum);
+//            ResultSet rs2=stmt2.executeQuery();
+//            
+            //while(rs1.next() && rs2.next()){
+            while(rs1.next())   { 
+            PassDetail p=new PassDetail();
+               // ViewTrain v=new ViewTrain();
                 
                 p.settrainNum(rs1.getString("trainNum"));
                 p.setuserId(rs1.getString("userId"));
@@ -61,21 +62,21 @@ public class TravelInfoRequest {
                 p.setgender(rs1.getString("passengergender"));
                 p.setdate(rs1.getDate("travdate"));
                 
-                v.settrainNum(rs2.getString("trainNum"));
-                v.settrainName(rs2.getString("trainName"));
-                v.setfstation(rs2.getString("firstStation"));
-                v.setlstation(rs2.getString("lastStation"));
-                v.setdtime(rs2.getString("departureTime"));
-                v.setatime(rs2.getString("arrivalTime"));
-                v.setfee1(rs2.getInt("feeFirstClass"));
-                v.setfee2(rs2.getInt("feeSecondClass"));
-                v.setfee3(rs2.getInt("feeSleeperClass"));
-                v.setdays(rs2.getString("days"));
-                v.setcancel(rs2.getInt("cancel"));
-                
+//                v.settrainNum(rs2.getString("trainNum"));
+//                v.settrainName(rs2.getString("trainName"));
+//                v.setfstation(rs2.getString("firstStation"));
+//                v.setlstation(rs2.getString("lastStation"));
+//                v.setdtime(rs2.getString("departureTime"));
+//                v.setatime(rs2.getString("arrivalTime"));
+//                v.setfee1(rs2.getInt("feeFirstClass"));
+//                v.setfee2(rs2.getInt("feeSecondClass"));
+//                v.setfee3(rs2.getInt("feeSleeperClass"));
+//                v.setdays(rs2.getString("days"));
+//                v.setcancel(rs2.getInt("cancel"));
+//                
                  
                 pd.add(p);
-                vt.add(v);
+               // vt.add(v);
             Response="valid";
             }
            

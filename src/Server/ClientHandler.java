@@ -20,6 +20,7 @@ import Server.Requests.UserSignupRequest;
 import Server.Requests.ViewTrainsRequest;
 import Server.Requests.CancelTrainRequest;
 import Server.Requests.RemoveTrainRequest;
+import Server.Requests.ReserveSeatsRequest;
 import Server.Requests.SearchTrainRequest;
 import Server.Requests.TravelInfoRequest;
 import User.UserDetail;
@@ -150,7 +151,18 @@ public class ClientHandler implements Runnable,Serializable{
                 }
             }
             if(request.equals("Reserve Seat")){
+                System.out.println("1\n");
                 PassDetail pass=(PassDetail)OIS.readObject();
+                ReserveSeatsRequest rss=new ReserveSeatsRequest(pass);
+                boolean b=rss.bookticket(this.getUserMainID());
+               if(b){ System.out.println("9\n");
+                    OOS.writeObject("valid");
+                    System.out.println("seat booked\n");
+                }
+                else{
+                    OOS.writeObject("Sorry ! Not Available");
+                    System.out.println("Sorry ! Not Available\n");
+                }
             }
             if(request.equals("Uncancel Train")){
                 CancelTrain train=(CancelTrain)OIS.readObject();
@@ -247,11 +259,11 @@ public class ClientHandler implements Runnable,Serializable{
                     ArrayList<PassDetail> pd;
                     pd=(ArrayList<PassDetail>)t.getPassList();
                    
-                    ArrayList<ViewTrain> vt;
-                    vt=(ArrayList<ViewTrain>)t.getTrainList();
+                   // ArrayList<ViewTrain> vt;
+                    //vt=(ArrayList<ViewTrain>)t.getTrainList();
                     OOS.writeObject("valid");
                     OOS.writeObject(pd);
-                    OOS.writeObject(vt);
+                  //  OOS.writeObject(vt);
                     OOS.flush();
                     System.out.println("last check\n");
                 
