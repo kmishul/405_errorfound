@@ -5,11 +5,25 @@
  */
 package User;
 
+import Admin.PassDetail;
+import Admin.ViewTrain;
+import Admin.ViewTrains;
+import Req_Res.Req_Res;
+import java.awt.HeadlessException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author kmish
  */
 public class TravelInfo extends javax.swing.JFrame {
+private DefaultTableModel model1;
 
     /**
      * Creates new form TravelInfo
@@ -27,21 +41,121 @@ public class TravelInfo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Your Travel's Information");
+
+        tbl1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tbl1);
+
+        jButton1.setText("View");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Clear");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(231, 231, 231)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 234, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(176, 176, 176))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(93, 93, 93))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        model1=(DefaultTableModel) tbl1.getModel();
+        try {
+                Req_Res res=new Req_Res();
+                res.travelInfo();
+                ObjectInputStream ois=res.getObjectInputStream();
+                String Res=(String) ois.readObject();
+                
+                if(Res.equals("valid")){
+                    ArrayList<UserDetail> ud = new ArrayList<UserDetail>();
+                    ArrayList<PassDetail> pd = new ArrayList<PassDetail>();
+                    ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
+                    ud=(ArrayList<UserDetail>) ois.readObject();
+                    pd=(ArrayList<PassDetail>) ois.readObject();
+                    vt=(ArrayList<ViewTrain>) ois.readObject();
+                    for(int i=0;i<ud.size();i++)
+                    {
+                           UserDetail u=ud.get(i);
+                           PassDetail p=pd.get(i);
+                           ViewTrain v=vt.get(i);
+                           
+                    model1.insertRow(tbl1.getRowCount(), new Object[]{
+                                    
+                                });
+                    
+                    }
+                    
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,"No Passenger Found !");
+                    
+                }
+            } catch (IOException | HeadlessException | ClassNotFoundException ex) {
+                Logger.getLogger(ViewTrains.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         model1.setRowCount(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +193,10 @@ public class TravelInfo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbl1;
     // End of variables declaration//GEN-END:variables
 }

@@ -124,11 +124,15 @@ public class Req_Res implements Serializable{
        DOS1.writeUTF("View Trains");
        
     }
-    public String passDetails() throws IOException{
+    public void passDetails() throws IOException{
     
        DOS1.writeUTF("Pass Details");
-        s=DIS1.readUTF();
-        return s;
+       
+    }
+    public void travelInfo() throws IOException{
+    
+       DOS1.writeUTF("Travel Info");
+       
     }
     public void searchtrain(String s1,String s2) throws IOException, ClassNotFoundException{
         DOS1.writeUTF("Search Train");
