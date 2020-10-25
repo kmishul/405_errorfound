@@ -137,6 +137,11 @@ public class Req_Res implements Serializable{
        DOS1.writeUTF("Pass Details");
        
     }
+    public void reserveseat() throws IOException{
+    
+       DOS1.writeUTF("Reserve Seat");
+       
+    }
     public void travelInfo() throws IOException{
     System.out.println("travel method check\n");
                 

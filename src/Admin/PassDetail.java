@@ -6,20 +6,22 @@
 package Admin;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
  * @author kmish
  */
 public class PassDetail implements Serializable{
-    public String trainNum,userId,passclass,ticketid,fname,lname,gender,date;
+    public String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
         public int seatno,age;
+        public Date date;
         
     public PassDetail() {
       
     }
     
-    public PassDetail(String trainNum,String userId,String passclass,int seatno,String ticketid,String fname,String lname,int age,String gender,String date) {
+    public PassDetail(String trainNum,String userId,String passclass,int seatno,String ticketid,String fname,String lname,int age,String gender,Date date) {
        this.trainNum=trainNum;
        this.userId=userId;
        this.passclass=passclass;
@@ -60,7 +62,7 @@ public class PassDetail implements Serializable{
     {
         gender=s;
     }
-    public void setdate(String s)
+    public void setdate(Date s)
     {
         date=s;
     }
@@ -71,6 +73,10 @@ public class PassDetail implements Serializable{
     public void setage(int i)
     {
         age=i;
+    }
+    public void setberth(String s)
+    {
+        berth=s;
     }
     
     
@@ -104,7 +110,7 @@ public class PassDetail implements Serializable{
     {
         return gender;
     }
-    public String getdate()
+    public Date getdate()
     {
         return date;
     }
@@ -115,6 +121,10 @@ public class PassDetail implements Serializable{
     public int getage()
     {
         return age;
+    }
+    public String getberth()
+    {
+        return berth;
     }
 
 }
