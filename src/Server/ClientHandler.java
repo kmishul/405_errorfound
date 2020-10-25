@@ -51,6 +51,7 @@ public class ClientHandler implements Runnable,Serializable{
     private ObjectInputStream OIS;
     private DataOutputStream DOS;
     private DataInputStream DIS;
+    private UserDetail mainId;
     
     ClientHandler(Socket client) throws IOException{
         this.client=client;
@@ -61,15 +62,28 @@ public class ClientHandler implements Runnable,Serializable{
         System.out.println("\n done1");
     }
     
+    private UserDetail getUserMainID()
+    {
+        return this.mainId;
+       
+    }
+    private void setUserMainID(UserDetail u)
+    {
+        this.mainId=u;
+       
+    }
+    
     @Override
     public void run() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String request;
         System.out.println("\n done2");
-        try {
-            System.out.println("\n done3");
-            request=DIS.readUTF();
-            if(request.equals("User SignUp")){
+        try {   
+            while(true){
+                request=DIS.readUTF();
+                System.out.println("\n doubt clear");
+            
+                if(request.equals("User SignUp")){
                 UserSignup user=(UserSignup)OIS.readObject();
                 //String userid=user.UserId;
                 UserSignupRequest userr=new UserSignupRequest(user);
@@ -84,14 +98,18 @@ public class ClientHandler implements Runnable,Serializable{
             }
             if(request.equals("User Login")) {
                 System.out.println("reached client handler for login");
-                UserLogin userl=(UserLogin)OIS.readObject();
+                UserDetail userl=(UserDetail)OIS.readObject();
+                
                 UserLoginRequest userlr=new UserLoginRequest(userl);
                 if(userlr.checklogininfo()){
                     DOS.writeUTF("validlogindetails");
+                    DOS.flush();
+                    this.setUserMainID(userl);
                     System.out.println("Valid USer Login");
                 }
                 else{
                     DOS.writeUTF("Wrong credentials");
+                    DOS.flush();
                 }
             }
             if(request.equals("Admin Login")) {
@@ -217,30 +235,31 @@ public class ClientHandler implements Runnable,Serializable{
                 }
             }
             
-            
-            if(request.equalsIgnoreCase("Travel Info"))
-            {
+            if(request.equals("Travel Info"))
+            {   System.out.println("travel check\n");
                 TravelInfoRequest t=new TravelInfoRequest();
-                String res=t.getInfo();
+                String res=t.getInfo(this.getUserMainID());
                 if(res.equalsIgnoreCase("valid"))
                 {
                     ArrayList<PassDetail> pd;
                     pd=(ArrayList<PassDetail>)t.getPassList();
-                    ArrayList<UserDetail> ud;
-                    ud=(ArrayList<UserDetail>)t.getUserList();
+                   
                     ArrayList<ViewTrain> vt;
                     vt=(ArrayList<ViewTrain>)t.getTrainList();
                     OOS.writeObject("valid");
-                    OOS.writeObject(ud);
                     OOS.writeObject(pd);
                     OOS.writeObject(vt);
-                    
+                    OOS.flush();
+                    System.out.println("last check\n");
+                
                 }
             
             else {
                 OOS.writeObject("Invalid");
+                OOS.flush();
                     System.out.println("Invalid\n");
                 }
+            }
         }
         }catch (IOException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -253,7 +272,7 @@ public class ClientHandler implements Runnable,Serializable{
         }
         
         
-        
+         
     }
     
     
