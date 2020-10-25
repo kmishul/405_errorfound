@@ -12,10 +12,15 @@ import java.io.Serializable;
  * @author kmish
  */
 public class UserDetail implements Serializable{
-    String userid,fname,lname,emailid,pass,contact,gender;
-
+    public String userid,fname,lname,emailid,pass,contact,gender;
+   
     public UserDetail() {
     }
+       
+    public UserDetail(String userid,String pass) {
+        this.userid=userid;
+        this.pass=pass;
+        }
 
     public UserDetail(String userid, String fname, String lname, String emailid, String pass, String contact, String gender) {
         this.userid = userid;

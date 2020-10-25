@@ -12,6 +12,7 @@ import Req_Res.Req_Res;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,12 +25,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TravelInfo extends javax.swing.JFrame {
 private DefaultTableModel model1;
-
+    //private final Socket s;
+    private final String userid;
+    private final Req_Res rr;
     /**
      * Creates new form TravelInfo
      */
-    public TravelInfo() {
+    public TravelInfo(Req_Res rr,String userid) {
         initComponents();
+        this.rr=rr;
+        this.userid=userid;
     }
 
     /**
@@ -57,9 +62,24 @@ private DefaultTableModel model1;
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Ticket ID", "Passenger Name", "Train Num", "Train Name", "Class", "Seat No.", "Date"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbl1);
 
         jButton1.setText("View");
@@ -118,33 +138,38 @@ private DefaultTableModel model1;
         // TODO add your handling code here:
         model1=(DefaultTableModel) tbl1.getModel();
         try {
-                Req_Res res=new Req_Res();
-                res.travelInfo();
-                ObjectInputStream ois=res.getObjectInputStream();
+                //Req_Res res=new Req_Res();
+                
+                rr.travelInfo();
+                ObjectInputStream ois=rr.getObjectInputStream();
                 String Res=(String) ois.readObject();
                 
                 if(Res.equals("valid")){
-                    ArrayList<UserDetail> ud = new ArrayList<UserDetail>();
                     ArrayList<PassDetail> pd = new ArrayList<PassDetail>();
                     ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
-                    ud=(ArrayList<UserDetail>) ois.readObject();
                     pd=(ArrayList<PassDetail>) ois.readObject();
                     vt=(ArrayList<ViewTrain>) ois.readObject();
-                    for(int i=0;i<ud.size();i++)
+                    for(int i=0;i<pd.size();i++)
                     {
-                           UserDetail u=ud.get(i);
                            PassDetail p=pd.get(i);
                            ViewTrain v=vt.get(i);
                            
                     model1.insertRow(tbl1.getRowCount(), new Object[]{
-                                    
-                                });
+                    p.getticketid(),
+                    p.getfname()+" "+p.getlname(),
+                    p.gettrainNum(),
+                    v.gettrainName(),
+                    p.getpassclass(),
+                    p.getseatno(),
+                    p.getdate()
+                
+                    });
                     
                     }
                     
                 }
                 else{
-                    JOptionPane.showMessageDialog(this,"No Passenger Found !");
+                    JOptionPane.showMessageDialog(this,"No Travel Details found!");
                     
                 }
             } catch (IOException | HeadlessException | ClassNotFoundException ex) {
@@ -160,37 +185,37 @@ private DefaultTableModel model1;
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TravelInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TravelInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TravelInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TravelInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TravelInfo().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TravelInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TravelInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TravelInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TravelInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TravelInfo().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
