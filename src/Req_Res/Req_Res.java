@@ -34,9 +34,10 @@ import java.util.ArrayList;
  */
 
 public class Req_Res implements Serializable{
-    String ip="localhost";
-    int port=8806;
-    Socket socket = new Socket(ip,port);
+    public final String ip="localhost";
+    public final int port=8806;
+
+    public final Socket socket = new Socket(ip,port);
     ObjectOutputStream OOS1=new ObjectOutputStream(socket.getOutputStream());
     ObjectInputStream OIS1=new ObjectInputStream(socket.getInputStream());
     DataOutputStream DOS1=new DataOutputStream(socket.getOutputStream());
@@ -56,6 +57,10 @@ public class Req_Res implements Serializable{
     {
         return DIS1;
     }
+    public Socket getSocket()
+    {
+        return socket;
+    }
     
     public Req_Res() throws IOException{
          System.out.println("Connected!");
@@ -70,11 +75,14 @@ public class Req_Res implements Serializable{
         System.out.println(s);
         return s;
     }
-    public String sendUserLogin(UserLogin user) throws IOException{
+    public String sendUserLogin(UserDetail user) throws IOException{
         System.out.println("reached senduserlogin in req_ress");
         DOS1.writeUTF("User Login");
+        DOS1.flush();
         OOS1.writeObject(user);
+        OOS1.flush();
         s=DIS1.readUTF();
+        
         System.out.println(s+"  :this is s");
         return s;
     }
@@ -124,10 +132,23 @@ public class Req_Res implements Serializable{
        DOS1.writeUTF("View Trains");
        
     }
-    public String passDetails() throws IOException{
+    public void passDetails() throws IOException{
     
        DOS1.writeUTF("Pass Details");
-        s=DIS1.readUTF();
-        return s;
+       
+    }
+    public void travelInfo() throws IOException{
+    System.out.println("travel method check\n");
+                
+       DOS1.writeUTF("Travel Info");
+       DOS1.flush();
+       System.out.println("travel method after\n");
+    }
+    public void searchtrain(String s1,String s2) throws IOException, ClassNotFoundException{
+        DOS1.writeUTF("Search Train");
+        DOS1.writeUTF(s1);
+        DOS1.writeUTF(s2);
+        //s=(String) OIS1.readObject();
+        //return s;
     }
 }
