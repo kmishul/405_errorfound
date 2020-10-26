@@ -117,7 +117,8 @@ public class CancelTrain extends javax.swing.JFrame {
         else{
             try {
                 Req_Res res=new Req_Res();
-                CancelTrain train=new CancelTrain(tNum);
+                ViewTrain train=new ViewTrain();
+                train.settrainNum(tNum);
                 String Res=res.canceltrain(train);
                 if(Res.equals("valid")){
                     System.out.println(Res+"2\n");
@@ -143,7 +144,8 @@ public class CancelTrain extends javax.swing.JFrame {
         else{
             try {
                 Req_Res res=new Req_Res();
-                CancelTrain train=new CancelTrain(tNum);
+                ViewTrain train=new ViewTrain();
+                train.settrainNum(tNum);
                 String Res=res.uncanceltrain(train);
                 if(Res.equals("valid")){
                     System.out.println(Res+"3\n");

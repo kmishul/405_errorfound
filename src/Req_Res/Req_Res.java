@@ -67,7 +67,7 @@ public class Req_Res implements Serializable{
           
           
     }
-    public String sendUserSignup(UserSignup user) throws IOException{
+    public String sendUserSignup(UserDetail user) throws IOException{
     //public void sendUserSignup(UserSignup user,String s) throws IOException{
        DOS1.writeUTF("User SignUp");
         OOS1.writeObject(user);
@@ -86,7 +86,7 @@ public class Req_Res implements Serializable{
         System.out.println(s+"  :this is s");
         return s;
     }
-    public String sendAdminLogin(AdminLogin admin) throws IOException{
+    public String sendAdminLogin(Admindetail admin) throws IOException{
         System.out.println("reached sendAdminlogin in req_ress");
         DOS1.writeUTF("Admin Login");
         OOS1.writeObject(admin);
@@ -110,14 +110,14 @@ public class Req_Res implements Serializable{
         //return s;
     }
 
-    public String canceltrain(CancelTrain train) throws IOException{
+    public String canceltrain(ViewTrain train) throws IOException{
         DOS1.writeUTF("Cancel Train");
         OOS1.writeObject(train);
         s=DIS1.readUTF();
         return s;
     }
 
-    public String uncanceltrain(CancelTrain train) throws IOException {
+    public String uncanceltrain(ViewTrain train) throws IOException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         DOS1.writeUTF("Uncancel Train");
         OOS1.writeObject(train);
