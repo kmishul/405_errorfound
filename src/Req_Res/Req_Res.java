@@ -149,6 +149,12 @@ public class Req_Res implements Serializable{
        DOS1.flush();
        System.out.println("travel method after\n");
     }
+    public void tickets() throws IOException{
+    
+                
+       DOS1.writeUTF("Tickets");
+       DOS1.flush();
+    }
     public void searchtrain(String s1,String s2) throws IOException, ClassNotFoundException{
         DOS1.writeUTF("Search Train");
         DOS1.writeUTF(s1);
