@@ -127,7 +127,7 @@ public class ClientHandler implements Runnable,Serializable{
                 }
             }
             if(request.equals("Add Train")){
-                AddTrain train=(AddTrain)OIS.readObject();
+                ViewTrain train=(ViewTrain)OIS.readObject();
                 AddTrainRequest trainn=new AddTrainRequest(train);
                 if(trainn.addtrain()){
                     DOS.writeUTF("valid");
@@ -240,16 +240,18 @@ public class ClientHandler implements Runnable,Serializable{
             }
             
             if(request.equals("Remove Train")){
-                RemoveTrain train=(RemoveTrain)OIS.readObject();
+                ViewTrain train=(ViewTrain)OIS.readObject();
                 RemoveTrainRequest cncl=new RemoveTrainRequest(train);
-                if(cncl.removetrain()){
-                    DOS.writeUTF("removetrainvalid");
-                    System.out.println("valid check\n");
-                }
-                else{
-                    DOS.writeUTF("Error:this train does not exist");
-                    System.out.println("unvalid check\n");
-                }
+                String Res=cncl.removetrain();
+                OOS.writeObject(Res);
+//                if(cncl.removetrain()){
+//                    OOS.writeObject("removetrainvalid");
+//                    System.out.println("valid check\n");
+//                }
+//                else{
+//                    OOS.writeObject("Error:this train does not exist");
+//                    System.out.println("unvalid check\n");
+//                }
             }
             
             if(request.equals("Travel Info"))

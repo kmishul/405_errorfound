@@ -6,6 +6,7 @@
 package Server.Requests;
 
 import Admin.AddTrain;
+import Admin.ViewTrain;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -27,21 +28,21 @@ public class AddTrainRequest {
     private static Statement stmt;
     String tnum,tname,startstn,stopstn,starttm,stoptm,days;
     int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc;
-    public AddTrainRequest(AddTrain train) throws SQLException{
+    public AddTrainRequest(ViewTrain train) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
-        tnum=train.tnum;
-        tname=train.tname;
-        startstn=train.startstn;
-        stopstn=train.stopstn;
-        starttm=train.starttm;
-        stoptm=train.stoptm;
-        days=train.days;
-        NOSfc=train.NOSfc;
-        NOSsc=train.NOSsc;
-        NOSslc=train.NOSslc;
-        farefc=train.farefc;
-        faresc=train.faresc;
-        fareslc=train.fareslc;
+        tnum=train.gettrainNum();
+        tname=train.gettrainName();
+        startstn=train.getfstation();
+        stopstn=train.getlstation();
+        starttm=train.getatime();
+        stoptm=train.getdtime();
+        days=train.getdays();
+        NOSfc=train.getNosfc();
+        NOSsc=train.getNossc();
+        NOSslc=train.getNosslc();
+        farefc=train.getfee1();
+        faresc=train.getfee2();
+        fareslc=train.getfee3();
     }
     public boolean addtrain() throws SQLException{
         System.out.println("Recieving Train details");

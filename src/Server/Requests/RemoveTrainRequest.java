@@ -6,6 +6,7 @@
 package Server.Requests;
 
 import Admin.RemoveTrain;
+import Admin.ViewTrain;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,52 +22,61 @@ import java.sql.Statement;
 public class RemoveTrainRequest {
     private final Connection con;
     private PreparedStatement st;
-    private PreparedStatement stt;
-    private PreparedStatement sttt;
-    private PreparedStatement stttt;
-    private PreparedStatement sttttt;
+    private PreparedStatement st2;
+    private PreparedStatement st3;
+    private PreparedStatement st4;
+    private PreparedStatement st5;
+    private PreparedStatement st6;
     private static Statement stmt;
     String tnum;
-    public RemoveTrainRequest(RemoveTrain train) throws SQLException{
+    public RemoveTrainRequest(ViewTrain train) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
-        tnum=train.tnum;
+        tnum=train.gettrainNum();
     }
-    public boolean removetrain() throws SQLException{
+    public String removetrain() throws SQLException{
         try{
             if(checktrainname(tnum)){
-                System.out.println("removing..");
-                System.out.println(tnum);
-                st=con.prepareStatement("DELETE FROM `traininfo` WHERE trainNum=?");
-                st.setString(1, tnum);
-                stt=con.prepareStatement("DELETE FROM `firstclass` WHERE trainNum=?");
-                stt.setString(1, tnum);
-                sttt=con.prepareStatement("DELETE FROM `secondclass` WHERE trainNum=?");
-                sttt.setString(1, tnum);
-                stttt=con.prepareStatement("DELETE FROM `sleeperclass` WHERE trainNum=?");
-                stttt.setString(1, tnum);
-                if(checktrainpass(tnum)){
-                    sttttt=con.prepareStatement("DELETE FROM `passengerdetail` WHERE trainNum=?");
-                    sttttt.setString(1, tnum);
-                    sttttt.execute();
+                if(!checktrainpass(tnum)){
+                    System.out.println("removing..");
+                    System.out.println(tnum);
+                    st6=con.prepareStatement("SET foreign_key_checks=0;");
+                    st6.execute();
+                    st=con.prepareStatement("DELETE FROM `traininfo` WHERE trainNum=?");
+                    st.setString(1, tnum);
+                    st5=con.prepareStatement("DELETE FROM `firstclass` WHERE trainNum=?");
+                    st5.setString(1, tnum);
+                    st2=con.prepareStatement("DELETE FROM `secondclass` WHERE trainNum=?");
+                    st2.setString(1, tnum);
+                    st3=con.prepareStatement("DELETE FROM `sleeperclass` WHERE trainNum=?");
+                    st3.setString(1, tnum);
+                    st4=con.prepareStatement("DELETE FROM `passengerdetail` WHERE trainNum=?");
+                    st4.setString(1, tnum);
+                    st4.execute();
+                    st3.execute();
+                    st2.execute();
+                    st5.execute();
+                    st.execute();
+                    return "Train Removed Successfully";
                 }
                 else{
                     System.out.println("not in passdetail");
+                    return "This train has seats reserved,can't be deleted";
                 }
-                stt.execute();
-                sttt.execute();
-                stttt.execute();
-                //sttttt.execute();
-                st.execute();
-                return true;
+////                stt.execute();
+////                sttt.execute();
+////                stttt.execute();
+//                //sttttt.execute();
+//                //st.execute();
+//                return "valid";
             }
             else{
                 System.out.println("1.Train number does not exist\n");
-                return false;
+                return "Train Number does not Exist";
             }
         }catch(SQLException e){
             System.out.println("error in query\n");
             System.out.println(e);
-            return false;
+            return "Error:Wrong credential";
         }
     }
     private boolean checktrainname(String trainname){
