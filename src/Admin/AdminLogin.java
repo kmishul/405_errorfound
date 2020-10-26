@@ -145,7 +145,7 @@ public class AdminLogin extends javax.swing.JFrame {
                 String Res=res.sendAdminLogin(admin);
                 if(Res.equals("validlogindetailsforadmin")){
                     JOptionPane.showMessageDialog(this,"Successful Admin Login");
-                    new AddTrain().show();
+                    new AdminMainInterface(res, adminid).show();
                     this.dispose();
                 }
                 else{

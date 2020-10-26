@@ -94,7 +94,7 @@ public class Req_Res implements Serializable{
         System.out.println(s+"  :this is s");
         return s;
     }
-    public String addtrain(AddTrain train) throws IOException{
+    public String addtrain(ViewTrain train) throws IOException{
         DOS1.writeUTF("Add Train");
         OOS1.writeObject(train);
         s=DIS1.readUTF();
@@ -102,12 +102,12 @@ public class Req_Res implements Serializable{
         return s;
     }
 
-    public String removeTrain(RemoveTrain remtr)throws IOException{
+    public void removeTrain(ViewTrain remtr)throws IOException{
         DOS1.writeUTF("Remove Train");
         OOS1.writeObject(remtr);
-        s=DIS1.readUTF();
-        System.out.println(s);
-        return s;
+        //s=DIS1.readUTF();
+        //System.out.println(s);
+        //return s;
     }
 
     public String canceltrain(CancelTrain train) throws IOException{
