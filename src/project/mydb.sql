@@ -64,6 +64,16 @@ CREATE TABLE firstClass (
     sidelowers INT DEFAULT 0 NOT NULL,
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
+CREATE TABLE firstClasscancel (
+    trainNum VARCHAR(50),
+    --totalseats INT DEFAULT 0 NOT NULL,
+    uppers INT DEFAULT 0 NOT NULL,
+    lowers INT DEFAULT 0 NOT NULL,
+    --middles INT DEFAULT 0 NOT NULL,
+    sideuppers INT DEFAULT 0 NOT NULL,
+    sidelowers INT DEFAULT 0 NOT NULL,
+    FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
+);
 
 -- Create secondClass Table To Store Information of available seats
 -- of Second Class
@@ -77,12 +87,32 @@ CREATE TABLE secondClass (
     sidelowers INT DEFAULT 0 NOT NULL,
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
+CREATE TABLE secondClasscancel (
+    trainNum VARCHAR(50),
+    --totalseats INT DEFAULT 0 NOT NULL,
+    uppers INT DEFAULT 0 NOT NULL,
+    lowers INT DEFAULT 0 NOT NULL,
+    --middles INT DEFAULT 0 NOT NULL,
+    sideuppers INT DEFAULT 0 NOT NULL,
+    sidelowers INT DEFAULT 0 NOT NULL,
+    FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
+);
 
 -- Create sleeperClass Table To Store Information of available seats
 -- of Sleeper Class
 CREATE TABLE sleeperClass (
     trainNum VARCHAR(50) PRIMARY KEY,
     totalseats INT DEFAULT 0 NOT NULL,
+    uppers INT DEFAULT 0 NOT NULL,
+    lowers INT DEFAULT 0 NOT NULL,
+    middles INT DEFAULT 0 NOT NULL,
+    sideuppers INT DEFAULT 0 NOT NULL,
+    sidelowers INT DEFAULT 0 NOT NULL,
+    FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
+);
+CREATE TABLE sleeperClasscancel (
+    trainNum VARCHAR(50),
+    --totalseats INT DEFAULT 0 NOT NULL,
     uppers INT DEFAULT 0 NOT NULL,
     lowers INT DEFAULT 0 NOT NULL,
     middles INT DEFAULT 0 NOT NULL,
