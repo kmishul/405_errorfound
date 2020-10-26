@@ -7,6 +7,7 @@
 package Admin;
 import Req_Res.Req_Res;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,18 +16,22 @@ import javax.swing.JOptionPane;
  * @author kmish
  */
 public class RemoveTrain extends javax.swing.JFrame {
-    public String tnum;
-    /** Creates new form RemoveTrain */
-    public RemoveTrain() {
-        initComponents();
+     private final Req_Res rr;
+     private final String adminid;
+//    public String tnum;
+//    /** Creates new form RemoveTrain */
+    public RemoveTrain(Req_Res rr,String adminid) {
+       initComponents();
+       this.rr=rr;
+       this.adminid=adminid;
     }
-    public RemoveTrain (String tnum){
-        this.tnum=tnum;
-        
-    }
-    public void setremTrNo(String tnum){
-        this.tnum=tnum;
-    }
+//    public RemoveTrain (String tnum){
+//        this.tnum=tnum;
+//        
+//    }
+//    public void setremTrNo(String tnum){
+//        this.tnum=tnum;
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -101,17 +106,20 @@ public class RemoveTrain extends javax.swing.JFrame {
         if(verifyRemTrNo()){
             try{
                 String tNum=RemovetrainTF.getText();
-                Req_Res remtr=new Req_Res();
-                RemoveTrain train= new RemoveTrain(tNum);
-                String Res=remtr.removeTrain(train);
-                if(Res.equals("removetrainvalid")){
-                    JOptionPane.showMessageDialog(this, "train removed successfully");
-                    this.dispose();
-                }
-                else{
+                //Req_Res remtr=new Req_Res();
+                ViewTrain train= new ViewTrain();
+                train.settrainNum(tNum);
+                rr.removeTrain(train);
+                ObjectInputStream ois=rr.getObjectInputStream();
+                String Res=(String) ois.readObject();
+//                if(Res.equals("removetrainvalid")){
+//                    JOptionPane.showMessageDialog(this, "train removed successfully");
+//                    this.dispose();
+                //}
+                //else{
                     JOptionPane.showMessageDialog(this, Res);
                     System.out.println("\n"+Res);
-                }
+                //}
             } catch (IOException ex) {
                 Logger.getLogger(RemoveTrain.class.getName()).log(Level.SEVERE, null, ex);
             }catch(Exception e){
@@ -134,37 +142,37 @@ public class RemoveTrain extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RemoveTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RemoveTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RemoveTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RemoveTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RemoveTrain().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(RemoveTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(RemoveTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(RemoveTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(RemoveTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new RemoveTrain().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton RemoveTrainBT;
