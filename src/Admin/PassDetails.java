@@ -47,14 +47,14 @@ private DefaultTableModel model1;
 
             },
             new String [] {
-                "Train Num", "UserID", "Class", "Seat No.", "TicketId", "Name", "Age", "Gender", "Travell Date"
+                "Train Num", "UserID", "Class", "Berth", "Seat No.", "TicketId", "Name", "Age", "Gender", "Travel Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -137,6 +137,7 @@ private DefaultTableModel model1;
                                     p.gettrainNum(),
                                     p.getuserId(),
                                     p.getpassclass(),
+                                    p.getberth(),
                                     p.getseatno(),
                                     p.getticketid(),
                                     p.getfname()+p.getlname(),

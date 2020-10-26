@@ -264,10 +264,16 @@ public class ReserveSeats extends javax.swing.JFrame {
         String fname=PassengerAgeTF.getText();
         String lname=passLname.getText();
         int age=Integer.parseInt(PassengerNameTF.getText());
+        String Class=(String) ClassCB.getSelectedItem();
+            String Berth=(String) BerthPrefCB.getSelectedItem();
         Date date=ReserveDateDC.getDate();
         if(trainno.trim().equals("")||fname.trim().equals("")||lname.trim().equals("")||date.equals("")){
-            JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty","Empty Fields",2);
-            return true;
+            JOptionPane.showMessageDialog(this, "One Or More Fields Are Empty","Empty Fields",2);
+            return false;
+        }
+        if((Class.equalsIgnoreCase("First AC") || Class.equalsIgnoreCase("Second AC")) && Berth.equalsIgnoreCase("Middle")){
+            JOptionPane.showMessageDialog(this, "Middle Berth Doesn't exist in First and Second AC ..Try other Birth\n");
+            return false;
         }
         else{
             return true;

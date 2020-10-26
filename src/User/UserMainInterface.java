@@ -62,7 +62,7 @@ public class UserMainInterface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(545, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,7 +71,7 @@ public class UserMainInterface extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(58, 58, 58)
                 .addComponent(jButton2)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
 
         pack();
