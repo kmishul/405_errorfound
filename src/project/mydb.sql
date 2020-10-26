@@ -99,6 +99,7 @@ CREATE TABLE passengerdetail (
     trainNum VARCHAR(10) NOT NULL,
     userId VARCHAR(50) NOT NULL,
     passclass VARCHAR(20) NOT NULL,
+    berth VARCHAR(20) NOT NULL,
     passseatNo INT DEFAULT 0 NOT NULL,
     passengerTicketId VARCHAR(70) NOT NULL PRIMARY KEY,
     passengerFirstName VARCHAR(50) NOT NULL,
@@ -106,6 +107,7 @@ CREATE TABLE passengerdetail (
     passengerAge INT NOT NULL,
     passengergender VARCHAR(10) NOT NULL,
     travdate DATE NOT NULL,
+    
     FOREIGN KEY(userId) REFERENCES userlogin(userId),
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );

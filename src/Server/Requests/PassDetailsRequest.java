@@ -39,6 +39,7 @@ public class PassDetailsRequest {
                 p.settrainNum(rs.getString("trainNum"));
                 p.setuserId(rs.getString("userId"));
                 p.setpassclass(rs.getString("passclass"));
+                p.setberth(rs.getString("berth"));
                 p.setseatno(rs.getInt("passseatNo"));
                 p.setticketid(rs.getString("passengerTicketId"));
                 p.setfname(rs.getString("passengerFirstName"));

@@ -157,10 +157,12 @@ public class ClientHandler implements Runnable,Serializable{
                 boolean b=rss.bookticket(this.getUserMainID());
                if(b){ System.out.println("9\n");
                     OOS.writeObject("valid");
+                    OOS.flush();
                     System.out.println("seat booked\n");
                 }
                 else{
                     OOS.writeObject("Sorry ! Not Available");
+                    OOS.flush();
                     System.out.println("Sorry ! Not Available\n");
                 }
             }
