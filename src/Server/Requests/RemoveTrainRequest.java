@@ -49,9 +49,9 @@ public class RemoveTrainRequest {
                     st2.setString(1, tnum);
                     st3=con.prepareStatement("DELETE FROM `sleeperclass` WHERE trainNum=?");
                     st3.setString(1, tnum);
-                    st4=con.prepareStatement("DELETE FROM `passengerdetail` WHERE trainNum=?");
-                    st4.setString(1, tnum);
-                    st4.execute();
+//                    st4=con.prepareStatement("DELETE FROM `passengerdetail` WHERE trainNum=?");
+//                    st4.setString(1, tnum);
+//                    st4.execute();
                     st3.execute();
                     st2.execute();
                     st5.execute();

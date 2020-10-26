@@ -78,7 +78,7 @@ public class ReserveSeatsRequest {
             java.util.Date utilObj = date;
             java.sql.Date sqlObj = new java.sql.Date(utilObj.getTime());
             
-            String query2="INSERT INTO `passengerdetail`(`trainNum`, `userId`, `passclass`, `passseatNo`, `passengerTicketId`, `passengerFirstName`, `passengerLastName`, `passengerAge`, `passengergender`, `travdate`) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            String query2="INSERT INTO `passengerdetail`(`trainNum`, `userId`, `passclass`,`berth`,`passseatNo`, `passengerTicketId`, `passengerFirstName`, `passengerLastName`, `passengerAge`, `passengergender`, `travdate`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             st=con.prepareStatement(query2);
             st.setString(1,trainNum);
             st.setString(2,userid);
