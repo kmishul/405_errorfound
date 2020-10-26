@@ -132,6 +132,12 @@ public class Req_Res implements Serializable{
        DOS1.writeUTF("View Trains");
        
     }
+     public void cancelbooking(String pnr) throws IOException{
+    
+       DOS1.writeUTF("Cancel Booking");
+        DOS1.writeUTF(pnr);
+       
+    }
     public void passDetails() throws IOException{
     
        DOS1.writeUTF("Pass Details");
@@ -148,6 +154,12 @@ public class Req_Res implements Serializable{
        DOS1.writeUTF("Travel Info");
        DOS1.flush();
        System.out.println("travel method after\n");
+    }
+    public void tickets() throws IOException{
+    
+                
+       DOS1.writeUTF("Tickets");
+       DOS1.flush();
     }
     public void searchtrain(String s1,String s2) throws IOException, ClassNotFoundException{
         DOS1.writeUTF("Search Train");

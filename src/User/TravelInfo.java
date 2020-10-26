@@ -62,14 +62,14 @@ private DefaultTableModel model1;
 
             },
             new String [] {
-                "Ticket ID", "Passenger Name", "Train Num", "Train Name", "Class", "Seat No.", "Date"
+                "Ticket ID", "Passenger Name", "Train Num", "Train Name", "Class", "Berth", "Seat No.", "Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, true, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -146,21 +146,21 @@ private DefaultTableModel model1;
                 
                 if(Res.equals("valid")){
                     ArrayList<PassDetail> pd = new ArrayList<PassDetail>();
-                    //ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
+                    ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
                     pd=(ArrayList<PassDetail>) ois.readObject();
-                    //vt=(ArrayList<ViewTrain>) ois.readObject();
+                    vt=(ArrayList<ViewTrain>) ois.readObject();
                     for(int i=0;i<pd.size();i++)
                     {
                            PassDetail p=pd.get(i);
-                       //    ViewTrain v=vt.get(i);
+                           ViewTrain v=vt.get(i);
                            
                     model1.insertRow(tbl1.getRowCount(), new Object[]{
                     p.getticketid(),
                     p.getfname()+" "+p.getlname(),
                     p.gettrainNum(),
-                   // v.gettrainName(),
-                    "hello",
+                    v.gettrainName(),
                     p.getpassclass(),
+                    p.getberth(),
                     p.getseatno(),
                     p.getdate()
                 
