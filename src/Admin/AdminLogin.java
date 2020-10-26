@@ -141,7 +141,7 @@ public class AdminLogin extends javax.swing.JFrame {
             adminpass = AdminpassTF.getText();
             try{
                 Req_Res res=new Req_Res();
-                AdminLogin admin=new AdminLogin(adminid,adminpass);
+                Admindetail admin=new Admindetail(adminid,adminpass);
                 String Res=res.sendAdminLogin(admin);
                 if(Res.equals("validlogindetailsforadmin")){
                     JOptionPane.showMessageDialog(this,"Successful Admin Login");

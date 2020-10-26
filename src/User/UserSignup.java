@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author kmish
  */
 public class UserSignup extends javax.swing.JFrame{
-    public String UserId,Firstname,Lastname,emailid,password,contact,gender;
+    //public String UserId,Firstname,Lastname,emailid,password,contact,gender;
   
     /**
      * Creates new form UserSignup
@@ -29,36 +29,36 @@ public class UserSignup extends javax.swing.JFrame{
     public UserSignup() {
         initComponents();
     }
-    public UserSignup(String UserId,String Firstname,String Lastname,String emailid,String password,String contact,String gender) throws Exception{
-        this.UserId = UserId;
-        this.Firstname=Firstname;
-        this.Lastname=Lastname;
-        this.emailid=emailid;
-        this.password=password;
-        this.contact=contact;
-        this.gender=gender;
-    }
-    public void setuserid(String UserId){
-        this.UserId=UserId;
-    }
-    public void setfirstname(String Firstname){
-        this.Firstname=Firstname;
-    }
-    public void setlastname(String Lastname){
-        this.Lastname=Lastname;
-    }
-    public void setemailid(String emailid){
-        this.emailid=emailid;
-    }
-    public void setpassword(String password){
-        this.password=password;
-    }
-    public void setcontact(String contact){
-        this.contact=contact;
-    }
-    public void setgender(String gender){
-        this.gender=gender;
-    }
+//    public UserSignup(String UserId,String Firstname,String Lastname,String emailid,String password,String contact,String gender) throws Exception{
+//        this.UserId = UserId;
+//        this.Firstname=Firstname;
+//        this.Lastname=Lastname;
+//        this.emailid=emailid;
+//        this.password=password;
+//        this.contact=contact;
+//        this.gender=gender;
+//    }
+//    public void setuserid(String UserId){
+//        this.UserId=UserId;
+//    }
+//    public void setfirstname(String Firstname){
+//        this.Firstname=Firstname;
+//    }
+//    public void setlastname(String Lastname){
+//        this.Lastname=Lastname;
+//    }
+//    public void setemailid(String emailid){
+//        this.emailid=emailid;
+//    }
+//    public void setpassword(String password){
+//        this.password=password;
+//    }
+//    public void setcontact(String contact){
+//        this.contact=contact;
+//    }
+//    public void setgender(String gender){
+//        this.gender=gender;
+//    }
     
     //Socket socket=new Socket(Ip,PORT);
 
@@ -244,7 +244,7 @@ public class UserSignup extends javax.swing.JFrame{
             String gender = gendercmb.getSelectedItem().toString();
             try {
                 Req_Res res=new Req_Res();
-                UserSignup user=new UserSignup(uname,fname,lname,email,pass1,phone,gender);
+                UserDetail user=new UserDetail(uname,fname,lname,email,pass1,phone,gender);
                 String Res=res.sendUserSignup(user);
                 System.out.println(Res+"1\n");
                 if(Res.equals("valid")){
