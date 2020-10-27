@@ -14,6 +14,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -44,8 +46,27 @@ public class AddTrainRequest {
         faresc=train.getfee2();
         fareslc=train.getfee3();
     }
+    
+    public ArrayList<Date> getDates(String rundays){
+    ArrayList<Date> dates=new ArrayList();
+    int i,arr[]=new int[7];
+    if(rundays.charAt(6)=='1') arr[0]=1;
+    else arr[0]=0;
+    for(i=0;i<6;i++)
+        if(rundays.charAt(i)=='1') arr[++i]=1;
+        else arr[++i]=0;
+    
+    for(i=0;i<30;i++)
+    {   Date date=java.sql.Date.valueOf(java.time.LocalDate.now().plusDays(i));
+         if(arr[date.getDay()]==1)
+             dates.add(date);
+    }
+    
+    
+    return dates;
+    }
     public boolean addtrain() throws SQLException{
-        System.out.println("Recieving Train details");
+        System.out.println("Receiving Train details");
         System.out.println(tnum+tname+startstn+stopstn+starttm+stoptm+NOSfc+NOSsc+NOSslc+farefc+faresc+fareslc+days);
         try{
         if(!checktrainname(tname)){
@@ -62,18 +83,28 @@ public class AddTrainRequest {
             st.setInt(9,fareslc);
             st.setString(10,days);
             st.execute();
-            stt=con.prepareStatement("INSERT INTO firstclass(`trainNum`, `totalseats`) VALUES (?,?)");
+            
+            ArrayList<Date> dates=getDates(days);
+            
+            for(int i=0;i<dates.size();i++){
+               java.util.Date utilObj = dates.get(i);
+            java.sql.Date sqldate = new java.sql.Date(utilObj.getTime());
+            stt=con.prepareStatement("INSERT INTO firstClass(`trainNum`, `totalseats`,`rundate`) VALUES (?,?,?)");
             stt.setString(1,tnum);
             stt.setInt(2,NOSfc);
+            stt.setDate(3,sqldate);
             stt.execute();
-            sttt=con.prepareStatement("INSERT INTO secondclass(`trainNum`, `totalseats`) VALUES (?,?)");
+            sttt=con.prepareStatement("INSERT INTO secondClass(`trainNum`, `totalseats`,`rundate`) VALUES (?,?,?)");
             sttt.setString(1,tnum);
             sttt.setInt(2,NOSsc);
+            sttt.setDate(3,sqldate);
             sttt.execute();
-            stttt=con.prepareStatement("INSERT INTO sleeperclass(`trainNum`, `totalseats`) VALUES (?,?)");
+            stttt=con.prepareStatement("INSERT INTO sleeperClass(`trainNum`, `totalseats`,`rundate`) VALUES (?,?,?)");
             stttt.setString(1,tnum);
             stttt.setInt(2,NOSslc);
+            stttt.setDate(3,sqldate);
             stttt.execute();
+            }
             System.out.println("after execution\n");
             return true;
         }

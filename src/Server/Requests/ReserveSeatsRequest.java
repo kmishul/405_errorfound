@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.sql.ResultSet;
+import java.text.DateFormat;
 
 /**
  *
@@ -29,7 +30,7 @@ public class ReserveSeatsRequest {
      public Date date;
      PassDetail pass;
      String dbpassclass;
-    
+    java.sql.Date sqldate;
     //To initialize datamembers
      public ReserveSeatsRequest(PassDetail pass) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
@@ -45,6 +46,8 @@ public class ReserveSeatsRequest {
         this.seatno = pass.seatno;
         this.age = pass.age;
         this.date = pass.date;
+        java.util.Date utilObj = date;
+            sqldate = new java.sql.Date(utilObj.getTime());
         
     }
     
@@ -73,14 +76,16 @@ public class ReserveSeatsRequest {
     {   //int remaining=0;
         String query="";
             if(passclass.equalsIgnoreCase("First AC"))
-            query="SELECT * FROM firstClasscancel WHERE berth=? trainNum='"+(trainNum)+"';";
+            query="SELECT * FROM firstClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Second AC"))
-            query="SELECT * FROM secondClasscancel WHERE berth=? trainNum='"+(trainNum)+"';";
+            query="SELECT * FROM secondClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Sleeper"))
-            query="SELECT * FROM sleeperClasscancel WHERE berth=? trainNum='"+(trainNum)+"';";
-                
+            query="SELECT * FROM sleeperClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
+               
+            
             st=con.prepareStatement(query);
             st.setString(1, berth);
+            st.setDate(2, sqldate);
             ResultSet rs=(ResultSet) st.executeQuery();
             if(rs.next()){
             int seat=rs.getInt("passseatno");
@@ -97,8 +102,6 @@ public class ReserveSeatsRequest {
             
             System.out.println("7\n");
             
-            java.util.Date utilObj = date;
-            java.sql.Date sqlObj = new java.sql.Date(utilObj.getTime());
             
             String query2="INSERT INTO `passengerdetail`(`trainNum`, `userId`, `passclass`,`berth`,`passseatNo`, `passengerTicketId`, `passengerFirstName`, `passengerLastName`, `passengerAge`, `passengergender`, `travdate`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             st=con.prepareStatement(query2);
@@ -112,7 +115,7 @@ public class ReserveSeatsRequest {
             st.setString(8,lname);
             st.setInt(9,age);
             st.setString(10,gender);
-            st.setDate(11,sqlObj);
+            st.setDate(11,sqldate);
             st.execute();
             System.out.println("8\n");
             check++;
@@ -127,6 +130,7 @@ public class ReserveSeatsRequest {
     public boolean bookSeat(ResultSet rs,String berth,String userid) throws SQLException
     {   int seatno,bookedseats,n,nos;
         String ticketid;
+        String d=Integer.toString(date.getDay())+Integer.toString(date.getMonth())+Integer.toString(date.getYear());
         if(passclass.equalsIgnoreCase("Sleeper")) nos=8;
         else nos=6;
         
@@ -137,16 +141,16 @@ public class ReserveSeatsRequest {
                 seatno=(n*nos)+(nos/2); 
             else seatno=(n*nos)+1;    
             
-            ticketid=userid+trainNum+passclass+Integer.toString(seatno);
-            
+            ticketid=userid+trainNum+dbpassclass.charAt(0)+dbpassclass.charAt(1)+Integer.toString(seatno)+d;
             String query1="";
             if(passclass.equalsIgnoreCase("First AC"))
-            query1="UPDATE firstClass SET lowers=lowers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE firstClass SET lowers=lowers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Second AC"))
-            query1="UPDATE secondClass SET lowers=lowers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE secondClass SET lowers=lowers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Sleeper"))
-            query1="UPDATE sleeperClass SET lowers=lowers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE sleeperClass SET lowers=lowers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             st=con.prepareStatement(query1);
+            st.setDate(1, sqldate);
             st.execute();
             return updateQueries(seatno,ticketid, userid);
         }
@@ -158,12 +162,13 @@ public class ReserveSeatsRequest {
                 seatno=(n*8)+5;
             else seatno=(n*8)+2;
             
-            ticketid=userid+trainNum+passclass+Integer.toString(seatno);
+           ticketid=userid+trainNum+dbpassclass.charAt(0)+dbpassclass.charAt(1)+Integer.toString(seatno)+d;
             
             String query1="";
             
-            query1="UPDATE sleeperClass SET middles=middles+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE sleeperClass SET middles=middles+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             st=con.prepareStatement(query1);
+            st.setDate(1, sqldate);
             st.execute();
             return updateQueries(seatno,ticketid, userid);
         }
@@ -175,16 +180,17 @@ public class ReserveSeatsRequest {
                 seatno=(n*nos)+nos-2;    
             else seatno=(n*nos)+((nos-2)/2); 
             
-            ticketid=userid+trainNum+passclass+Integer.toString(seatno);
+            ticketid=userid+trainNum+dbpassclass.charAt(0)+dbpassclass.charAt(1)+Integer.toString(seatno)+d;
             
             String query1="";
             if(passclass.equalsIgnoreCase("First AC"))
-            query1="UPDATE firstClass SET uppers=uppers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE firstClass SET uppers=uppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Second AC"))
-            query1="UPDATE secondClass SET uppers=uppers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE secondClass SET uppers=uppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Sleeper"))
-            query1="UPDATE sleeperClass SET uppers=uppers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE sleeperClass SET uppers=uppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             st=con.prepareStatement(query1);
+            st.setDate(1, sqldate);
             st.execute();
             return updateQueries(seatno,ticketid, userid);
         }
@@ -194,16 +200,17 @@ public class ReserveSeatsRequest {
             n=bookedseats;
             seatno=(n*nos)+nos-1;
             
-            ticketid=userid+trainNum+passclass+Integer.toString(seatno);
+            ticketid=userid+trainNum+dbpassclass.charAt(0)+dbpassclass.charAt(1)+Integer.toString(seatno)+d;
             
             String query1="";
             if(passclass.equalsIgnoreCase("First AC"))
-            query1="UPDATE firstClass SET sidelowers=sidelowers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE firstClass SET sidelowers=sidelowers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Second AC"))
-            query1="UPDATE secondClass SET sidelowers=sidelowers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE secondClass SET sidelowers=sidelowers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Sleeper"))
-            query1="UPDATE sleeperClass SET sidelowers=sidelowers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE sleeperClass SET sidelowers=sidelowers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             st=con.prepareStatement(query1);
+            st.setDate(1, sqldate);
             st.execute();
             return updateQueries(seatno,ticketid, userid);
         }
@@ -213,16 +220,17 @@ public class ReserveSeatsRequest {
             n=bookedseats;
             seatno=(n*nos)+nos;
             
-            ticketid=userid+trainNum+dbpassclass+Integer.toString(seatno);
+            ticketid=userid+trainNum+dbpassclass.charAt(0)+dbpassclass.charAt(1)+Integer.toString(seatno)+d;
             
             String query1="";
             if(passclass.equalsIgnoreCase("First AC"))
-            query1="UPDATE firstClass SET sideuppers=sideuppers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE firstClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Second AC"))
-            query1="UPDATE secondClass SET sideuppers=sideuppers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE secondClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Sleeper"))
-            query1="UPDATE sleeperClass SET sideuppers=sideuppers+1 WHERE trainNum='"+(trainNum)+"';";
+            query1="UPDATE sleeperClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             st=con.prepareStatement(query1);
+            st.setDate(1, sqldate);
             st.execute();
             return updateQueries(seatno,ticketid, userid);
         }
@@ -232,8 +240,9 @@ public class ReserveSeatsRequest {
     
     //To book seat from cancelledseats
     public boolean bookSeatfromcancelled(int seatno,String berth,String userid) throws SQLException
-    {
-        ticketid=userid+trainNum+dbpassclass+Integer.toString(seatno);
+    {   
+        String d=Integer.toString(date.getDay())+Integer.toString(date.getMonth())+Integer.toString(date.getYear());
+        ticketid=userid+trainNum+dbpassclass.charAt(0)+dbpassclass.charAt(1)+Integer.toString(seatno)+d;
         return updateQueries(seatno,ticketid, userid);
         
     }
@@ -252,14 +261,15 @@ public class ReserveSeatsRequest {
             System.out.println("3\n");
             String q1="";
             if(passclass.equalsIgnoreCase("First AC"))
-           { q1="SELECT * FROM firstClass WHERE trainNum=?"; dbpassclass="firstClass";}
+           { q1="SELECT * FROM firstClass WHERE trainNum=? AND rundate=?"; dbpassclass="firstClass";}
             else if(passclass.equalsIgnoreCase("Second AC"))
-            {q1="SELECT * FROM secondClass WHERE trainNum=?";dbpassclass="secondClass";}
+            {q1="SELECT * FROM secondClass WHERE trainNum=? AND rundate=?";dbpassclass="secondClass";}
             else if(passclass.equalsIgnoreCase("Sleeper"))
-            { q1="SELECT * FROM sleeperClass WHERE trainNum=?";dbpassclass="sleeperClass";}
+            { q1="SELECT * FROM sleeperClass WHERE trainNum=? AND rundate=?";dbpassclass="sleeperClass";}
             
             st=con.prepareStatement(q1);
            st.setString(1, tnum);
+           st.setDate(2, sqldate);
             ResultSet rs=(ResultSet) st.executeQuery();
             if(rs.next()){
             System.out.println("4\n");

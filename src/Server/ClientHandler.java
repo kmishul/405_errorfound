@@ -28,6 +28,7 @@ import Server.Requests.ReserveSeatsRequest;
 import Server.Requests.SearchTrainRequest;
 import Server.Requests.SeatsAvailRequest;
 import Server.Requests.TicketsRequest;
+import Server.Requests.TrainStatusRequest;
 import Server.Requests.TravelInfoRequest;
 import User.UserDetail;
 import User.UserLogin;
@@ -136,11 +137,11 @@ public class ClientHandler implements Runnable,Serializable{
                 ViewTrain train=(ViewTrain)OIS.readObject();
                 AddTrainRequest trainn=new AddTrainRequest(train);
                 if(trainn.addtrain()){
-                    DOS.writeUTF("valid");
+                    OOS.writeObject("valid");
                     System.out.println("valid check\n");
                 }
                 else{
-                    DOS.writeUTF("Error:this train num already exist");
+                    OOS.writeObject("Error:this train num already exist");
                     System.out.println("unvalid check\n");
                 }
             }
@@ -159,19 +160,41 @@ public class ClientHandler implements Runnable,Serializable{
             if(request.equals("Reserve Seat")){
                 System.out.println("1\n");
                 PassDetail pass=(PassDetail)OIS.readObject();
-                ReserveSeatsRequest rss=new ReserveSeatsRequest(pass);
-                boolean b=rss.bookticket(this.getUserMainID());
-               if(b){ System.out.println("9\n");
+                TrainStatusRequest tss=new TrainStatusRequest(pass);
+                int check=tss.getTrainStatus();
+                
+                if(check==0)
+                {
+                    OOS.writeObject("Sorry ! Train is Cancelled");
+                    OOS.flush();
+                    
+                }
+                else if(check==2)
+                {
+                    OOS.writeObject("Sorry ! Train is not available on this day");
+                    OOS.flush();
+                    
+                }
+                else if(check==1){
+                    ReserveSeatsRequest rss=new ReserveSeatsRequest(pass);
+                    boolean b=rss.bookticket(this.getUserMainID());
+                    if(b){ System.out.println("9\n");
                     OOS.writeObject("valid");
                     OOS.flush();
                     System.out.println("seat booked\n");
-                }
-                else{
-                    OOS.writeObject("Sorry ! Not Available");
+                    }
+                    else{
+                    OOS.writeObject("Sorry ! Seats not Available");
                     OOS.flush();
-                    System.out.println("Sorry ! Not Available\n");
+                    System.out.println("Seats ! Not Available\n");
+                    }
+                    }
                 }
-            }
+                else {
+                    OOS.writeObject("Train does not exist !");
+                    OOS.flush();
+                }
+            
             if(request.equals("Uncancel Train")){
                 ViewTrain train=(ViewTrain)OIS.readObject();
                 CancelTrainRequest trainn=new CancelTrainRequest(train);

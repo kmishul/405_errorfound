@@ -42,7 +42,7 @@ public class ViewTrainsRequest implements Serializable {
             while(rs.next()){
                 ViewTrain v=new ViewTrain();
                 String status,d1,days="";
-                if(rs.getInt("cancel")==0)
+                if(rs.getInt("cancel")==1)
                 status="Cancelled";
                 else status="Running";
                 
