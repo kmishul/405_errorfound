@@ -9,6 +9,7 @@ import Admin.AdminLogin;
 import Server.Requests.AdminLoginRequest;
 import Server.Requests.UserLoginRequest;
 import Admin.AddTrain;
+import Admin.Admindetail;
 import Admin.CancelTrain;
 import Admin.PassDetail;
 import Admin.PassDetails;
@@ -21,6 +22,7 @@ import Server.Requests.UserSignupRequest;
 import Server.Requests.ViewTrainsRequest;
 import Server.Requests.CancelTrainRequest;
 import Server.Requests.RemoveTrainRequest;
+import Server.Requests.RerouteTrainRequest;
 import Server.Requests.ReserveSeatsRequest;
 import Server.Requests.SearchTrainRequest;
 import Server.Requests.TravelInfoRequest;
@@ -86,7 +88,7 @@ public class ClientHandler implements Runnable,Serializable{
                 System.out.println("\n doubt clear");
             
                 if(request.equals("User SignUp")){
-                UserSignup user=(UserSignup)OIS.readObject();
+                UserDetail user=(UserDetail)OIS.readObject();
                 //String userid=user.UserId;
                 UserSignupRequest userr=new UserSignupRequest(user);
                 if(userr.adduser()){
@@ -116,7 +118,7 @@ public class ClientHandler implements Runnable,Serializable{
             }
             if(request.equals("Admin Login")) {
                 System.out.println("reached client handler for adminlogin");
-                AdminLogin adminl=(AdminLogin)OIS.readObject();
+                Admindetail adminl=(Admindetail)OIS.readObject();
                 AdminLoginRequest userlr=new AdminLoginRequest(adminl);
                 if(userlr.checkadminlogininfo()){
                     DOS.writeUTF("validlogindetailsforadmin");
@@ -140,7 +142,7 @@ public class ClientHandler implements Runnable,Serializable{
                 }
             }
             if(request.equals("Cancel Train")){
-                CancelTrain train=(CancelTrain)OIS.readObject();
+                ViewTrain train=(ViewTrain)OIS.readObject();
                 CancelTrainRequest trainn=new CancelTrainRequest(train);
                 if(trainn.canceltrain()){
                     DOS.writeUTF("valid");
@@ -168,7 +170,7 @@ public class ClientHandler implements Runnable,Serializable{
                 }
             }
             if(request.equals("Uncancel Train")){
-                CancelTrain train=(CancelTrain)OIS.readObject();
+                ViewTrain train=(ViewTrain)OIS.readObject();
                 CancelTrainRequest trainn=new CancelTrainRequest(train);
                 if(trainn.uncanceltrain()){
                     DOS.writeUTF("valid");
@@ -291,6 +293,18 @@ public class ClientHandler implements Runnable,Serializable{
                 else{
                     OOS.writeObject("Error:Wrong Credentials");
                 }
+            }
+            if(request.equals("Reroute Train")){
+                ViewTrain train=(ViewTrain) OIS.readObject();
+                RerouteTrainRequest rer=new RerouteTrainRequest();
+                if(rer.reroute(train)){
+                    System.out.println("valid");
+                    OOS.writeObject("valid");
+                }
+                else{
+                    OOS.writeObject("Train number does not exist");
+                }
+                    
             }
         }
         }catch (IOException ex) {

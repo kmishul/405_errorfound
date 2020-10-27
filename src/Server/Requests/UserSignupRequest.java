@@ -7,6 +7,7 @@ package Server.Requests;
 
 import Server.DBConnect;
 import Server.Server;
+import User.UserDetail;
 import User.UserSignup;
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -25,13 +26,13 @@ public class UserSignupRequest{
     private static Statement stmt;
     private PreparedStatement st;
     String userid,fname,lname,emailid,pass,contact,gender;
-    public UserSignupRequest(UserSignup user) throws SQLException{
+    public UserSignupRequest(UserDetail user) throws SQLException{
         this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
-        userid=user.UserId;
-        fname=user.Firstname;
-        lname=user.Lastname;
+        userid=user.userid;
+        fname=user.fname;
+        lname=user.lname;
         emailid=user.emailid;
-        pass=user.password;
+        pass=user.pass;
         contact=user.contact;
         gender=user.gender;
     }

@@ -6,6 +6,7 @@
 package Server.Requests;
 
 import Admin.AdminLogin;
+import Admin.Admindetail;
 import User.UserLogin;
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -24,7 +25,7 @@ public class AdminLoginRequest {
     private static Statement stmt;
     private PreparedStatement st;
     String Adminid, Adminpass;
-    public AdminLoginRequest(AdminLogin adminl) throws SQLException{
+    public AdminLoginRequest(Admindetail adminl) throws SQLException{
         this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         Adminid=adminl.adminid;
         Adminpass=adminl.adminpass;
