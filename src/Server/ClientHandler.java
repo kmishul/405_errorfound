@@ -25,6 +25,7 @@ import Server.Requests.RemoveTrainRequest;
 import Server.Requests.RerouteTrainRequest;
 import Server.Requests.ReserveSeatsRequest;
 import Server.Requests.SearchTrainRequest;
+import Server.Requests.TicketsRequest;
 import Server.Requests.TravelInfoRequest;
 import User.UserDetail;
 import User.UserLogin;
@@ -266,11 +267,37 @@ public class ClientHandler implements Runnable,Serializable{
                     ArrayList<PassDetail> pd;
                     pd=(ArrayList<PassDetail>)t.getPassList();
                    
-                   // ArrayList<ViewTrain> vt;
-                    //vt=(ArrayList<ViewTrain>)t.getTrainList();
+                    ArrayList<ViewTrain> vt;
+                    vt=(ArrayList<ViewTrain>)t.getTrainList();
                     OOS.writeObject("valid");
                     OOS.writeObject(pd);
-                  //  OOS.writeObject(vt);
+                    OOS.writeObject(vt);
+                    OOS.flush();
+                    System.out.println("last check\n");
+                
+                }
+            
+            else {
+                OOS.writeObject("Invalid");
+                OOS.flush();
+                    System.out.println("Invalid\n");
+                }
+            }
+            
+            if(request.equals("Tickets"))
+            {  
+                TicketsRequest t=new TicketsRequest();
+                String res=t.getTickets(this.getUserMainID());
+                if(res.equalsIgnoreCase("valid"))
+                {
+                    ArrayList<PassDetail> pd;
+                    pd=(ArrayList<PassDetail>)t.getPassList();
+                   
+                    ArrayList<ViewTrain> vt;
+                    vt=(ArrayList<ViewTrain>)t.getTrainList();
+                    OOS.writeObject("valid");
+                    OOS.writeObject(pd);
+                    OOS.writeObject(vt);
                     OOS.flush();
                     System.out.println("last check\n");
                 
