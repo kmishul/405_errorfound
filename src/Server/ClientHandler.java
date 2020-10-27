@@ -15,6 +15,7 @@ import Admin.PassDetail;
 import Admin.PassDetails;
 import Admin.ViewTrain;
 import Admin.RemoveTrain;
+import Server.Requests.AddCoachesRequest;
 import Server.Requests.AddTrainRequest;
 import Server.Requests.CancelBooking;
 import Server.Requests.PassDetailsRequest;
@@ -25,6 +26,7 @@ import Server.Requests.RemoveTrainRequest;
 import Server.Requests.RerouteTrainRequest;
 import Server.Requests.ReserveSeatsRequest;
 import Server.Requests.SearchTrainRequest;
+import Server.Requests.SeatsAvailRequest;
 import Server.Requests.TicketsRequest;
 import Server.Requests.TravelInfoRequest;
 import User.UserDetail;
@@ -332,6 +334,56 @@ public class ClientHandler implements Runnable,Serializable{
                     OOS.writeObject("Train number does not exist");
                 }
                     
+            }
+            if(request.equals("Add FC")){
+                AddCoachesRequest add=new AddCoachesRequest();
+                ViewTrain train=(ViewTrain) OIS.readObject();
+                if(add.addfc(train)){
+                    OOS.writeObject("valid");
+                }
+                else{
+                    OOS.writeObject("Train does not exist");
+                    System.out.println("error2");
+                }
+            }
+            if(request.equals("Add SC")){
+                AddCoachesRequest add=new AddCoachesRequest();
+                ViewTrain train=(ViewTrain) OIS.readObject();
+                if(add.addsc(train)){
+                    OOS.writeObject("valid");
+                }
+                else{
+                    OOS.writeObject("Train does not exist");
+                    System.out.println("error2");
+                }
+            }
+            if(request.equals("Add SLC")){
+                AddCoachesRequest add=new AddCoachesRequest();
+                ViewTrain train=(ViewTrain) OIS.readObject();
+                if(add.addslc(train)){
+                    OOS.writeObject("valid");
+                }
+                else{
+                    OOS.writeObject("Train does not exist");
+                    System.out.println("error2");
+                }
+            }
+            if(request.equals("Seat Avail")){
+                String tnum=DIS.readUTF();
+                SeatsAvailRequest av=new SeatsAvailRequest();
+                if(av.checktrainname(tnum)){
+                    int fc=av.getseatsfc(tnum);
+                    int sc=av.getseatssc(tnum);
+                    int slc=av.getseatsslc(tnum);
+                    OOS.writeObject("valid");
+                    OOS.writeObject(fc);
+                    OOS.writeObject(sc);
+                    OOS.writeObject(slc);
+                }
+                else{
+                    OOS.writeObject("Train Numbwer does not exist");
+                    System.out.println("No Train");
+                }
             }
         }
         }catch (IOException ex) {
