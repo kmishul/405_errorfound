@@ -94,10 +94,10 @@ public class Req_Res implements Serializable{
         System.out.println(s+"  :this is s");
         return s;
     }
-    public String addtrain(ViewTrain train) throws IOException{
+    public String addtrain(ViewTrain train) throws IOException, ClassNotFoundException{
         DOS1.writeUTF("Add Train");
         OOS1.writeObject(train);
-        s=DIS1.readUTF();
+        s=(String) OIS1.readObject();
         System.out.println(s);
         return s;
     }

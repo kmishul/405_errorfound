@@ -400,6 +400,8 @@ public class AddTrain extends javax.swing.JFrame {
             }catch(HeadlessException e){
                 System.out.println(e);
                 System.out.println("error");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AddTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnaddtrainActionPerformed

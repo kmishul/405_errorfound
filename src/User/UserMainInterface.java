@@ -157,9 +157,6 @@ public class UserMainInterface extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-         new Tickets(rr,userid).show();
-    }                                        
-
         new SearchTrain(rr, userid).show();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -171,7 +168,8 @@ public class UserMainInterface extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        
+         new Tickets(rr,userid).show();
+    
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
