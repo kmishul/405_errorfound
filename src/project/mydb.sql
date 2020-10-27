@@ -66,12 +66,8 @@ CREATE TABLE firstClass (
 );
 CREATE TABLE firstClasscancel (
     trainNum VARCHAR(50),
-    --totalseats INT DEFAULT 0 NOT NULL,
-    uppers INT DEFAULT 0 NOT NULL,
-    lowers INT DEFAULT 0 NOT NULL,
-    --middles INT DEFAULT 0 NOT NULL,
-    sideuppers INT DEFAULT 0 NOT NULL,
-    sidelowers INT DEFAULT 0 NOT NULL,
+    berth VARCHAR(20) NOT NULL,
+    passseatno INT NOT NULL,
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
 
@@ -89,12 +85,8 @@ CREATE TABLE secondClass (
 );
 CREATE TABLE secondClasscancel (
     trainNum VARCHAR(50),
-    --totalseats INT DEFAULT 0 NOT NULL,
-    uppers INT DEFAULT 0 NOT NULL,
-    lowers INT DEFAULT 0 NOT NULL,
-    --middles INT DEFAULT 0 NOT NULL,
-    sideuppers INT DEFAULT 0 NOT NULL,
-    sidelowers INT DEFAULT 0 NOT NULL,
+    berth VARCHAR(20) NOT NULL,
+    passseatno INT NOT NULL,
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
 
@@ -112,12 +104,8 @@ CREATE TABLE sleeperClass (
 );
 CREATE TABLE sleeperClasscancel (
     trainNum VARCHAR(50),
-    --totalseats INT DEFAULT 0 NOT NULL,
-    uppers INT DEFAULT 0 NOT NULL,
-    lowers INT DEFAULT 0 NOT NULL,
-    middles INT DEFAULT 0 NOT NULL,
-    sideuppers INT DEFAULT 0 NOT NULL,
-    sidelowers INT DEFAULT 0 NOT NULL,
+    berth VARCHAR(20) NOT NULL,
+    passseatno INT NOT NULL,
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
 );
 

@@ -67,6 +67,28 @@ public class ReserveSeatsRequest {
             else return false;
        }
     }
+     
+     //To check if cancelled seats are available 
+     public int availableSeatfromcancelled(String berth) throws SQLException
+    {   //int remaining=0;
+        String query="";
+            if(passclass.equalsIgnoreCase("First AC"))
+            query="SELECT * FROM firstClasscancel WHERE berth=? trainNum='"+(trainNum)+"';";
+            else if(passclass.equalsIgnoreCase("Second AC"))
+            query="SELECT * FROM secondClasscancel WHERE berth=? trainNum='"+(trainNum)+"';";
+            else if(passclass.equalsIgnoreCase("Sleeper"))
+            query="SELECT * FROM sleeperClasscancel WHERE berth=? trainNum='"+(trainNum)+"';";
+                
+            st=con.prepareStatement(query);
+            st.setString(1, berth);
+            ResultSet rs=(ResultSet) st.executeQuery();
+            if(rs.next()){
+            int seat=rs.getInt("passseatno");
+            return seat;
+       }
+       else return 0;
+    }
+     
     
     //To update Queries in Database
     public boolean updateQueries(int seatno,String ticketid,String userid) throws SQLException
@@ -98,6 +120,8 @@ public class ReserveSeatsRequest {
             return true;
             else return false;
     }
+    
+    
     
     //To book seat
     public boolean bookSeat(ResultSet rs,String berth,String userid) throws SQLException
@@ -189,7 +213,7 @@ public class ReserveSeatsRequest {
             n=bookedseats;
             seatno=(n*nos)+nos;
             
-            ticketid=userid+trainNum+passclass+Integer.toString(seatno);
+            ticketid=userid+trainNum+dbpassclass+Integer.toString(seatno);
             
             String query1="";
             if(passclass.equalsIgnoreCase("First AC"))
@@ -204,6 +228,14 @@ public class ReserveSeatsRequest {
         }
         
         return false;
+    }
+    
+    //To book seat from cancelledseats
+    public boolean bookSeatfromcancelled(int seatno,String berth,String userid) throws SQLException
+    {
+        ticketid=userid+trainNum+dbpassclass+Integer.toString(seatno);
+        return updateQueries(seatno,ticketid, userid);
+        
     }
     
 
@@ -232,50 +264,82 @@ public class ReserveSeatsRequest {
             if(rs.next()){
             System.out.println("4\n");
             int totalseats=rs.getInt("totalseats");
-            int flag=-1;
+            int flag1=-1;
+            int flag2=-1;
             String[] arr=new String[]{"Lower","Middle","Upper","Side Lower","Side Upper"};
             String[] dbarr=new String[]{"lowers","middles","uppers","sidelowers","sideuppers"};
+            
+            int cancelledseatno=0;  //to store cancelled seat number if any
             switch(berth)
             {
                 case "Lower": if(availableSeat(rs,dbarr[0],totalseats))
-                                {flag=0;}
-                                    break;
+                                flag1=0;
+                              else {cancelledseatno=availableSeatfromcancelled(dbarr[0]);
+                                    if(cancelledseatno!=0) 
+                                  flag2=0;}  
+                                  break;
                 case "Middle":if(passclass.equalsIgnoreCase("Sleeper") && availableSeat(rs,dbarr[1],totalseats))
-                                {flag=1;}
+                                flag1=1;
+                              else {cancelledseatno=availableSeatfromcancelled(dbarr[1]);
+                                    if(cancelledseatno!=0) 
+                                  flag2=1;}  
                                     break;
                 case "Upper":if(availableSeat(rs,dbarr[2],totalseats))
-                                {flag=2;}
+                                flag1=2;
+                              else {cancelledseatno=availableSeatfromcancelled(dbarr[2]);
+                                    if(cancelledseatno!=0) 
+                                  flag2=2;}  
                                     break;
                 case "Side Lower":if(availableSeat(rs,dbarr[3],totalseats))
-                                {flag=3;}
+                                flag1=3;
+                              else {cancelledseatno=availableSeatfromcancelled(dbarr[3]);
+                                    if(cancelledseatno!=0) 
+                                  flag2=3;}  
                                     break;
                 case "Side Upper":if(availableSeat(rs,dbarr[4],totalseats))
-                                {flag=4;}
+                                flag1=4;
+                              else {cancelledseatno=availableSeatfromcancelled(dbarr[4]);
+                                    if(cancelledseatno!=0) 
+                                  flag2=4;}  
                                     break;
                         
             }
             
-          if(flag!=-1)
+          if(flag1!=-1)
           { //preference mil chuki hai !!
               System.out.println("5\n");
-              boolean b=bookSeat(rs,dbarr[flag],userid.getUserid());
+              boolean b=bookSeat(rs,dbarr[flag1],userid.getUserid());
+              return b;
+          }
+          else if(flag2!=-1)
+          { //cancelled tickets me se preference mil chuki hai !!
+              boolean b=bookSeatfromcancelled(cancelledseatno,dbarr[flag1],userid.getUserid());
               return b;
           }
           else {
-               for(int i=0;i<5;i++)
-               {    if(i==1 && !(passclass.equalsIgnoreCase("Sleeper")))
+               
+              for(int i=0;i<5;i++) //To check cancelled seats
+                 { if(i==1 && !(passclass.equalsIgnoreCase("Sleeper")))
+                   continue;
+                    cancelledseatno=availableSeatfromcancelled(dbarr[i]);
+                   if(cancelledseatno!=0) 
+                      {boolean b=bookSeatfromcancelled(cancelledseatno,dbarr[i],userid.getUserid());
+                        return b;}  
+                  }
+              
+              
+              for(int i=0;i<5;i++) //To check new seats
+                 { if(i==1 && !(passclass.equalsIgnoreCase("Sleeper")))
                    continue;
                    if(availableSeat(rs,dbarr[i],totalseats))
-                   {
-                       boolean b=bookSeat(rs,dbarr[i],userid.getUserid());
-                        return b;
-                   }  
-               }
-              
+                      {boolean b=bookSeat(rs,dbarr[i],userid.getUserid());
+                        return b;}  
+                  }
+                
           }
         
         }
-        //}
+        
     return false;
     
     }

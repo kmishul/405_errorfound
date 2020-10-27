@@ -17,12 +17,12 @@ import java.sql.ResultSet;
  *
  * @author kmish
  */
-public class CancelBooking {
+public class CancelBookingRequest {
     private final Connection con;
     private PreparedStatement st;
     private PreparedStatement st2;
     private PreparedStatement st3;
-    public CancelBooking() throws SQLException{
+    public CancelBookingRequest() throws SQLException{
         con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
 }
     
@@ -42,101 +42,114 @@ public class CancelBooking {
                 case "firstClass":
                     switch(berth){
                         case "Lower":
-                            String q1="INSERT INTO `firstclasscancel`(`trainNum`, `lowers`) VALUES (?,?)";
+                            String q1="INSERT INTO `firstClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q1);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                         case "Upper":
-                            String q2="INSERT INTO `firstclasscancel`(`trainNum`, `uppers`) VALUES (?,?)";
+                            String q2="INSERT INTO `firstClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q2);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                             
                         case "Side Upper":
-                            String q3="INSERT INTO `firstclasscancel`(`trainNum`, `sideuppers`) VALUES (?,?)";
+                            String q3="INSERT INTO `firstClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q3);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                         case "Side Lower":
-                            String q4="INSERT INTO `firstclasscancel`(`trainNum`, `sidelowers`) VALUES (?,?)";
+                            String q4="INSERT INTO `firstClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q4);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                     }
                     case "secondClass":
                         switch(berth){
                             case "Lower":
-                                String q1="INSERT INTO `secondclasscancel`(`trainNum`, `lowers`) VALUES (?,?)";
+                                String q1="INSERT INTO `secondClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                                 st=con.prepareStatement(q1);
                                 st.setString(1, tnum);
-                                st.setInt(2, seatno);
-                                st.execute();
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
+                            st.execute();
                                 break;
                             case "Upper":
-                                String q2="INSERT INTO `secondclasscancel`(`trainNum`, `uppers`) VALUES (?,?)";
+                                String q2="INSERT INTO `secondClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                                 st=con.prepareStatement(q2);
                                 st.setString(1, tnum);
-                                st.setInt(2, seatno);
-                                st.execute();
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
+                            st.execute();
                                 break;
                             case "Side Upper":
-                                String q3="INSERT INTO `secondclasscancel`(`trainNum`, `sideuppers`) VALUES (?,?)";
+                                String q3="INSERT INTO `secondClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                                 st=con.prepareStatement(q3);
                                 st.setString(1, tnum);
-                                st.setInt(2, seatno);
-                                st.execute();
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
+                            st.execute();
                                 break;
                             case "Side Lower":
-                                String q4="INSERT INTO `secondclasscancel`(`trainNum`, `sidelowers`) VALUES (?,?)";
+                                String q4="INSERT INTO `secondClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                                 st=con.prepareStatement(q4);
                                 st.setString(1, tnum);
-                                st.setInt(2, seatno);
-                                st.execute();
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
+                            st.execute();
                                 break;
                 }
                 case "sleeperClass":
                     switch(berth){
                         case "Lower":
-                            String q1="INSERT INTO `sleeperclasscancel`(`trainNum`, `lowers`) VALUES (?,?)";
+                            String q1="INSERT INTO `sleeperClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q1);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                         case "Upper":
-                            String q2="INSERT INTO `sleeperclasscancel`(`trainNum`, `uppers`) VALUES (?,?)";
+                            String q2="INSERT INTO `sleeperClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q2);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                         case "Middle":
-                            String q5="INSERT INTO `sleeperclasscancel`(`trainNum`, `middles`) VALUES (?,?)";
+                            String q5="INSERT INTO `sleeperClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q5);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                         case "Side Upper":
-                            String q3="INSERT INTO `sleeperclasscancel`(`trainNum`, `sideuppers`) VALUES (?,?)";
+                            String q3="INSERT INTO `sleeperClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q3);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                         case "Side Lower":
-                            String q4="INSERT INTO `sleeperclasscancel`(`trainNum`, `sidelowers`) VALUES (?,?)";
+                            String q4="INSERT INTO `sleeperClasscancel`(`trainNum`, `berth`,`passseatno`) VALUES (?,?,?)";
                             st=con.prepareStatement(q4);
                             st.setString(1, tnum);
-                            st.setInt(2, seatno);
+                            st.setString(2, berth);
+                            st.setInt(3, seatno);
                             st.execute();
                             break;
                     }

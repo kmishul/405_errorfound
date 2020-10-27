@@ -17,7 +17,7 @@ import Admin.ViewTrain;
 import Admin.RemoveTrain;
 import Server.Requests.AddCoachesRequest;
 import Server.Requests.AddTrainRequest;
-import Server.Requests.CancelBooking;
+import Server.Requests.CancelBookingRequest;
 import Server.Requests.PassDetailsRequest;
 import Server.Requests.UserSignupRequest;
 import Server.Requests.ViewTrainsRequest;
@@ -315,7 +315,7 @@ public class ClientHandler implements Runnable,Serializable{
                 System.out.println("1\n");
                 String pnr=DIS.readUTF();
                 System.out.println(pnr);
-                CancelBooking ccn=new CancelBooking();
+                CancelBookingRequest ccn=new CancelBookingRequest();
                 if(ccn.cancel(pnr)){
                     OOS.writeObject("valid");
                 }
