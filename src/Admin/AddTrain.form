@@ -243,12 +243,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NOS First Class:"/>
+        <Property name="text" type="java.lang.String" value="NOC First Class:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NOS Second Class:"/>
+        <Property name="text" type="java.lang.String" value="NOC Second Class:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNOSfc">
@@ -257,7 +257,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NOS Sleeper class:"/>
+        <Property name="text" type="java.lang.String" value="NOC Sleeper class:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNOSslc">

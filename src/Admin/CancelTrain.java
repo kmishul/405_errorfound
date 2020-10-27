@@ -16,19 +16,23 @@ import java.util.logging.Logger;
  * @author kmish
  */
 public class CancelTrain extends javax.swing.JFrame {
-    public String tnum;
+    //public String tnum;
+    private final Req_Res rr;
+     private final String adminid;
     /**
      * Creates new form CancelTrain
      */
-    public CancelTrain() {
+    public CancelTrain(Req_Res rr,String adminid) {
         initComponents();
+        this.rr=rr;
+        this.adminid=adminid;
     }
-    public CancelTrain(String tnum){
-        this.tnum=tnum;
-    }
-    public void settrainnum(String tnum){
-        this.tnum=tnum;
-    }
+//    public CancelTrain(String tnum){
+//        this.tnum=tnum;
+//    }
+//    public void settrainnum(String tnum){
+//        this.tnum=tnum;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,10 +120,10 @@ public class CancelTrain extends javax.swing.JFrame {
         }
         else{
             try {
-                Req_Res res=new Req_Res();
+                //Req_Res res=new Req_Res();
                 ViewTrain train=new ViewTrain();
                 train.settrainNum(tNum);
-                String Res=res.canceltrain(train);
+                String Res=rr.canceltrain(train);
                 if(Res.equals("valid")){
                     System.out.println(Res+"2\n");
                     JOptionPane.showMessageDialog(this,"Train Successfully Cancelled");
@@ -143,10 +147,10 @@ public class CancelTrain extends javax.swing.JFrame {
         }
         else{
             try {
-                Req_Res res=new Req_Res();
+                //Req_Res res=new Req_Res();
                 ViewTrain train=new ViewTrain();
                 train.settrainNum(tNum);
-                String Res=res.uncanceltrain(train);
+                String Res=rr.uncanceltrain(train);
                 if(Res.equals("valid")){
                     System.out.println(Res+"3\n");
                     JOptionPane.showMessageDialog(this,"Train Successfully Uncancelled");
@@ -165,37 +169,37 @@ public class CancelTrain extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CancelTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CancelTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CancelTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CancelTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CancelTrain().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(CancelTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(CancelTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(CancelTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(CancelTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new CancelTrain().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnuncancel;

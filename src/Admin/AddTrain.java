@@ -145,11 +145,11 @@ public class AddTrain extends javax.swing.JFrame {
 
         jLabel7.setText("Stop Time:");
 
-        jLabel8.setText("NOS First Class:");
+        jLabel8.setText("NOC First Class:");
 
-        jLabel9.setText("NOS Second Class:");
+        jLabel9.setText("NOC Second Class:");
 
-        jLabel10.setText("NOS Sleeper class:");
+        jLabel10.setText("NOC Sleeper class:");
 
         jLabel11.setText("Fare First Class:");
 
@@ -332,9 +332,9 @@ public class AddTrain extends javax.swing.JFrame {
             String StopStation=txtstopstn.getText();
             String StartTime=txtstarttm.getText();
             String StopTime=txtstoptm.getText();
-            int NOSFirst=Integer.parseInt(txtNOSfc.getText());
-            int NOSSecond=Integer.parseInt(txtNOSsc.getText());
-            int NOSSleeper=Integer.parseInt(txtNOSslc.getText());
+            int NOSFirst=(Integer.parseInt(txtNOSfc.getText()))*60;
+            int NOSSecond=(Integer.parseInt(txtNOSsc.getText()))*60;
+            int NOSSleeper=(Integer.parseInt(txtNOSslc.getText()))*80;
             int FareFirst=Integer.parseInt(txtfarefc.getText());
             int FareSecond=Integer.parseInt(txtfaresc.getText());
             int FareSleeper=Integer.parseInt(txtfareslc.getText());
