@@ -132,6 +132,31 @@ public class Req_Res implements Serializable{
        DOS1.writeUTF("View Trains");
        
     }
+    public void addseatfc() throws IOException{
+    
+       DOS1.writeUTF("Add FC");
+       
+    }
+     public void addseatsc() throws IOException{
+    
+       DOS1.writeUTF("Add SC");
+       
+    }
+      public void addseatslc() throws IOException{
+    
+       DOS1.writeUTF("Add SLC");
+       
+    }
+    public void rerouteTrain() throws IOException{
+    
+       DOS1.writeUTF("Reroute Train");
+       
+    }
+    public void seatavail(String s) throws IOException{
+    
+       DOS1.writeUTF("Seat Avail");
+       DOS1.writeUTF(s);
+    }
      public void cancelbooking(String pnr) throws IOException{
     
        DOS1.writeUTF("Cancel Booking");
