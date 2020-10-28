@@ -12,6 +12,7 @@ import Req_Res.Req_Res;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author kmish
  */
-public class Tickets extends javax.swing.JFrame {
+public class Tickets extends javax.swing.JFrame implements Serializable{
     private DefaultTableModel model1;
     private final String userid;
     private final Req_Res rr;
@@ -144,9 +145,9 @@ public class Tickets extends javax.swing.JFrame {
         try {
                 //Req_Res res=new Req_Res();
                 
-                rr.tickets();
+                
                 ObjectInputStream ois=rr.getObjectInputStream();
-                String Res=(String) ois.readObject();
+                String Res=rr.tickets();
                 
                 if(Res.equals("valid")){
                     ArrayList<PassDetail> pd = new ArrayList<PassDetail>();

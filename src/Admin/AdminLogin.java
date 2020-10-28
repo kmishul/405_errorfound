@@ -9,6 +9,7 @@ import Req_Res.Req_Res;
 import User.UserLogin;
 import User.UserMainInterface;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author kmish
  */
-public class AdminLogin extends javax.swing.JFrame {
+public class AdminLogin extends javax.swing.JFrame implements Serializable{
     public String adminid, adminpass;
     /**
      * Creates new form AdminLogin

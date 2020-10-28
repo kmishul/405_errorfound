@@ -10,6 +10,7 @@ import Req_Res.Req_Res;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author kmish
  */
-public class PassDetails extends javax.swing.JFrame {
+public class PassDetails extends javax.swing.JFrame implements Serializable{
 private DefaultTableModel model1;
 private final Req_Res rr;
      private final String adminid;
@@ -126,10 +127,11 @@ private final Req_Res rr;
         // TODO add your handling code here:
          model1=(DefaultTableModel) tbl1.getModel();
         try {
-                //eq_Res res=new Req_Res();
-                rr.passDetails();
+                
+                //rr.passDetails();
                 ObjectInputStream ois=rr.getObjectInputStream();
-                String Res=(String) ois.readObject();
+                //String Res=(String) ois.readObject();
+                String Res=rr.passDetails();
                 
                 if(Res.equals("valid")){
                     ArrayList<PassDetail> pd = new ArrayList<PassDetail>();

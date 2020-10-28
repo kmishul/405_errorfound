@@ -12,6 +12,7 @@ import Req_Res.Req_Res;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -23,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author kmish
  */
-public class TravelInfo extends javax.swing.JFrame {
+public class TravelInfo extends javax.swing.JFrame implements Serializable{
 private DefaultTableModel model1;
     //private final Socket s;
     private final String userid;
@@ -140,9 +141,9 @@ private DefaultTableModel model1;
         try {
                 //Req_Res res=new Req_Res();
                 
-                rr.travelInfo();
+                
                 ObjectInputStream ois=rr.getObjectInputStream();
-                String Res=(String) ois.readObject();
+                String Res=rr.travelInfo();
                 
                 if(Res.equals("valid")){
                     ArrayList<PassDetail> pd = new ArrayList<PassDetail>();

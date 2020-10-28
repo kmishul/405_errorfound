@@ -9,6 +9,7 @@ import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Folio
  */
-public class RerouteTrain extends javax.swing.JFrame {
+public class RerouteTrain extends javax.swing.JFrame implements Serializable{
     private final Req_Res rr;
      private final String adminid;
     /**
@@ -128,11 +129,8 @@ public class RerouteTrain extends javax.swing.JFrame {
         train.setfstation(startstn);
         train.setlstation(stopstn);
         try {
-            rr.rerouteTrain();
-            ObjectOutputStream oos=rr.getObjectOutputStream();
-            ObjectInputStream ois=rr.getObjectInputStream();
-            oos.writeObject(train);
-            String Res=(String) ois.readObject();
+            String Res=rr.rerouteTrain(train);
+            
             if(Res.equals("valid")){
                     System.out.println(Res+"2\n");
                     JOptionPane.showMessageDialog(this,"Train successfully rerouted");

@@ -10,6 +10,7 @@ import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author kmish
  */
-public class UserSignup extends javax.swing.JFrame{
+public class UserSignup extends javax.swing.JFrame implements Serializable{
     //public String UserId,Firstname,Lastname,emailid,password,contact,gender;
   
     /**

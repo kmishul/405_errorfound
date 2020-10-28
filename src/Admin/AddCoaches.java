@@ -9,6 +9,7 @@ import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author Folio
  */
-public class AddCoaches extends javax.swing.JFrame {
+public class AddCoaches extends javax.swing.JFrame implements Serializable{
     private final Req_Res rr;
     private final String adminid;
     /**
@@ -123,63 +124,68 @@ public class AddCoaches extends javax.swing.JFrame {
         String tnum=txttrainno.getText();
         String clss=(String) cmbclass.getSelectedItem();
         int coach=Integer.parseInt(jTextField1.getText());
-        ObjectOutputStream oos=rr.getObjectOutputStream();
-        ObjectInputStream ois=rr.getObjectInputStream();
+       // ObjectOutputStream oos=rr.getObjectOutputStream();
+        //ObjectInputStream ois=rr.getObjectInputStream();
+        String Res="";
         int seats = 0;
         switch (clss) {
             case "First AC" -> {
                 seats=coach*60;
                 try {
-                    rr.addseatfc();
+                    
                     ViewTrain train=new ViewTrain();
                     train.settrainNum(tnum);
                     train.setNOSfc(seats);
-                    oos.writeObject(train);
+                    Res=rr.addseatfc(train);
+                    //oos.writeObject(train);
                 } catch (IOException ex) {
                     Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 break;
             }
             case "Second AC" -> {
                 seats=coach*60;
                 try {
-                    rr.addseatsc();
                     ViewTrain train=new ViewTrain();
                     train.settrainNum(tnum);
                     train.setNOSsc(seats);
-                    oos.writeObject(train);
+                    Res=rr.addseatsc(train);
+                    //oos.writeObject(train);
                 } catch (IOException ex) {
                     Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 break;
             }
             default -> {
                 seats=coach*80;
-                try {
-                    rr.addseatslc();
-                    ViewTrain train=new ViewTrain();
-                    train.settrainNum(tnum);
-                    train.setNOSslc(seats);
-                    oos.writeObject(train);
-                } catch (IOException ex) {
-                    Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                ViewTrain train=new ViewTrain();
+                train.settrainNum(tnum);
+                train.setNOSslc(seats);
+            try {
+                Res=rr.addseatlc(train);
+            } catch (IOException ex) {
+                Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                //oos.writeObject(train);
                 break;
             }
+
+
         }
-        try {
-            String Res=(String) ois.readObject();
-            if(Res.equals("valid")){
-                    System.out.println(Res+"2\n");
-                    JOptionPane.showMessageDialog(this,"Coaches added Succesfully");
-                    this.dispose();
-                }
-                else{
-                    JOptionPane.showMessageDialog(this,Res);
-                    System.out.println("\n"+Res);
-                }
-        } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
+        if(Res.equals("valid")){
+            System.out.println(Res+"2\n");
+            JOptionPane.showMessageDialog(this,"Coaches added Succesfully");
+            this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this,Res);
+            System.out.println("\n"+Res);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

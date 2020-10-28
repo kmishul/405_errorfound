@@ -8,6 +8,7 @@ package Admin;
 import javax.swing.JOptionPane;
 import Req_Res.Req_Res;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author kmish
  */
-public class CancelTrain extends javax.swing.JFrame {
+public class CancelTrain extends javax.swing.JFrame implements Serializable{
     //public String tnum;
     private final Req_Res rr;
      private final String adminid;
@@ -134,6 +135,8 @@ public class CancelTrain extends javax.swing.JFrame {
                 }
             } catch (IOException ex) {
                 Logger.getLogger(CancelTrain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CancelTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -160,6 +163,8 @@ public class CancelTrain extends javax.swing.JFrame {
                     System.out.println("\n"+Res);
                 }
             } catch (IOException ex) {
+                Logger.getLogger(CancelTrain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(CancelTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

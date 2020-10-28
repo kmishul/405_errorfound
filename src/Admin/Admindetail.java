@@ -23,4 +23,13 @@ public class Admindetail implements Serializable {
     public void setadminpass(String adminpass){
         this.adminpass=adminpass;
     }
+
+    public String getAdminid() {
+        return adminid;
+    }
+
+    public String getAdminpass() {
+        return adminpass;
+    }
+    
 }

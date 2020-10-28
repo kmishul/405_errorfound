@@ -6,12 +6,13 @@
 package Admin;
 
 import Req_Res.Req_Res;
+import java.io.Serializable;
 
 /**
  *
  * @author Folio
  */
-public class AdminMainInterface extends javax.swing.JFrame {
+public class AdminMainInterface extends javax.swing.JFrame implements Serializable{
     private final Req_Res rr;
     private final String adminid;
     /**

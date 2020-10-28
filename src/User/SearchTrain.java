@@ -10,6 +10,7 @@ import Req_Res.Req_Res;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author kmish
  */
-public class SearchTrain extends javax.swing.JFrame {
+public class SearchTrain extends javax.swing.JFrame implements Serializable{
     private DefaultTableModel model;
     private final Req_Res rr;
     private final String userid;
@@ -153,9 +154,9 @@ public class SearchTrain extends javax.swing.JFrame {
         else{
             try {
                 //Req_Res res=new Req_Res();
-                rr.searchtrain(startstn,stopstn);
+                
                 ObjectInputStream ois=rr.getObjectInputStream();
-                String Res=(String) ois.readObject();
+                String Res=rr.searchtrain(startstn,stopstn);
                 if(Res.equals("valid")){
                     ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
                     vt=(ArrayList<ViewTrain>) ois.readObject();

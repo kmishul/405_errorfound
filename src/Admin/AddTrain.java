@@ -9,6 +9,7 @@ package Admin;
 import Req_Res.Req_Res;
 import java.awt.HeadlessException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author kmish
  */
-public class AddTrain extends javax.swing.JFrame {
+public class AddTrain extends javax.swing.JFrame implements Serializable{
 //    public String tnum,tname,startstn,stopstn,starttm,stoptm,days;
 //    public int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc;
      private final Req_Res rr;
@@ -386,6 +387,7 @@ public class AddTrain extends javax.swing.JFrame {
                 //Req_Res addt=new Req_Res();
                 ViewTrain train=new ViewTrain(tNum,tName,StartStation,StopStation,StartTime,StopTime,NOSFirst,NOSSecond,NOSSleeper,FareFirst,FareSecond,FareSleeper,rundays);
                 String Res=rr.addtrain(train);
+                System.out.println(Res+"2");
                 if(Res.equals("valid")){
                     System.out.println(Res+"2\n");
                     JOptionPane.showMessageDialog(this," Train Successfully Added");

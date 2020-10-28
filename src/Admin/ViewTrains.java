@@ -142,10 +142,10 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
         try {
                 //Req_Res res=new Req_Res();
                 //String Res=res.viewTrains();
-                rr.viewTrains();
+                //rr.viewTrains();
                 //String Res="valid";
+                String Res=rr.viewTrains();
                 ObjectInputStream ois=rr.getObjectInputStream();
-                String Res=(String) ois.readObject();
                 System.out.println("isme galti ni h\n");
                 
                 if(Res.equals("valid")){System.out.println("Clientif\n");

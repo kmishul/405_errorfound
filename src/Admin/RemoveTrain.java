@@ -8,6 +8,7 @@ package Admin;
 import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author kmish
  */
-public class RemoveTrain extends javax.swing.JFrame {
+public class RemoveTrain extends javax.swing.JFrame implements Serializable{
      private final Req_Res rr;
      private final String adminid;
 //    public String tnum;
@@ -109,9 +110,8 @@ public class RemoveTrain extends javax.swing.JFrame {
                 //Req_Res remtr=new Req_Res();
                 ViewTrain train= new ViewTrain();
                 train.settrainNum(tNum);
-                rr.removeTrain(train);
-                ObjectInputStream ois=rr.getObjectInputStream();
-                String Res=(String) ois.readObject();
+                
+                String Res=rr.removeTrain(train);
 //                if(Res.equals("removetrainvalid")){
 //                    JOptionPane.showMessageDialog(this, "train removed successfully");
 //                    this.dispose();

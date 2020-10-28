@@ -6,13 +6,14 @@
 package User;
 
 import Req_Res.Req_Res;
+import java.io.Serializable;
 import java.net.Socket;
 
 /**
  *
  * @author Folio
  */
-public class UserMainInterface extends javax.swing.JFrame {
+public class UserMainInterface extends javax.swing.JFrame implements Serializable{
     //private final Socket s;
     private final Req_Res rr;
     private final String userid;

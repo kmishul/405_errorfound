@@ -8,6 +8,7 @@ package User;
 import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author Folio
  */
-public class SeatsAvailable extends javax.swing.JFrame {
+public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
     private final Req_Res rr;
     private final String userid;
     /**
@@ -157,9 +158,9 @@ public class SeatsAvailable extends javax.swing.JFrame {
         txtslc.setText("");
         String tnum=xtxtrainno.getText();
         try {
-            rr.seatavail(tnum);
+            
             ObjectInputStream ois=rr.getObjectInputStream();
-            String Res=(String) ois.readObject();
+            String Res=rr.seatavail(tnum);
             if(Res.equals("valid")){
             int fci=(int) ois.readObject();
             int sci=(int) ois.readObject();

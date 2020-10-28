@@ -8,6 +8,7 @@ package User;
 import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author kmish
  */
-public class CancelBooking extends javax.swing.JFrame {
+public class CancelBooking extends javax.swing.JFrame implements Serializable{
     private final String userid;
     private final Req_Res rr;
     /**
@@ -94,9 +95,10 @@ public class CancelBooking extends javax.swing.JFrame {
     private void CancelTrainBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelTrainBTActionPerformed
         String pnr= CancelPnrTF.getText();
         try {
-            rr.cancelbooking(pnr);
-            ObjectInputStream ois=rr.getObjectInputStream();
-            String Res=(String) ois.readObject();
+//            rr.cancelbooking(pnr);
+//            ObjectInputStream ois=rr.getObjectInputStream();
+//            String Res=(String) ois.readObject();
+              String Res=rr.cancelbooking(pnr);
             if(Res.equals("valid")){
                  System.out.println(Res+"2\n");
                     JOptionPane.showMessageDialog(this," Ticket Cancelled");

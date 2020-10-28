@@ -40,8 +40,8 @@ public class Req_Res implements Serializable{
     public final Socket socket = new Socket(ip,port);
     ObjectOutputStream OOS1=new ObjectOutputStream(socket.getOutputStream());
     ObjectInputStream OIS1=new ObjectInputStream(socket.getInputStream());
-    DataOutputStream DOS1=new DataOutputStream(socket.getOutputStream());
-    DataInputStream DIS1=new DataInputStream(socket.getInputStream());
+    //DataOutputStream DOS1=new DataOutputStream(socket.getOutputStream());
+    //DataInputStream DIS1=new DataInputStream(socket.getInputStream());
     String s;
 
     //private Object OOS;
@@ -53,10 +53,7 @@ public class Req_Res implements Serializable{
     {
         return OIS1;
     }
-    public DataInputStream getdataInputStream()
-    {
-        return DIS1;
-    }
+    
     public Socket getSocket()
     {
         return socket;
@@ -67,130 +64,174 @@ public class Req_Res implements Serializable{
           
           
     }
-    public String sendUserSignup(UserDetail user) throws IOException{
+    
+    public String sendUserSignup(UserDetail user) throws IOException, ClassNotFoundException{
     //public void sendUserSignup(UserSignup user,String s) throws IOException{
-       DOS1.writeUTF("User SignUp");
-        OOS1.writeObject(user);
-        s=DIS1.readUTF();
-        System.out.println(s);
-        return s;
-    }
-    public String sendUserLogin(UserDetail user) throws IOException{
-        System.out.println("reached senduserlogin in req_ress");
-        DOS1.writeUTF("User Login");
-        DOS1.flush();
+       OOS1.writeObject("User SignUp");
         OOS1.writeObject(user);
         OOS1.flush();
-        s=DIS1.readUTF();
-        
-        System.out.println(s+"  :this is s");
-        return s;
-    }
-    public String sendAdminLogin(Admindetail admin) throws IOException{
-        System.out.println("reached sendAdminlogin in req_ress");
-        DOS1.writeUTF("Admin Login");
-        OOS1.writeObject(admin);
-        s=DIS1.readUTF();
-        System.out.println(s+"  :this is s");
-        return s;
-    }
-    public String addtrain(ViewTrain train) throws IOException, ClassNotFoundException{
-        DOS1.writeUTF("Add Train");
-        OOS1.writeObject(train);
         s=(String) OIS1.readObject();
         System.out.println(s);
         return s;
     }
+    public String sendUserLogin(UserDetail user) throws IOException, ClassNotFoundException{
+        System.out.println("reached senduserlogin in req_ress");
+        OOS1.writeObject("User Login");
+        OOS1.writeObject(user);
+        OOS1.flush();
+        s=(String) OIS1.readObject();
+        
+        System.out.println(s+"  :this is s");
+        return s;
+    }
+    public String sendAdminLogin(Admindetail admin) throws IOException, ClassNotFoundException{
+        System.out.println("reached sendAdminlogin in req_ress");
+        OOS1.writeObject("Admin Login");
+        OOS1.writeObject(admin);
+        OOS1.flush();
+        s=(String) OIS1.readObject();
+        System.out.println(s+"  :this is s");
+        return s;
+    }
+    public String addtrain(ViewTrain train) throws IOException, ClassNotFoundException{
+       //OOS1.reset();
+        OOS1.writeObject("Add Train");
+        OOS1.writeObject(train);
+        OOS1.flush();
+        s=(String) OIS1.readObject();
+        System.out.println(s+"1");
+        return s;
+    }
 
-    public void removeTrain(ViewTrain remtr)throws IOException{
-        DOS1.writeUTF("Remove Train");
+    public String removeTrain(ViewTrain remtr)throws IOException, ClassNotFoundException{
+        OOS1.writeObject("Remove Train");
         OOS1.writeObject(remtr);
+        OOS1.flush();
+        String s=(String) OIS1.readObject();
+       return s;
         //s=DIS1.readUTF();
         //System.out.println(s);
         //return s;
     }
 
-    public String canceltrain(ViewTrain train) throws IOException{
-        DOS1.writeUTF("Cancel Train");
+    public String canceltrain(ViewTrain train) throws IOException, ClassNotFoundException{
+        OOS1.writeObject("Cancel Train");
         OOS1.writeObject(train);
-        s=DIS1.readUTF();
+        OOS1.flush();
+        s=(String) OIS1.readObject();
         return s;
     }
 
-    public String uncanceltrain(ViewTrain train) throws IOException {
+    public String uncanceltrain(ViewTrain train) throws IOException, ClassNotFoundException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        DOS1.writeUTF("Uncancel Train");
+        OOS1.writeObject("Uncancel Train");
         OOS1.writeObject(train);
-        s=DIS1.readUTF();
+        OOS1.flush();
+        s=(String) OIS1.readObject();
         return s;
     }
 
         
 
-    public void viewTrains() throws IOException{
+    public String viewTrains() throws IOException, ClassNotFoundException{
     
-       DOS1.writeUTF("View Trains");
+       OOS1.writeObject("View Trains");
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+       return s;
        
     }
-    public void addseatfc() throws IOException{
+    public String addseatfc(ViewTrain train) throws IOException, ClassNotFoundException{
     
-       DOS1.writeUTF("Add FC");
+       OOS1.writeObject("Add FC");
+       OOS1.writeObject(train);
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+       return s;
        
     }
-     public void addseatsc() throws IOException{
+     public String addseatsc(ViewTrain train) throws IOException, ClassNotFoundException{
     
-       DOS1.writeUTF("Add SC");
+       OOS1.writeObject("Add SC");
+       OOS1.writeObject(train);
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+       return s;
+    }
+      public String addseatlc(ViewTrain train) throws IOException, ClassNotFoundException{
+    
+       OOS1.writeObject("Add SLC");
+       OOS1.writeObject(train);
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+       return s;
+    }
+    public String rerouteTrain(ViewTrain train) throws IOException, ClassNotFoundException{
+    
+       OOS1.writeObject("Reroute Train");
+       OOS1.writeObject(train);
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+       return s;
+    }
+    public String seatavail(String tnum) throws IOException, ClassNotFoundException{
+    
+       OOS1.writeObject("Seat Avail");
+       OOS1.writeObject(tnum);
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+       return s;
+    }
+     public String cancelbooking(String pnr) throws IOException, ClassNotFoundException{
+    
+       OOS1.writeObject("Cancel Booking");
+        OOS1.writeObject(pnr);
+        OOS1.flush();
+         s=(String) OIS1.readObject();
+       return s;
        
     }
-      public void addseatslc() throws IOException{
+    public String passDetails() throws IOException, ClassNotFoundException{
     
-       DOS1.writeUTF("Add SLC");
+       OOS1.writeObject("Pass Details");
+       OOS1.flush();
+       String s=(String) OIS1.readObject();
+       return s;
+    }
+    public String reserveseat(PassDetail pass) throws IOException, ClassNotFoundException{
+    
+       OOS1.writeObject("Reserve Seat");
+       OOS1.writeObject(pass);
+       OOS1.flush();
+        s=(String) OIS1.readObject();
+         return s;       
        
     }
-    public void rerouteTrain() throws IOException{
-    
-       DOS1.writeUTF("Reroute Train");
-       
-    }
-    public void seatavail(String s) throws IOException{
-    
-       DOS1.writeUTF("Seat Avail");
-       DOS1.writeUTF(s);
-    }
-     public void cancelbooking(String pnr) throws IOException{
-    
-       DOS1.writeUTF("Cancel Booking");
-        DOS1.writeUTF(pnr);
-       
-    }
-    public void passDetails() throws IOException{
-    
-       DOS1.writeUTF("Pass Details");
-       
-    }
-    public void reserveseat() throws IOException{
-    
-       DOS1.writeUTF("Reserve Seat");
-       
-    }
-    public void travelInfo() throws IOException{
+    public String travelInfo() throws IOException, ClassNotFoundException{
     System.out.println("travel method check\n");
                 
-       DOS1.writeUTF("Travel Info");
-       DOS1.flush();
-       System.out.println("travel method after\n");
-    }
-    public void tickets() throws IOException{
+       OOS1.writeObject("Travel Info");
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+        System.out.println("travel method after\n");
+        return s;
+       }
+    public String tickets() throws IOException, ClassNotFoundException{
     
                 
-       DOS1.writeUTF("Tickets");
-       DOS1.flush();
+       OOS1.writeObject("Tickets");
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+        return s;
     }
-    public void searchtrain(String s1,String s2) throws IOException, ClassNotFoundException{
-        DOS1.writeUTF("Search Train");
-        DOS1.writeUTF(s1);
-        DOS1.writeUTF(s2);
-        //s=(String) OIS1.readObject();
-        //return s;
+    public String searchtrain(String s1,String s2) throws IOException, ClassNotFoundException{
+        OOS1.writeObject("Search Train");
+        OOS1.writeObject(s1);
+        OOS1.writeObject(s2);
+        OOS1.flush();
+        s=(String) OIS1.readObject();
+        return s;
     }
+
+    
 }

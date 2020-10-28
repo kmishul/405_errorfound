@@ -10,6 +10,7 @@ import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author kmish
  */
-public class ReserveSeats extends javax.swing.JFrame {
+public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     private final String userid;
     private final Req_Res rr;
     /**
@@ -238,11 +239,10 @@ public class ReserveSeats extends javax.swing.JFrame {
             pass.setberth(Berth);
             pass.setage(age);
             pass.setgender(gender);
-            ObjectOutputStream oos=rr.getObjectOutputStream();
-            ObjectInputStream ois=rr.getObjectInputStream();
-            try {rr.reserveseat();
-                oos.writeObject(pass);
-                String Res=(String) ois.readObject();
+            //ObjectOutputStream oos=rr.getObjectOutputStream();
+            //ObjectInputStream ois=rr.getObjectInputStream();
+            try {
+                String Res=rr.reserveseat(pass);
                 if(Res.equals("valid")){
                     JOptionPane.showMessageDialog(this, "Seat booked successfully! Check your ticket now.");
                 }

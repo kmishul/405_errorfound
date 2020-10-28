@@ -2,12 +2,13 @@ package User;
 
 import Req_Res.Req_Res;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class UserLogin extends javax.swing.JFrame {
+public class UserLogin extends javax.swing.JFrame implements Serializable{
    
     /** Creates new form UserLogin */
     public UserLogin() {
