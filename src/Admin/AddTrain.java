@@ -128,6 +128,7 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
         SunRB = new javax.swing.JRadioButton();
         jLabel14 = new javax.swing.JLabel();
         btnaddtrain = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,6 +181,8 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
                 btnaddtrainActionPerformed(evt);
             }
         });
+
+        jRadioButton1.setText("Dynamic");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,7 +244,8 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNOSslc, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfareslc, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtfareslc, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton1)))
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -316,7 +320,9 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
                     .addComponent(SunRB))
                 .addGap(52, 52, 52)
                 .addComponent(btnaddtrain)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton1)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         pack();
@@ -339,6 +345,11 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
             int FareFirst=Integer.parseInt(txtfarefc.getText());
             int FareSecond=Integer.parseInt(txtfaresc.getText());
             int FareSleeper=Integer.parseInt(txtfareslc.getText());
+            int dmc;
+            if(jRadioButton1.isSelected())
+                dmc=1;
+            else dmc=0;
+            
             String rundays="";
             System.out.println("12\n");
             if(MonRB.isSelected()){
@@ -385,7 +396,7 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
             }
             try {
                 //Req_Res addt=new Req_Res();
-                ViewTrain train=new ViewTrain(tNum,tName,StartStation,StopStation,StartTime,StopTime,NOSFirst,NOSSecond,NOSSleeper,FareFirst,FareSecond,FareSleeper,rundays);
+                ViewTrain train=new ViewTrain(tNum,tName,StartStation,StopStation,StartTime,StopTime,NOSFirst,NOSSecond,NOSSleeper,FareFirst,FareSecond,FareSleeper,rundays,dmc);
                 String Res=rr.addtrain(train);
                 System.out.println(Res+"2");
                 if(Res.equals("valid")){
@@ -538,6 +549,7 @@ public boolean verifyTrains(){
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JTextField txtNOSfc;
     private javax.swing.JTextField txtNOSsc;
     private javax.swing.JTextField txtNOSslc;

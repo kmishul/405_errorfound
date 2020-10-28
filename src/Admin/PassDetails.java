@@ -149,7 +149,8 @@ private final Req_Res rr;
                                     p.getfname()+p.getlname(),
                                     p.getage(),
                                     p.getgender(),
-                                    p.getdate()
+                                    p.getdate(),
+                                    p.getfare()
                                 });
                     
                     }
