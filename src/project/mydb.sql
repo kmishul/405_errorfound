@@ -146,3 +146,9 @@ CREATE TABLE discounts (
     
     FOREIGN KEY(userId) REFERENCES userlogin(userId)
 );
+CREATE TABLE chats (
+    userId VARCHAR(50) PRIMARY KEY NOT NULL,
+    query VARCHAR(500) NOT NULL,
+    reply VARCHAR(500),
+    FOREIGN KEY(userId) REFERENCES userlogin(userId)
+);

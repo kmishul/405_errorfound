@@ -28,9 +28,11 @@ import Server.Requests.RerouteTrainRequest;
 import Server.Requests.ReserveSeatsRequest;
 import Server.Requests.SearchTrainRequest;
 import Server.Requests.SeatsAvailRequest;
+import Server.Requests.SendQueryRequest;
 import Server.Requests.TicketsRequest;
 import Server.Requests.TrainStatusRequest;
 import Server.Requests.TravelInfoRequest;
+import User.Queries;
 import User.UserDetail;
 import User.UserLogin;
 import User.UserSignup;
@@ -461,6 +463,72 @@ public class ClientHandler implements Runnable,Serializable{
                 DiscountsRequest dr=new DiscountsRequest();
                  dr.checkDiscount(userid,OOS);
                 
+            if(request.equals("Send Query")){
+                Queries query=(Queries) OIS.readObject();
+                SendQueryRequest req=new SendQueryRequest();
+                if(req.sendquery(query)){
+                    OOS.writeObject("valid");
+                    System.out.println("valid check");
+                    OOS.flush();
+                }
+                else{
+                    OOS.writeObject("Sorry! You already have a pending query");
+                    OOS.flush();
+                    System.out.println("invalid check");
+                }
+            }
+            if(request.equals("View Queries"))
+            { 
+                SendQueryRequest v=new SendQueryRequest();
+                String res=v.getqry();
+                if(res.equals("valid"))
+                {   ArrayList<Queries> vt1;
+                    vt1=(ArrayList<Queries>)v.getList();
+                    OOS.writeObject("valid");
+                    OOS.writeObject(vt1);
+                    OOS.flush();
+                   
+                }
+            
+            else {
+                OOS.writeObject("Invalid");
+                    OOS.flush();
+                    System.out.println("Invalid\n");
+                }
+            }
+            if(request.equals("Send Reply")){
+                System.out.println("replying");
+                Queries q=(Queries) OIS.readObject();
+                SendQueryRequest v=new SendQueryRequest();
+                if(v.sendreply(q)){
+                    OOS.writeObject("valid");
+                    OOS.flush();
+                    System.out.println("valid check");
+                }
+                else{
+                    OOS.writeObject("invalid");
+                    OOS.flush();
+                    System.out.println("invalid check");
+                }
+            }
+            if(request.equals("Show Reply")){
+                String uid=(String) OIS.readObject();
+                SendQueryRequest que= new SendQueryRequest();
+                if(que.showreply(uid)==0){
+                     OOS.writeObject("valid");
+                     String rep=que.reply();
+                     OOS.writeObject(rep);
+                     OOS.flush();
+                     que.deleterep(uid);
+                }
+                else if(que.showreply(uid)==1){
+                    OOS.writeObject("No query from your side");
+                    OOS.flush();
+                }
+                else{
+                    OOS.writeObject("Sorry! No reply from admin");
+                    OOS.flush();
+                }
             }
         }
         }catch (IOException ex) {
