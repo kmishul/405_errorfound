@@ -30,7 +30,7 @@ public class AddTrainRequest implements Serializable{
     private PreparedStatement stttt;
     private static Statement stmt;
     String tnum,tname,startstn,stopstn,starttm,stoptm,days;
-    int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc;
+    int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc,dmc;
     public AddTrainRequest(ViewTrain train) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=train.gettrainNum();
@@ -46,6 +46,8 @@ public class AddTrainRequest implements Serializable{
         farefc=train.getfee1();
         faresc=train.getfee2();
         fareslc=train.getfee3();
+        dmc=train.getdmc();
+        
     }
     
     public ArrayList<Date> getDates(String rundays){
@@ -74,7 +76,7 @@ public class AddTrainRequest implements Serializable{
         try{
         if(!checktrainname(tname)){
             System.out.println("after queries");
-            st=con.prepareStatement("INSERT INTO traininfo(`trainNum`, `trainName`, `firstStation`, `lastStation`, `departureTime`, `arrivalTime`, `feeFirstClass`, `feeSecondClass`, `feeSleeperClass`, `days`) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            st=con.prepareStatement("INSERT INTO traininfo(`trainNum`, `trainName`, `firstStation`, `lastStation`, `departureTime`, `arrivalTime`, `feeFirstClass`, `feeSecondClass`, `feeSleeperClass`, `days`,`dmc`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
             st.setString(1,tnum);
             st.setString(2,tname);
             st.setString(3,startstn);
@@ -85,6 +87,7 @@ public class AddTrainRequest implements Serializable{
             st.setInt(8,faresc);
             st.setInt(9,fareslc);
             st.setString(10,days);
+            st.setInt(11, dmc);
             st.execute();
             
             ArrayList<Date> dates=getDates(days);

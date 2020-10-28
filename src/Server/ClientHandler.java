@@ -22,6 +22,7 @@ import Server.Requests.PassDetailsRequest;
 import Server.Requests.UserSignupRequest;
 import Server.Requests.ViewTrainsRequest;
 import Server.Requests.CancelTrainRequest;
+import Server.Requests.DiscountsRequest;
 import Server.Requests.RemoveTrainRequest;
 import Server.Requests.RerouteTrainRequest;
 import Server.Requests.ReserveSeatsRequest;
@@ -80,6 +81,8 @@ public class ClientHandler implements Runnable,Serializable{
         this.mainId=u;
        
     }
+    
+    
     
     @Override
     public void run() {
@@ -437,6 +440,27 @@ public class ClientHandler implements Runnable,Serializable{
                     OOS.flush();
                     System.out.println("No Train");
                 }
+            }
+            if(request.equals("Discounts")){
+                int limit=(int) OIS.readObject();
+                int discount=(int) OIS.readObject();
+                DiscountsRequest dr=new DiscountsRequest();
+                if(dr.giveDiscounts(limit, discount)){
+                    OOS.writeObject("valid");
+                    OOS.flush();
+                    System.out.println("valid discounts\n");
+                }
+                else{
+                    OOS.writeObject("empty");
+                    OOS.flush();
+                    System.out.println("kuch galti h discounts m\n");
+                }
+            }
+            if(request.equals("Check Discount")){
+                String userid=(String) OIS.readObject();
+                DiscountsRequest dr=new DiscountsRequest();
+                 dr.checkDiscount(userid,OOS);
+                
             }
         }
         }catch (IOException ex) {

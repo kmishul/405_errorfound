@@ -48,6 +48,7 @@ public class PassDetailsRequest implements Serializable{
                 p.setage(rs.getInt("passengerAge"));
                 p.setgender(rs.getString("passengergender"));
                 p.setdate(rs.getDate("travdate"));
+                p.setfare(rs.getInt("fare"));
                 pd.add(p);
             Response="valid";
             }

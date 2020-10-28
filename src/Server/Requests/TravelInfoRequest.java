@@ -64,6 +64,7 @@ public class TravelInfoRequest implements Serializable{
                 p.setage(rs1.getInt("passengerAge"));
                 p.setgender(rs1.getString("passengergender"));
                 p.setdate(rs1.getDate("travdate"));
+                p.setfare(rs1.getInt("fare"));
                 
                 //v.settrainNum(rs2.getString("trainNum"));
                 v.settrainName(rs2.getString("trainName"));
