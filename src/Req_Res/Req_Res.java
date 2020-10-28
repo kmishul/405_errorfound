@@ -249,5 +249,34 @@ public class Req_Res implements Serializable{
        s=(String) OIS1.readObject();
         return s;
     }
+    public String sendquery(Queries query) throws IOException, ClassNotFoundException{
+        OOS1.writeObject("Send Query");
+        OOS1.writeObject(query);
+        //OOS1.writeObject(s2);
+        OOS1.flush();
+        s=(String) OIS1.readObject();
+        return s;
+    }
+     public String viewQueries() throws IOException, ClassNotFoundException{
     
+       OOS1.writeObject("View Queries");
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+       return s;
+       
+    }
+    public String sendreply(Queries query) throws IOException, ClassNotFoundException{
+        OOS1.writeObject("Send Reply");
+        OOS1.writeObject(query);
+        //OOS1.writeObject(s2);
+        OOS1.flush();
+        s=(String) OIS1.readObject();
+        return s;
+    }
+    public String showreply(String u) throws IOException, ClassNotFoundException{
+        OOS1.writeObject("Show Reply");
+        OOS1.writeObject(u);
+        s=(String) OIS1.readObject();
+        return s;
+    }
 }
