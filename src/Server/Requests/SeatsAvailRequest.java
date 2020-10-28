@@ -6,6 +6,7 @@
 package Server.Requests;
 
 import java.awt.HeadlessException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
  *
  * @author Folio
  */
-public class SeatsAvailRequest {
+public class SeatsAvailRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
      private PreparedStatement st1;

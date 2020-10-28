@@ -8,6 +8,7 @@ package Server.Requests;
 import Admin.PassDetail;
 import Admin.ViewTrain;
 import User.UserDetail;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ import java.util.Date;
  *
  * @author kmish
  */
-public class TicketsRequest {
+public class TicketsRequest implements Serializable{
     private final Connection con;
     private PreparedStatement stmt1;
     private PreparedStatement stmt2;

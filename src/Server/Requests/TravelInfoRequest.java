@@ -9,6 +9,7 @@ import Admin.PassDetail;
 import Admin.PassDetails;
 import Admin.ViewTrain;
 import User.UserDetail;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  *
  * @author kmish
  */
-public class TravelInfoRequest {
+public class TravelInfoRequest implements Serializable{
      private final Connection con;
     private PreparedStatement stmt1;
     private PreparedStatement stmt2;

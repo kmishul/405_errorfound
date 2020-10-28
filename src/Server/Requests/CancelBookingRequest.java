@@ -5,6 +5,7 @@
  */
 package Server.Requests;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.sql.ResultSet;
  *
  * @author kmish
  */
-public class CancelBookingRequest {
+public class CancelBookingRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     private PreparedStatement st2;

@@ -7,6 +7,7 @@ package Server.Requests;
 
 import Admin.PassDetail;
 import Admin.PassDetails;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author kmish
  */
-public class PassDetailsRequest {
+public class PassDetailsRequest implements Serializable{
     private final Connection con;
     private PreparedStatement stmt;
     private ArrayList<PassDetail> pd=new ArrayList();

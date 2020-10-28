@@ -7,6 +7,7 @@ package Server.Requests;
 
 import Admin.ViewTrain;
 import java.awt.HeadlessException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  *
  * @author Folio
  */
-public class RerouteTrainRequest {
+public class RerouteTrainRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     public RerouteTrainRequest() throws SQLException{

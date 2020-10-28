@@ -8,6 +8,7 @@ package Server.Requests;
 import Admin.AddTrain;
 import Admin.ViewTrain;
 import java.awt.HeadlessException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.DriverManager;
@@ -21,7 +22,7 @@ import java.util.Date;
  *
  * @author Folio
  */
-public class AddTrainRequest {
+public class AddTrainRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     private PreparedStatement stt;
@@ -53,8 +54,8 @@ public class AddTrainRequest {
     if(rundays.charAt(6)=='1') arr[0]=1;
     else arr[0]=0;
     for(i=0;i<6;i++)
-        if(rundays.charAt(i)=='1') arr[++i]=1;
-        else arr[++i]=0;
+        if(rundays.charAt(i)=='1') arr[i+1]=1;
+        else arr[i+1]=0;
     
     for(i=0;i<30;i++)
     {   Date date=java.sql.Date.valueOf(java.time.LocalDate.now().plusDays(i));
@@ -62,7 +63,9 @@ public class AddTrainRequest {
              dates.add(date);
     }
     
-    
+    for(i=0;i<dates.size();i++)
+            System.out.print(dates.get(i));
+            System.out.println();
     return dates;
     }
     public boolean addtrain() throws SQLException{

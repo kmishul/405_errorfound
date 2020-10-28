@@ -8,6 +8,7 @@ package Server.Requests;
 import Admin.PassDetail;
 import User.UserDetail;
 import com.mysql.cj.protocol.Resultset;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ import java.text.DateFormat;
  *
  * @author kmish
  */
-public class ReserveSeatsRequest {
+public class ReserveSeatsRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     private static Statement stmt;

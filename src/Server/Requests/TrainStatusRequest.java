@@ -6,6 +6,7 @@
 package Server.Requests;
 
 import Admin.PassDetail;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ import java.util.Date;
  *
  * @author kmish
  */
-public class TrainStatusRequest {
+public class TrainStatusRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     private static Statement stmt;

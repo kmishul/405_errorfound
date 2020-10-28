@@ -8,6 +8,7 @@ package Server.Requests;
 import Admin.RemoveTrain;
 import Admin.ViewTrain;
 import java.awt.HeadlessException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import java.sql.Statement;
  *
  * @author kmish
  */
-public class RemoveTrainRequest {
+public class RemoveTrainRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     private PreparedStatement st2;

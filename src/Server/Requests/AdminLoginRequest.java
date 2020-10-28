@@ -9,6 +9,7 @@ import Admin.AdminLogin;
 import Admin.Admindetail;
 import User.UserLogin;
 import java.awt.HeadlessException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ import java.sql.Statement;
  *
  * @author kmish
  */
-public class AdminLoginRequest {
+public class AdminLoginRequest implements Serializable{
     private final Connection con;
     private static Statement stmt;
     private PreparedStatement st;

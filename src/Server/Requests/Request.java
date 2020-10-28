@@ -5,10 +5,12 @@
  */
 package Server.Requests;
 
+import java.io.Serializable;
+
 /**
  *
  * @author kmish
  */
-public class Request {
+public class Request implements Serializable{
     
 }

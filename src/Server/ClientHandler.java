@@ -57,16 +57,16 @@ public class ClientHandler implements Runnable,Serializable{
     private PreparedStatement st;
     private ObjectOutputStream OOS;
     private ObjectInputStream OIS;
-    private DataOutputStream DOS;
-    private DataInputStream DIS;
+    //private DataOutputStream DOS;
+    //private DataInputStream DIS;
     private UserDetail mainId;
     
     ClientHandler(Socket client) throws IOException{
         this.client=client;
         OOS=new ObjectOutputStream(client.getOutputStream());
         OIS=new ObjectInputStream(client.getInputStream());
-        DOS=new DataOutputStream(client.getOutputStream());
-        DIS=new DataInputStream(client.getInputStream());
+       // DOS=new DataOutputStream(client.getOutputStream());
+        //DIS=new DataInputStream(client.getInputStream());
         System.out.println("\n done1");
     }
     
@@ -87,20 +87,21 @@ public class ClientHandler implements Runnable,Serializable{
         String request;
         System.out.println("\n done2");
         try {   
-            while(true){
-                request=DIS.readUTF();
+            while((client.isClosed()==false)){
+                request=(String) OIS.readObject();
                 System.out.println("\n doubt clear");
             
                 if(request.equals("User SignUp")){
                 UserDetail user=(UserDetail)OIS.readObject();
-                //String userid=user.UserId;
                 UserSignupRequest userr=new UserSignupRequest(user);
                 if(userr.adduser()){
-                    DOS.writeUTF("valid");
+                    OOS.writeObject("valid");
+                    OOS.flush();
                     System.out.println("valid check\n");
                 }
                 else{
-                    DOS.writeUTF("Error: may be username already exist,try another one");
+                    OOS.writeObject("Error: may be username already exist,try another one");
+                    OOS.flush();
                 }
             
             }
@@ -110,14 +111,14 @@ public class ClientHandler implements Runnable,Serializable{
                 
                 UserLoginRequest userlr=new UserLoginRequest(userl);
                 if(userlr.checklogininfo()){
-                    DOS.writeUTF("validlogindetails");
-                    DOS.flush();
+                    OOS.writeObject("validlogindetails");
+                    OOS.flush();
                     this.setUserMainID(userl);
                     System.out.println("Valid USer Login");
                 }
                 else{
-                    DOS.writeUTF("Wrong credentials");
-                    DOS.flush();
+                    OOS.writeObject("Wrong credentials");
+                    OOS.flush();
                 }
             }
             if(request.equals("Admin Login")) {
@@ -125,23 +126,29 @@ public class ClientHandler implements Runnable,Serializable{
                 Admindetail adminl=(Admindetail)OIS.readObject();
                 AdminLoginRequest userlr=new AdminLoginRequest(adminl);
                 if(userlr.checkadminlogininfo()){
-                    DOS.writeUTF("validlogindetailsforadmin");
+                    {OOS.writeObject("validlogindetailsforadmin");
+                    OOS.flush();
                     System.out.println("Valid Admin Login");
+                    }
                 }
                 else{
-                    DOS.writeUTF("Wrong credentials");
+                    OOS.writeObject("Wrong credentials");
+                    OOS.flush();
                     //DOS.writeUTF("Error: this username already exists,try using another one");   
                 }
             }
             if(request.equals("Add Train")){
+                //OOS.reset();
                 ViewTrain train=(ViewTrain)OIS.readObject();
                 AddTrainRequest trainn=new AddTrainRequest(train);
                 if(trainn.addtrain()){
                     OOS.writeObject("valid");
+                    OOS.flush();
                     System.out.println("valid check\n");
                 }
                 else{
                     OOS.writeObject("Error:this train num already exist");
+                    OOS.flush();
                     System.out.println("unvalid check\n");
                 }
             }
@@ -149,11 +156,13 @@ public class ClientHandler implements Runnable,Serializable{
                 ViewTrain train=(ViewTrain)OIS.readObject();
                 CancelTrainRequest trainn=new CancelTrainRequest(train);
                 if(trainn.canceltrain()){
-                    DOS.writeUTF("valid");
+                    OOS.writeObject("valid");
+                    OOS.flush();
                     System.out.println("valid check\n");
                 }
                 else{
-                    DOS.writeUTF("Error:this train is already cancelled or does not exist");
+                    OOS.writeObject("Error:this train is already cancelled or does not exist");
+                    OOS.flush();
                     System.out.println("unvalid check\n");
                 }
             }
@@ -189,21 +198,24 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("Seats ! Not Available\n");
                     }
                     }
-                }
-                else {
+                
+                else if(check==-1){
                     OOS.writeObject("Train does not exist !");
                     OOS.flush();
                 }
+            }
             
             if(request.equals("Uncancel Train")){
                 ViewTrain train=(ViewTrain)OIS.readObject();
                 CancelTrainRequest trainn=new CancelTrainRequest(train);
                 if(trainn.uncanceltrain()){
-                    DOS.writeUTF("valid");
+                    OOS.writeObject("valid");
+                    OOS.flush();
                     System.out.println("valid check\n");
                 }
                 else{
-                    DOS.writeUTF("Error:this train is not cancelled or it does not exist");
+                    OOS.writeObject("Error:this train is not cancelled or it does not exist");
+                    OOS.flush();
                     System.out.println("unvalid check\n");
                 }
             }
@@ -217,17 +229,19 @@ public class ClientHandler implements Runnable,Serializable{
                     vt1=(ArrayList<ViewTrain>)v.getList();
                     OOS.writeObject("valid");
                     OOS.writeObject(vt1);
+                    OOS.flush();
                    
                 }
             
             else {
                 OOS.writeObject("Invalid");
+                    OOS.flush();
                     System.out.println("Invalid\n");
                 }
             }
             if(request.equals("Search Train")){
-                String startstn=DIS.readUTF();
-                String stopstn=DIS.readUTF();
+                String startstn=(String) OIS.readObject();
+                String stopstn=(String) OIS.readObject();
                 SearchTrainRequest s=new SearchTrainRequest();
                 String res=s.getTrain(startstn, stopstn);
                 if(res.equals("valid"))
@@ -239,12 +253,13 @@ public class ClientHandler implements Runnable,Serializable{
                     OOS.writeObject(vt1);
                     //OOS.flush();
                     System.out.println("checkview2\n");
-                    DOS.writeUTF(res);
-                    System.out.println("checkview3\n");
+                    //OOS.writeObject(res);
+                    OOS.flush();
                 }
             
                 else {
                         OOS.writeObject("Invalid");
+                        OOS.flush();
                         System.out.println("Invalid\n");
                     }
             }
@@ -259,11 +274,13 @@ public class ClientHandler implements Runnable,Serializable{
                     vt2=(ArrayList<PassDetail>)p.getList();
                     OOS.writeObject("valid");
                     OOS.writeObject(vt2);
+                    OOS.flush();
                     
                 }
             
             else {
                 OOS.writeObject("Invalid");
+                OOS.flush();
                     System.out.println("Invalid\n");
                 }
             }
@@ -273,6 +290,7 @@ public class ClientHandler implements Runnable,Serializable{
                 RemoveTrainRequest cncl=new RemoveTrainRequest(train);
                 String Res=cncl.removetrain();
                 OOS.writeObject(Res);
+                OOS.flush();
 //                if(cncl.removetrain()){
 //                    OOS.writeObject("removetrainvalid");
 //                    System.out.println("valid check\n");
@@ -336,14 +354,16 @@ public class ClientHandler implements Runnable,Serializable{
             }
             if(request.equals("Cancel Booking")){
                 System.out.println("1\n");
-                String pnr=DIS.readUTF();
+                String pnr=(String) OIS.readObject();
                 System.out.println(pnr);
                 CancelBookingRequest ccn=new CancelBookingRequest();
                 if(ccn.cancel(pnr)){
                     OOS.writeObject("valid");
+                    OOS.flush();
                 }
                 else{
                     OOS.writeObject("Error:Wrong Credentials");
+                    OOS.flush();
                 }
             }
             if(request.equals("Reroute Train")){
@@ -352,9 +372,11 @@ public class ClientHandler implements Runnable,Serializable{
                 if(rer.reroute(train)){
                     System.out.println("valid");
                     OOS.writeObject("valid");
+                    OOS.flush();
                 }
                 else{
                     OOS.writeObject("Train number does not exist");
+                    OOS.flush();
                 }
                     
             }
@@ -363,9 +385,11 @@ public class ClientHandler implements Runnable,Serializable{
                 ViewTrain train=(ViewTrain) OIS.readObject();
                 if(add.addfc(train)){
                     OOS.writeObject("valid");
+                    OOS.flush();
                 }
                 else{
                     OOS.writeObject("Train does not exist");
+                    OOS.flush();
                     System.out.println("error2");
                 }
             }
@@ -374,9 +398,11 @@ public class ClientHandler implements Runnable,Serializable{
                 ViewTrain train=(ViewTrain) OIS.readObject();
                 if(add.addsc(train)){
                     OOS.writeObject("valid");
+                    OOS.flush();
                 }
                 else{
                     OOS.writeObject("Train does not exist");
+                    OOS.flush();
                     System.out.println("error2");
                 }
             }
@@ -385,14 +411,16 @@ public class ClientHandler implements Runnable,Serializable{
                 ViewTrain train=(ViewTrain) OIS.readObject();
                 if(add.addslc(train)){
                     OOS.writeObject("valid");
+                    OOS.flush();
                 }
                 else{
                     OOS.writeObject("Train does not exist");
+                    OOS.flush();
                     System.out.println("error2");
                 }
             }
             if(request.equals("Seat Avail")){
-                String tnum=DIS.readUTF();
+                String tnum=(String) OIS.readObject();
                 SeatsAvailRequest av=new SeatsAvailRequest();
                 if(av.checktrainname(tnum)){
                     int fc=av.getseatsfc(tnum);
@@ -402,9 +430,11 @@ public class ClientHandler implements Runnable,Serializable{
                     OOS.writeObject(fc);
                     OOS.writeObject(sc);
                     OOS.writeObject(slc);
+                    OOS.flush();
                 }
                 else{
-                    OOS.writeObject("Train Numbwer does not exist");
+                    OOS.writeObject("Train Number does not exist");
+                    OOS.flush();
                     System.out.println("No Train");
                 }
             }

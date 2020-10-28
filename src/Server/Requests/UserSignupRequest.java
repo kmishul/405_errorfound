@@ -10,6 +10,7 @@ import Server.Server;
 import User.UserDetail;
 import User.UserSignup;
 import java.awt.HeadlessException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ import java.sql.Statement;
  *
  * @author kmish
  */
-public class UserSignupRequest{
+public class UserSignupRequest implements Serializable{
     private final Connection con;
     private static Statement stmt;
     private PreparedStatement st;
