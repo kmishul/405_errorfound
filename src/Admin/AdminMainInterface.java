@@ -40,6 +40,7 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +93,13 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
             }
         });
 
+        jButton8.setText("User Queries");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,6 +115,10 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
                     .addComponent(jButton2)
                     .addComponent(jButton1))
                 .addContainerGap(573, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton8)
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +137,9 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
                 .addComponent(jButton6)
                 .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(jButton8)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,6 +179,11 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
         // TODO add your handling code here:
          new AddCoaches(rr, adminid).show();
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        new QueryHandler(rr, adminid).show();
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,5 +228,6 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     // End of variables declaration//GEN-END:variables
 }
