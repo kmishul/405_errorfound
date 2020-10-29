@@ -263,6 +263,7 @@ public class ReserveSeatsRequest implements Serializable{
             query1="UPDATE sleeperClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             st=con.prepareStatement(query1);
             st.setDate(1, sqldate);
+            //st.setString(2, trainNum);
             st.execute();
             return updateQueries(seatno,ticketid, userid);
         }

@@ -22,7 +22,10 @@ import Server.Requests.PassDetailsRequest;
 import Server.Requests.UserSignupRequest;
 import Server.Requests.ViewTrainsRequest;
 import Server.Requests.CancelTrainRequest;
+import Server.Requests.NotificationRequest;
+
 import Server.Requests.DiscountsRequest;
+
 import Server.Requests.RemoveTrainRequest;
 import Server.Requests.RerouteTrainRequest;
 import Server.Requests.ReserveSeatsRequest;
@@ -51,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.Notification;
 
 /**
  *
@@ -469,7 +473,8 @@ public class ClientHandler implements Runnable,Serializable{
                 String userid=(String) OIS.readObject();
                 DiscountsRequest dr=new DiscountsRequest();
                  dr.checkDiscount(userid,OOS);
-                
+            }
+            
             if(request.equals("Send Query")){
                 Queries query=(Queries) OIS.readObject();
                 SendQueryRequest req=new SendQueryRequest();
@@ -537,8 +542,25 @@ public class ClientHandler implements Runnable,Serializable{
                     OOS.flush();
                 }
             }
-        }
-        }
+            if(request.equals("Notify")){
+                System.out.println("reached notification");
+                String uid=(String) OIS.readObject();
+                NotificationRequest not=new NotificationRequest();
+                if(not.getrecent(uid)){
+                    ArrayList<String> vt1;
+                    vt1=(ArrayList<String>)not.getList();
+                    OOS.writeObject("valid");
+                    OOS.writeObject(vt1);
+                    OOS.flush();
+                    System.out.println("valid check");
+                }
+                else{
+                    OOS.writeObject("invalid");
+                    OOS.flush();
+                    System.out.println("invalid check");
+                }
+            }
+            }
         }catch (IOException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
