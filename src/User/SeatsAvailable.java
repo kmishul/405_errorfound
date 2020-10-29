@@ -9,6 +9,7 @@ import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -44,6 +45,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         xtxtrainno = new javax.swing.JTextField();
@@ -55,6 +57,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
         txtslc = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        datech = new com.toedter.calendar.JDateChooser();
 
         jLabel5.setText("jLabel5");
 
@@ -100,6 +103,8 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
         });
 
         jLabel6.setText("First Class:");
+
+        jLabel7.setText("Date:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,12 +161,13 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
                 .addComponent(jButton1)
                 .addGap(84, 84, 84)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtsc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(35, 35, 35)
+                        .addComponent(txtsc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -186,10 +192,11 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
         txtsc.setText("");
         txtslc.setText("");
         String tnum=xtxtrainno.getText();
+        Date date=datech.getDate();
         try {
             
             ObjectInputStream ois=rr.getObjectInputStream();
-            String Res=rr.seatavail(tnum);
+            String Res=rr.seatavail(tnum,date);
             if(Res.equals("valid")){
             int fci=(int) ois.readObject();
             int sci=(int) ois.readObject();
@@ -281,7 +288,9 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser datech;
     private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

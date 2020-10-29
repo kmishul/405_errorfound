@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -296,7 +297,10 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void ReserveSeatBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserveSeatBTActionPerformed
+        
+            
         if(verifyField()&&checkfields()){
+            int discount=0;
             String trainno=TrainNumTF.getText();
             String fname=PassengerAgeTF.getText();
             String lname=passLname.getText();
@@ -315,20 +319,25 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             pass.setberth(Berth);
             pass.setage(age);
             pass.setgender(gender);
-            //ObjectOutputStream oos=rr.getObjectOutputStream();
-            //ObjectInputStream ois=rr.getObjectInputStream();
             try {
-                String Res=rr.reserveseat(pass);
+                discount=getDiscountforuser();
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                String Res=rr.reserveseat(pass,discount);
                 if(Res.equals("valid")){
                     JOptionPane.showMessageDialog(this, "Seat booked successfully! Check your ticket now.");
+                }
+                else if(Res.equals("waiting")){
+                    rr.reservewaiting(pass,discount);
+                    JOptionPane.showMessageDialog(this, "Your Seat is in Waiting! Hope you get the seat.");
                 }
                 else{
                     JOptionPane.showMessageDialog(this,Res);
                     System.out.println("\n"+Res);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
@@ -362,6 +371,22 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             return true;
         }
     }
+    
+    private int getDiscountforuser() throws IOException, ClassNotFoundException {
+        
+        String Res=rr.checkDiscount(userid);
+         if(Res.equalsIgnoreCase("valid"))
+         { 
+             ObjectInputStream ois=rr.getObjectInputStream();
+             int i=(int) ois.readObject();
+             java.sql.Date d=(java.sql.Date) ois.readObject();
+             String dis=Integer.toString(i);
+             //LocalDate ld=d.toLocalDate().plusDays(30);
+             //String date=ld.toString();
+             return i;
+         }
+         else return 0;
+       }
     
     private void scgenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scgenderActionPerformed
         // TODO add your handling code here:
@@ -512,4 +537,6 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     private javax.swing.JTextField passLname;
     private javax.swing.JComboBox<String> scgender;
     // End of variables declaration//GEN-END:variables
+
+    
 }

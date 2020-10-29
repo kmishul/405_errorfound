@@ -27,6 +27,7 @@ import java.io.IOException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -184,10 +185,11 @@ public class Req_Res implements Serializable{
        s=(String) OIS1.readObject();
        return s;
     }
-    public String seatavail(String tnum) throws IOException, ClassNotFoundException{
+    public String seatavail(String tnum,Date date) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Seat Avail");
        OOS1.writeObject(tnum);
+       OOS1.writeObject(date);
        OOS1.flush();
        s=(String) OIS1.readObject();
        return s;
@@ -208,13 +210,22 @@ public class Req_Res implements Serializable{
        String s=(String) OIS1.readObject();
        return s;
     }
-    public String reserveseat(PassDetail pass) throws IOException, ClassNotFoundException{
+    public String reserveseat(PassDetail pass,int discount) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Reserve Seat");
        OOS1.writeObject(pass);
+       OOS1.writeObject(discount);
        OOS1.flush();
         s=(String) OIS1.readObject();
          return s;       
+       
+    }
+    public void reservewaiting(PassDetail pass,int discount) throws IOException, ClassNotFoundException{
+    
+       OOS1.writeObject("Reserve Waiting");
+       OOS1.writeObject(pass);
+       OOS1.writeObject(discount);
+       OOS1.flush();      
        
     }
     public String travelInfo() throws IOException, ClassNotFoundException{
@@ -281,6 +292,14 @@ public class Req_Res implements Serializable{
         return s;
     }
     public String notification(String s) throws IOException, ClassNotFoundException{
+        System.out.println("req res method");
+        OOS1.writeObject("Notify");
+        OOS1.writeObject(s);
+        OOS1.flush();
+        s=(String) OIS1.readObject();
+        return s;
+    }
+    public String changepass(String s,String p,String p1) throws IOException, ClassNotFoundException{
         System.out.println("req res method");
         OOS1.writeObject("Notify");
         OOS1.writeObject(s);
