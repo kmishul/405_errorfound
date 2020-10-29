@@ -22,6 +22,7 @@ import Server.Requests.PassDetailsRequest;
 import Server.Requests.UserSignupRequest;
 import Server.Requests.ViewTrainsRequest;
 import Server.Requests.CancelTrainRequest;
+import Server.Requests.NotificationRequest;
 import Server.Requests.RemoveTrainRequest;
 import Server.Requests.RerouteTrainRequest;
 import Server.Requests.ReserveSeatsRequest;
@@ -48,6 +49,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.Notification;
 
 /**
  *
@@ -505,6 +507,22 @@ public class ClientHandler implements Runnable,Serializable{
                 else{
                     OOS.writeObject("Sorry! No reply from admin");
                     OOS.flush();
+                }
+            }
+            if(request.equals("Notify")){
+                String uid=(String) OIS.readObject();
+                NotificationRequest not=new NotificationRequest();
+                if(not.getrecent(uid)){
+                    ArrayList<String> vt1;
+                    vt1=(ArrayList<String>)not.getList();
+                    OOS.writeObject("valid");
+                    OOS.writeObject(vt1);
+                    OOS.flush();
+                    System.out.println("valid check");
+                }
+                else{
+                    OOS.writeObject("invalid");
+                    System.out.println("invalid check");
                 }
             }
         }

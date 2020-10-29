@@ -225,13 +225,14 @@ public class ReserveSeatsRequest implements Serializable{
             
             String query1="";
             if(passclass.equalsIgnoreCase("First AC"))
-            query1="UPDATE firstClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
+            query1="UPDATE firstClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum=?";
             else if(passclass.equalsIgnoreCase("Second AC"))
             query1="UPDATE secondClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             else if(passclass.equalsIgnoreCase("Sleeper"))
             query1="UPDATE sleeperClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             st=con.prepareStatement(query1);
             st.setDate(1, sqldate);
+            st.setString(2, trainNum);
             st.execute();
             return updateQueries(seatno,ticketid, userid);
         }
