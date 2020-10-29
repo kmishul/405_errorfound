@@ -105,7 +105,7 @@ public class Notification extends javax.swing.JFrame {
                 }
             }
             else{
-                JOptionPane.showMessageDialog(this,Res);
+                JOptionPane.showMessageDialog(this,"no notification for u :)");
             }
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Notification.class.getName()).log(Level.SEVERE, null, ex);

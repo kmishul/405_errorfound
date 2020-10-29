@@ -26,6 +26,9 @@ import javax.swing.JOptionPane;
 public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     private final String userid;
     private final Req_Res rr; 
+    Date present=java.sql.Date.valueOf(java.time.LocalDate.now());
+    Date after30days=java.sql.Date.valueOf(java.time.LocalDate.now().plusDays(30));
+    
     /**
      * Creates new form ReserveSeats
      */
@@ -152,11 +155,9 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             }
         });
 
-        discount.setText("discount");
+        discount.setText("Click here to get discount");
 
         jLabel11.setText("jlabel ");
-
-        jLabel13.setText("jLabel13");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,11 +169,11 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
                         .addGap(124, 124, 124)
                         .addComponent(ReserveSeatBT)
                         .addGap(45, 45, 45)
-                        .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(171, 171, 171)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,6 +346,10 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
         String Class=(String) ClassCB.getSelectedItem();
             String Berth=(String) BerthPrefCB.getSelectedItem();
         Date date=ReserveDateDC.getDate();
+        if(date.compareTo(present)<0||after30days.compareTo(date)<0){
+        JOptionPane.showMessageDialog(this, "enter date which is between next today and next 30 days ");
+            return false;
+    }
         if(trainno.trim().equals("")||fname.trim().equals("")||lname.trim().equals("")||date.equals("")){
             JOptionPane.showMessageDialog(this, "One Or More Fields Are Empty","Empty Fields",2);
             return false;
@@ -431,6 +436,13 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
 
     private void ReserveDateDCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReserveDateDCKeyReleased
         // TODO add your handling code here:
+//        
+//        Date date1=java.sql.Date.valueOf(java.time.LocalDate.now());
+//        
+//        if(d1.compareTo(d2) < 0) {
+//         System.out.println("Date 1 occurs before Date 2");
+//         
+//         Date after30days=java.sql.Date.valueOf(java.time.LocalDate.now().plusDays(30));
     }//GEN-LAST:event_ReserveDateDCKeyReleased
     public boolean checkfields(){
         if (jLabel4.getText()=="invalid"&&jLabel2.getText()=="invalid"&&jLabel3.getText()=="invalid"&&jLabel4.getText()=="invalid"){

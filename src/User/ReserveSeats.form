@@ -29,14 +29,14 @@
                       <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                       <Component id="ReserveSeatBT" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="discount" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="discount" min="-2" pref="167" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="105" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="235" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -339,7 +339,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="discount">
       <Properties>
-        <Property name="text" type="java.lang.String" value="discount"/>
+        <Property name="text" type="java.lang.String" value="Click here to get discount"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
@@ -350,9 +350,6 @@
     <Component class="javax.swing.JLabel" name="jLabel12">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel13"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
