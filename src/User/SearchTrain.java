@@ -202,7 +202,7 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
                                     v.getfee2(),
                                     v.getfee3(),
                                     v.getdays(),
-                                    t,
+                                    t
                                 });
                     System.out.println("Client2\n");
                     }

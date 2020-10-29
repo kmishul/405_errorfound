@@ -163,7 +163,8 @@ private DefaultTableModel model1;
                     p.getpassclass(),
                     p.getberth(),
                     p.getseatno(),
-                    p.getdate()
+                    p.getdate(),
+                    p.getfare()
                 
                     });
                     

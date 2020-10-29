@@ -261,6 +261,8 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
             }
         });
 
+        jRadioButton1.setText("Dynamic");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -426,6 +428,11 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
             int FareFirst=Integer.parseInt(txtfarefc.getText());
             int FareSecond=Integer.parseInt(txtfaresc.getText());
             int FareSleeper=Integer.parseInt(txtfareslc.getText());
+            int dmc;
+            if(jRadioButton1.isSelected())
+                dmc=1;
+            else dmc=0;
+            
             String rundays="";
             System.out.println("12\n");
             if(MonRB.isSelected()){
@@ -472,7 +479,7 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
             }
             try {
                 //Req_Res addt=new Req_Res();
-                ViewTrain train=new ViewTrain(tNum,tName,StartStation,StopStation,StartTime,StopTime,NOSFirst,NOSSecond,NOSSleeper,FareFirst,FareSecond,FareSleeper,rundays);
+                ViewTrain train=new ViewTrain(tNum,tName,StartStation,StopStation,StartTime,StopTime,NOSFirst,NOSSecond,NOSSleeper,FareFirst,FareSecond,FareSleeper,rundays,dmc);
                 String Res=rr.addtrain(train);
                 System.out.println(Res+"2");
                 if(Res.equals("valid")){
@@ -810,6 +817,7 @@ public boolean verifyTrains(){
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JTextField txtNOSfc;
     private javax.swing.JTextField txtNOSsc;
     private javax.swing.JTextField txtNOSslc;
