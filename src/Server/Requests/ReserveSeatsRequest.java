@@ -24,10 +24,10 @@ import java.text.DateFormat;
  */
 public class ReserveSeatsRequest implements Serializable{
     private final Connection con;
-    private PreparedStatement st;
+    private PreparedStatement st,st1,st2;
     private static Statement stmt;
     public String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
-    public int seatno,age;
+    public int seatno,age,fare;
      public Date date;
      PassDetail pass;
      String dbpassclass;
@@ -75,21 +75,30 @@ public class ReserveSeatsRequest implements Serializable{
      //To check if cancelled seats are available 
      public int availableSeatfromcancelled(String berth) throws SQLException
     {   //int remaining=0;
-        String query="";
+        String query1="";
+        String query2="";
             if(passclass.equalsIgnoreCase("First AC"))
-            query="SELECT * FROM firstClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
+            {query1="SELECT * FROM firstClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
+             query2="DELETE FROM firstClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";}
             else if(passclass.equalsIgnoreCase("Second AC"))
-            query="SELECT * FROM secondClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
+            {query1="SELECT * FROM secondClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
+             query2="DELETE FROM secondClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";}
             else if(passclass.equalsIgnoreCase("Sleeper"))
-            query="SELECT * FROM sleeperClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
-               
+            {query1="SELECT * FROM sleeperClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";
+             query2="DELETE FROM sleeperClasscancel WHERE berth=? AND rundate=? AND trainNum='"+(trainNum)+"';";}  
             
-            st=con.prepareStatement(query);
+            st=con.prepareStatement(query1);
             st.setString(1, berth);
             st.setDate(2, sqldate);
             ResultSet rs=(ResultSet) st.executeQuery();
             if(rs.next()){
             int seat=rs.getInt("passseatno");
+            
+            st1=con.prepareStatement(query2);
+            st1.setString(1, berth);
+            st1.setDate(2, sqldate);
+            st1.executeQuery();
+            
             return seat;
        }
        else return 0;
@@ -104,7 +113,7 @@ public class ReserveSeatsRequest implements Serializable{
             System.out.println("7\n");
             
             
-            String query2="INSERT INTO `passengerdetail`(`trainNum`, `userId`, `passclass`,`berth`,`passseatNo`, `passengerTicketId`, `passengerFirstName`, `passengerLastName`, `passengerAge`, `passengergender`, `travdate`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            String query2="INSERT INTO `passengerdetail`(`trainNum`, `userId`, `passclass`,`berth`,`passseatNo`, `passengerTicketId`, `passengerFirstName`, `passengerLastName`, `passengerAge`, `passengergender`, `travdate`,`fare`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             st=con.prepareStatement(query2);
             st.setString(1,trainNum);
             st.setString(2,userid);
@@ -117,6 +126,8 @@ public class ReserveSeatsRequest implements Serializable{
             st.setInt(9,age);
             st.setString(10,gender);
             st.setDate(11,sqldate);
+            st.setInt(12,fare);
+            
             st.execute();
             System.out.println("8\n");
             check++;
@@ -232,6 +243,7 @@ public class ReserveSeatsRequest implements Serializable{
             query1="UPDATE sleeperClass SET sideuppers=sideuppers+1 WHERE rundate=? AND trainNum='"+(trainNum)+"';";
             st=con.prepareStatement(query1);
             st.setDate(1, sqldate);
+            //st.setString(2, trainNum);
             st.execute();
             return updateQueries(seatno,ticketid, userid);
         }
@@ -260,13 +272,21 @@ public class ReserveSeatsRequest implements Serializable{
         System.out.println(tnum);
        // if(passclass.equalsIgnoreCase("First AC") || passclass.equalsIgnoreCase("Second AC")){
             System.out.println("3\n");
-            String q1="";
+            String q1="",qq="";
+            qq="SELECT * FROM traininfo WHERE trainNum=?";//tO check fares
+            st2=con.prepareStatement(qq);
+           st2.setString(1, tnum);
+            ResultSet rs0=(ResultSet) st2.executeQuery();
+            rs0.next();
             if(passclass.equalsIgnoreCase("First AC"))
-           { q1="SELECT * FROM firstClass WHERE trainNum=? AND rundate=?"; dbpassclass="firstClass";}
+           { q1="SELECT * FROM firstClass WHERE trainNum=? AND rundate=?"; 
+           fare=rs0.getInt("feeFirstClass");dbpassclass="firstClass";}
             else if(passclass.equalsIgnoreCase("Second AC"))
-            {q1="SELECT * FROM secondClass WHERE trainNum=? AND rundate=?";dbpassclass="secondClass";}
+            {q1="SELECT * FROM secondClass WHERE trainNum=? AND rundate=?";
+            fare=rs0.getInt("feeSecondClass");dbpassclass="secondClass";}
             else if(passclass.equalsIgnoreCase("Sleeper"))
-            { q1="SELECT * FROM sleeperClass WHERE trainNum=? AND rundate=?";dbpassclass="sleeperClass";}
+            { q1="SELECT * FROM sleeperClass WHERE trainNum=? AND rundate=?";
+            fare=rs0.getInt("feeSleeperClass");dbpassclass="sleeperClass";}
             
             st=con.prepareStatement(q1);
            st.setString(1, tnum);
