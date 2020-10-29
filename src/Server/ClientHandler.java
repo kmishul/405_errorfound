@@ -50,6 +50,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.management.Notification;
@@ -378,13 +379,17 @@ public class ClientHandler implements Runnable,Serializable{
             if(request.equals("Reroute Train")){
                 ViewTrain train=(ViewTrain) OIS.readObject();
                 RerouteTrainRequest rer=new RerouteTrainRequest();
-                if(rer.reroute(train)){
+                if(rer.reroute(train)==1){
                     System.out.println("valid");
                     OOS.writeObject("valid");
                     OOS.flush();
                 }
-                else{
+                else if(rer.reroute(train)==0){
                     OOS.writeObject("Train number does not exist");
+                    OOS.flush();
+                }
+                else{
+                    OOS.writeObject("This train has tickets reserved,can not re-route");
                     OOS.flush();
                 }
                     
@@ -430,11 +435,12 @@ public class ClientHandler implements Runnable,Serializable{
             }
             if(request.equals("Seat Avail")){
                 String tnum=(String) OIS.readObject();
+                Date date=(Date) OIS.readObject();
                 SeatsAvailRequest av=new SeatsAvailRequest();
                 if(av.checktrainname(tnum)){
-                    int fc=av.getseatsfc(tnum);
-                    int sc=av.getseatssc(tnum);
-                    int slc=av.getseatsslc(tnum);
+                    int fc=av.getseatsfc(tnum,date);
+                    int sc=av.getseatssc(tnum,date);
+                    int slc=av.getseatsslc(tnum,date);
                     OOS.writeObject("valid");
                     OOS.writeObject(fc);
                     OOS.writeObject(sc);
@@ -552,6 +558,11 @@ public class ClientHandler implements Runnable,Serializable{
                     OOS.flush();
                     System.out.println("invalid check");
                 }
+            }
+            if(request.equals("Change Password")){
+                String uid=(String) OIS.readObject();
+                String opass=(String) OIS.readObject();
+                String npass=(String) OIS.readObject();
             }
             }
         }catch (IOException ex) {

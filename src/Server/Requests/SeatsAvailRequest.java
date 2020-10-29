@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  *
@@ -22,6 +23,7 @@ public class SeatsAvailRequest implements Serializable{
     private PreparedStatement st;
      private PreparedStatement st1;
       private PreparedStatement st2;
+      java.sql.Date sqldate;
     public SeatsAvailRequest() throws SQLException{
          con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
@@ -55,11 +57,14 @@ public class SeatsAvailRequest implements Serializable{
         
         return tname_exist;
     }
-    public int getseatsfc(String tnum) throws SQLException{
+    public int getseatsfc(String tnum,Date date) throws SQLException{
         int rem;
-        String q1="SELECT * FROM firstclass WHERE trainNum=?";
+        java.util.Date utilObj = date;
+        sqldate = new java.sql.Date(utilObj.getTime());
+        String q1="SELECT * FROM firstClass WHERE trainNum=? AND rundate=?";
         st=con.prepareStatement(q1);
         st.setString(1, tnum);
+        st.setDate(2, sqldate);
         ResultSet rs=st.executeQuery();
         rs.next();
         int total=rs.getInt("totalseats");
@@ -67,14 +72,17 @@ public class SeatsAvailRequest implements Serializable{
         int up=rs.getInt("uppers");
         int su=rs.getInt("sideuppers");
         int sl=rs.getInt("sidelowers");
-        rem=total-(lo+up+su+sl);
+        rem=total-(lo+up+su+sl)+getcancelfc(tnum, date);
         return rem;
     }
-    public int getseatssc(String tnum) throws SQLException{
+    public int getseatssc(String tnum,Date date) throws SQLException{
         int rem;
-        String q1="SELECT * FROM secondclass WHERE trainNum=?";
+        java.util.Date utilObj = date;
+        sqldate = new java.sql.Date(utilObj.getTime());
+        String q1="SELECT * FROM secondClass WHERE trainNum=? AND rundate=?";
         st1=con.prepareStatement(q1);
         st1.setString(1, tnum);
+        st1.setDate(2, sqldate);
         ResultSet rs=st1.executeQuery();
         rs.next();
         int total=rs.getInt("totalseats");
@@ -82,14 +90,17 @@ public class SeatsAvailRequest implements Serializable{
         int up=rs.getInt("uppers");
         int su=rs.getInt("sideuppers");
         int sl=rs.getInt("sidelowers");
-        rem=total-(lo+up+su+sl);
+        rem=total-(lo+up+su+sl)+getcancelsc(tnum, date);
         return rem;
     }
-    public int getseatsslc(String tnum) throws SQLException{
+    public int getseatsslc(String tnum,Date date) throws SQLException{
         int rem;
-        String q1="SELECT * FROM sleeperclass WHERE trainNum=?";
+        java.util.Date utilObj = date;
+        sqldate = new java.sql.Date(utilObj.getTime());
+        String q1="SELECT * FROM sleeperClass WHERE trainNum=? AND rundate=?";
         st2=con.prepareStatement(q1);
         st2.setString(1, tnum);
+        st2.setDate(2, sqldate);
         ResultSet rs=st2.executeQuery();
         rs.next();
         int total=rs.getInt("totalseats");
@@ -98,7 +109,43 @@ public class SeatsAvailRequest implements Serializable{
         int su=rs.getInt("sideuppers");
         int sl=rs.getInt("sidelowers");
         int md=rs.getInt("middles");
-        rem=total-(lo+up+su+sl+md);
+        rem=total-(lo+up+su+sl+md)+getcancelslc(tnum, date);
         return rem;
+    }
+    private int getcancelfc(String tnum,Date date) throws SQLException{
+        String q1="SELECT * FROM firstClasscancel WHERE trainNum=? AND rundate=?";
+        int count=0;
+        st=con.prepareStatement(q1);
+        st.setString(1, tnum);
+        st.setDate(2, sqldate);
+        ResultSet rs=st.executeQuery();
+        while(rs.next()){
+            count++;
+        }
+        return count;
+    }
+    private int getcancelsc(String tnum,Date date) throws SQLException{
+        String q1="SELECT * FROM secondClasscancel WHERE trainNum=? AND rundate=?";
+        int count=0;
+        st=con.prepareStatement(q1);
+        st.setString(1, tnum);
+        st.setDate(2, sqldate);
+        ResultSet rs=st.executeQuery();
+        while(rs.next()){
+            count++;
+        }
+        return count;
+    }
+    private int getcancelslc(String tnum,Date date) throws SQLException{
+        String q1="SELECT * FROM sleeperClasscancel WHERE trainNum=? AND rundate=?";
+        int count=0;
+        st=con.prepareStatement(q1);
+        st.setString(1, tnum);
+        st.setDate(2, sqldate);
+        ResultSet rs=st.executeQuery();
+        while(rs.next()){
+            count++;
+        }
+        return count;
     }
 }
