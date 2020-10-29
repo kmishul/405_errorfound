@@ -262,4 +262,10 @@ public class Req_Res implements Serializable{
         s=(String) OIS1.readObject();
         return s;
     }
+    public String notification(String s) throws IOException, ClassNotFoundException{
+        OOS1.writeObject("Notify");
+        OOS1.writeObject(s);
+        s=(String) OIS1.readObject();
+        return s;
+    }
 }
