@@ -64,6 +64,7 @@ public class TicketsRequest implements Serializable{
                 p.setlname(rs1.getString("passengerLastName"));
                 p.setage(rs1.getInt("passengerAge"));
                 p.setdate(rs1.getDate("travdate"));
+                p.setfare(rs1.getInt("fare"));
                 
                 v.settrainName(rs2.getString("trainName"));
                 v.setfstation(rs2.getString("firstStation"));

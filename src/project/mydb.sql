@@ -49,7 +49,8 @@ CREATE TABLE traininfo (
     feeSecondClass INT DEFAULT 0 NOT NULL,
     feeSleeperClass INT DEFAULT 0,
     days VARCHAR(7) NOT NULL,
-    cancel INT DEFAULT 0
+    cancel INT DEFAULT 0,
+    dmc INT DEFAULT 0 
 );
 
 -- Create firstClass Table To Store Information of available seats
@@ -131,9 +132,19 @@ CREATE TABLE passengerdetail (
     passengerAge INT NOT NULL,
     passengergender VARCHAR(10) NOT NULL,
     travdate DATE NOT NULL,
+    fare INT NOT NULL,
     
     FOREIGN KEY(userId) REFERENCES userlogin(userId),
     FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
+);
+
+--Create Table For Discounts to user given by Admin
+CREATE TABLE discounts (
+    userId VARCHAR(50) NOT NULL PRIMARY KEY,
+    discount INT NOT NULL,
+    discountdate DATE NOT NULL,
+    
+    FOREIGN KEY(userId) REFERENCES userlogin(userId)
 );
 CREATE TABLE chats (
     userId VARCHAR(50) PRIMARY KEY NOT NULL,
