@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -54,6 +56,7 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl = new javax.swing.JTable();
         btnclear = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +66,18 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
         jLabel2.setText("Start Station:");
 
         jLabel3.setText("jLabel3");
+
+        txtstartstn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtstartstnKeyReleased(evt);
+            }
+        });
+
+        txtstopstn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtstopstnKeyReleased(evt);
+            }
+        });
 
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -105,8 +120,10 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
                                 .addGap(49, 49, 49)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtstartstn)
-                                    .addComponent(txtstopstn, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))))
-                        .addGap(0, 277, Short.MAX_VALUE))
+                                    .addComponent(txtstopstn, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 156, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -120,23 +137,24 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2))
-                    .addComponent(txtstartstn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtstartstn, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtstopstn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btnclear))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -145,6 +163,7 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    if(checkfields()){
         model=(DefaultTableModel) tbl.getModel();
         String startstn=txtstartstn.getText();
         String stopstn=txtstopstn.getText();
@@ -200,6 +219,10 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
                 Logger.getLogger(SearchTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    else{
+        JOptionPane.showMessageDialog(this, "there are some invalid fields");
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
@@ -208,6 +231,42 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
         jButton1.setEnabled(true);
     }//GEN-LAST:event_btnclearActionPerformed
 
+    private void txtstartstnKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstartstnKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{3,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtstartstn.getText());
+        if(!match.matches()){
+           jLabel4.setText("invalid station");
+        }
+        else{
+            jLabel4.setText(null);
+        }
+    }//GEN-LAST:event_txtstartstnKeyReleased
+
+    private void txtstopstnKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstopstnKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{3,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtstopstn.getText());
+        if(!match.matches()){
+           jLabel4.setText("invalid station");
+        }
+        else{
+            jLabel4.setText(null);
+        }
+    }//GEN-LAST:event_txtstopstnKeyReleased
+
+    public boolean checkfields(){
+        if (jLabel4.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -250,6 +309,7 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl;
     private javax.swing.JTextField txtstartstn;

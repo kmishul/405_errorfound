@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -49,6 +51,7 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
         txttrainnum = new javax.swing.JTextField();
         tncancel = new javax.swing.JButton();
         btnuncancel = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +59,12 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
         jLabel1.setText("Cancel and Uncancel Trains");
 
         jLabel2.setText("Train Number:");
+
+        txttrainnum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttrainnumKeyReleased(evt);
+            }
+        });
 
         tncancel.setText("Cancel Train");
         tncancel.addActionListener(new java.awt.event.ActionListener() {
@@ -75,10 +84,6 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(242, 242, 242))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -92,6 +97,15 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
                         .addGap(164, 164, 164)
                         .addComponent(btnuncancel)))
                 .addContainerGap(154, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(242, 242, 242))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(182, 182, 182))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +116,9 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txttrainnum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(100, 100, 100)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tncancel)
                     .addComponent(btnuncancel))
@@ -115,6 +131,7 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
 
     private void tncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tncancelActionPerformed
         // TODO add your handling code here:
+    if(checkfields()){
         String tNum=txttrainnum.getText();
         if(tNum.trim().equals("")){
             JOptionPane.showMessageDialog(this, "Enter Train Number");
@@ -139,7 +156,10 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
                 Logger.getLogger(CancelTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+    }
+    else{
+        JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+    }
     }//GEN-LAST:event_tncancelActionPerformed
 
     private void btnuncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncancelActionPerformed
@@ -171,6 +191,27 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
 
     }//GEN-LAST:event_btnuncancelActionPerformed
 
+    private void txttrainnumKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttrainnumKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{2,5}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txttrainnum.getText());
+        if(!match.matches()){
+           jLabel3.setText("invalid password");
+        }
+        else{
+            jLabel3.setText(null);
+        }
+    }//GEN-LAST:event_txttrainnumKeyReleased
+    public boolean checkfields(){
+        if (jLabel3.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -210,6 +251,7 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
     private javax.swing.JButton btnuncancel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton tncancel;
     private javax.swing.JTextField txttrainnum;
     // End of variables declaration//GEN-END:variables
