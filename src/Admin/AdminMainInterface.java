@@ -147,7 +147,7 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new AddTrain(rr, adminid).show();
+       new AddTrain(rr, adminid).show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

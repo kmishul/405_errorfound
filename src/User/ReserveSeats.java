@@ -11,9 +11,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,7 +26,7 @@ import javax.swing.JOptionPane;
  */
 public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     private final String userid;
-    private final Req_Res rr;
+    private final Req_Res rr; 
     /**
      * Creates new form ReserveSeats
      */
@@ -59,6 +63,11 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
         scgender = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         passLname = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        discount = new javax.swing.JRadioButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +80,12 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
         jLabel4.setText("Class ");
 
         jLabel5.setText("Berth Preference");
+
+        TrainNumTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TrainNumTFKeyReleased(evt);
+            }
+        });
 
         ClassCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECT CLASS--", "Sleeper", "First AC", "Second AC" }));
 
@@ -89,12 +104,22 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
         });
 
         ReserveDateDC.setDateFormatString("dd/MM/yyyy");
+        ReserveDateDC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ReserveDateDCKeyReleased(evt);
+            }
+        });
 
         jLabel6.setText("Passenger Age");
 
         PassengerAgeTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PassengerAgeTFActionPerformed(evt);
+            }
+        });
+        PassengerAgeTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PassengerAgeTFKeyReleased(evt);
             }
         });
 
@@ -107,6 +132,11 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
                 PassengerNameTFActionPerformed(evt);
             }
         });
+        PassengerNameTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PassengerNameTFKeyReleased(evt);
+            }
+        });
 
         scgender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Others" }));
         scgender.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +147,18 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
 
         jLabel9.setText("Passenger Last Name:");
 
+        passLname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passLnameKeyReleased(evt);
+            }
+        });
+
+        discount.setText("discount");
+
+        jLabel11.setText("jlabel ");
+
+        jLabel13.setText("jLabel13");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,71 +166,90 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(124, 124, 124)
-                        .addComponent(ReserveSeatBT))
+                        .addComponent(ReserveSeatBT)
+                        .addGap(45, 45, 45)
+                        .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(171, 171, 171)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(181, 181, 181)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(scgender, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(PassengerNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGap(30, 30, 30)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(BerthPrefCB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(PassengerAgeTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(130, 130, 130))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(263, 263, 263))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(ClassCB, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(ClassCB, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(ReserveDateDC, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(100, 100, 100)
+                                                .addComponent(TrainNumTF, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(5, 5, 5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(100, 100, 100)
-                                        .addComponent(TrainNumTF, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(263, 263, 263)))
-                            .addGap(135, 135, 135))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(passLname, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(130, 130, 130)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ReserveDateDC, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(181, 181, 181)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(scgender, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(PassengerNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGap(30, 30, 30)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(BerthPrefCB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(PassengerAgeTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(passLname, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(135, 135, 135))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TrainNumTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TrainNumTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(ReserveDateDC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -198,15 +259,23 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BerthPrefCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(PassengerAgeTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(passLname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(PassengerAgeTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(passLname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)))
+                .addGap(11, 11, 11)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PassengerNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,7 +284,11 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
                     .addComponent(jLabel7)
                     .addComponent(scgender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(ReserveSeatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ReserveSeatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(discount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12)))
                 .addContainerGap())
         );
 
@@ -223,7 +296,10 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void ReserveSeatBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserveSeatBTActionPerformed
-        if(verifyField()){
+        
+            
+        if(verifyField()&&checkfields()){
+            int discount=0;
             String trainno=TrainNumTF.getText();
             String fname=PassengerAgeTF.getText();
             String lname=passLname.getText();
@@ -242,23 +318,31 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             pass.setberth(Berth);
             pass.setage(age);
             pass.setgender(gender);
-            //ObjectOutputStream oos=rr.getObjectOutputStream();
-            //ObjectInputStream ois=rr.getObjectInputStream();
             try {
-                String Res=rr.reserveseat(pass);
+                discount=getDiscountforuser();
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                String Res=rr.reserveseat(pass,discount);
                 if(Res.equals("valid")){
                     JOptionPane.showMessageDialog(this, "Seat booked successfully! Check your ticket now.");
+                }
+                else if(Res.equals("waiting")){
+                    rr.reservewaiting(pass,discount);
+                    JOptionPane.showMessageDialog(this, "Your Seat is in Waiting! Hope you get the seat.");
                 }
                 else{
                     JOptionPane.showMessageDialog(this,Res);
                     System.out.println("\n"+Res);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
+        else{
+            JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+        }
     }//GEN-LAST:event_ReserveSeatBTActionPerformed
 
     public boolean verifyField(){
@@ -282,6 +366,23 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             return true;
         }
     }
+    
+    private int getDiscountforuser() throws IOException, ClassNotFoundException {
+        
+        String Res=rr.checkDiscount(userid);
+         if(Res.equalsIgnoreCase("valid"))
+         { 
+             ObjectInputStream ois=rr.getObjectInputStream();
+             int i=(int) ois.readObject();
+             java.sql.Date d=(java.sql.Date) ois.readObject();
+             String dis=Integer.toString(i);
+             //LocalDate ld=d.toLocalDate().plusDays(30);
+             //String date=ld.toString();
+             return i;
+         }
+         else return 0;
+       }
+    
     private void scgenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scgenderActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_scgenderActionPerformed
@@ -298,6 +399,72 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
         // TODO add your handling code here:
     }//GEN-LAST:event_PassengerNameTFActionPerformed
 
+    private void TrainNumTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TrainNumTFKeyReleased
+        // TODO add your handling code here:
+            String PATTERN="^[0-9]{2,5}$";
+            Pattern patt=Pattern.compile(PATTERN);
+            Matcher match=patt.matcher(TrainNumTF.getText());
+            if(!match.matches()){
+               jLabel10.setText("invalid");
+            }
+            else{
+                jLabel10.setText(null);
+            }
+    }//GEN-LAST:event_TrainNumTFKeyReleased
+
+    private void PassengerAgeTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PassengerAgeTFKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{2,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(PassengerAgeTF.getText());
+        if(!match.matches()){
+           jLabel12.setText("invalid");
+        }
+        else{
+            jLabel12.setText(null);
+        }
+    }//GEN-LAST:event_PassengerAgeTFKeyReleased
+
+    private void passLnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passLnameKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{2,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(passLname.getText());
+        if(!match.matches()){
+           jLabel12.setText("invalid");
+        }
+        else{
+            jLabel12.setText(null);
+        }
+    }//GEN-LAST:event_passLnameKeyReleased
+
+    private void PassengerNameTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PassengerNameTFKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{1,2}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(PassengerNameTF.getText());
+        if(!match.matches()){
+           jLabel13.setText("invalid");
+        }
+        else{
+            jLabel13.setText(null);
+        }
+    }//GEN-LAST:event_PassengerNameTFKeyReleased
+
+    private void ReserveDateDCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReserveDateDCKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ReserveDateDCKeyReleased
+    public boolean checkfields(){
+        if (jLabel4.getText()=="invalid"&&jLabel2.getText()=="invalid"&&jLabel3.getText()=="invalid"&&jLabel4.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -341,7 +508,12 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     private com.toedter.calendar.JDateChooser ReserveDateDC;
     private javax.swing.JButton ReserveSeatBT;
     private javax.swing.JTextField TrainNumTF;
+    private javax.swing.JRadioButton discount;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -353,4 +525,6 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     private javax.swing.JTextField passLname;
     private javax.swing.JComboBox<String> scgender;
     // End of variables declaration//GEN-END:variables
+
+    
 }

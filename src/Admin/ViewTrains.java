@@ -59,14 +59,14 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
 
             },
             new String [] {
-                "Train Num", "Train Name", "First Station", "Last Station", "Departure Time", "Arrival Time", "FirstClassFee", "SecondClassFee", "SleeperClassFee", "Days", "Status"
+                "Train Num", "Train Name", "First Station", "Last Station", "Departure Time", "Arrival Time", "FirstClassFee", "SecondClassFee", "SleeperClassFee", "Days", "Status", "type"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -154,6 +154,11 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
                     for(int i=0;i<vt.size();i++)
                     {
                             ViewTrain v=vt.get(i);
+                            String special;
+                            int sp=v.getdmc();
+                            if(sp==1) special="Dynamic";
+                            else special="Constant";
+                
                             System.out.println("Client1\n");
                     model.insertRow(tbl.getRowCount(), new Object[]{
                                     v.gettrainNum(),
@@ -166,7 +171,8 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
                                     v.getfee2(),
                                     v.getfee3(),
                                     v.getdays(),
-                                    v.getstatus()
+                                    v.getstatus(),
+                                    special
                                 });
                     System.out.println("Client2\n");
                     }

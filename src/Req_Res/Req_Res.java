@@ -210,13 +210,22 @@ public class Req_Res implements Serializable{
        String s=(String) OIS1.readObject();
        return s;
     }
-    public String reserveseat(PassDetail pass) throws IOException, ClassNotFoundException{
+    public String reserveseat(PassDetail pass,int discount) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Reserve Seat");
        OOS1.writeObject(pass);
+       OOS1.writeObject(discount);
        OOS1.flush();
         s=(String) OIS1.readObject();
          return s;       
+       
+    }
+    public void reservewaiting(PassDetail pass,int discount) throws IOException, ClassNotFoundException{
+    
+       OOS1.writeObject("Reserve Waiting");
+       OOS1.writeObject(pass);
+       OOS1.writeObject(discount);
+       OOS1.flush();      
        
     }
     public String travelInfo() throws IOException, ClassNotFoundException{
@@ -283,6 +292,14 @@ public class Req_Res implements Serializable{
         return s;
     }
     public String notification(String s) throws IOException, ClassNotFoundException{
+        System.out.println("req res method");
+        OOS1.writeObject("Notify");
+        OOS1.writeObject(s);
+        OOS1.flush();
+        s=(String) OIS1.readObject();
+        return s;
+    }
+    public String changepass(String s,String p,String p1) throws IOException, ClassNotFoundException{
         System.out.println("req res method");
         OOS1.writeObject("Notify");
         OOS1.writeObject(s);

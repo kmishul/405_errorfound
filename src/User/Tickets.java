@@ -158,14 +158,14 @@ public class Tickets extends javax.swing.JFrame implements Serializable{
                     {
                            PassDetail p=pd.get(i);
                            ViewTrain v=vt.get(i);
-                           int fare;
+                           //int fare;
 //                           String pclass=p.getpassclass();
 //                           if(pclass.equalsIgnoreCase("firstClass"))
 //                               fare=v.getfee1();
 //                           else if(pclass.equalsIgnoreCase("secondClass"))
 //                               fare=v.getfee2();
 //                           else fare=v.getfee3();
-                            fare=p.getfare();
+                           // fare=p.getfare();
                     model1.insertRow(tbl1.getRowCount(), new Object[]{
                     p.getticketid(),
                     p.getfname()+" "+p.getlname(),
@@ -174,7 +174,7 @@ public class Tickets extends javax.swing.JFrame implements Serializable{
                     v.gettrainName(),
                     p.getpassclass(),
                     p.getberth(),
-                    fare,
+                    p.getfare(),
                     v.getfstation(),
                     v.getdtime(),
                     v.getlstation(),

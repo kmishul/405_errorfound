@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JOptionPane;
 
@@ -98,6 +100,46 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
             return true;
         }
     }
+    public boolean checksignupcont(){
+        if (jLabel10.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    public boolean checksignuppass(){
+        if (jLabel16.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    public boolean checksignupemail(){
+        if (jLabel17.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    public boolean checksignupname(){
+        if (jLabel18.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    public boolean checksignupid(){
+        if (jLabel19.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -120,12 +162,28 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
         jLabel9 = new javax.swing.JLabel();
         txtcnfrmpassword = new javax.swing.JPasswordField();
         gendercmb = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("UserSignUp");
 
         jLabel2.setText("UserId:");
+
+        txtUserId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUserIdKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("user name:");
 
@@ -138,6 +196,36 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
         jLabel7.setText("contact no:");
 
         jLabel8.setText("gender:");
+
+        txtfirstname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfirstnameKeyReleased(evt);
+            }
+        });
+
+        txtlastname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtlastnameKeyReleased(evt);
+            }
+        });
+
+        txtemailid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtemailidKeyReleased(evt);
+            }
+        });
+
+        txtpassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtpasswordKeyReleased(evt);
+            }
+        });
+
+        txtcontactno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtcontactnoKeyReleased(evt);
+            }
+        });
 
         btnsignup.setText("sign up");
         btnsignup.addActionListener(new java.awt.event.ActionListener() {
@@ -180,37 +268,72 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
                             .addComponent(txtpassword)
                             .addComponent(txtcontactno)
                             .addComponent(txtcnfrmpassword, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(gendercmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(gendercmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(350, 350, 350)
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74)
                         .addComponent(btnsignup)))
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtfirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtlastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtfirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtlastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtemailid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtemailid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -218,14 +341,17 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtcontactno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtcontactno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(gendercmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addComponent(btnsignup)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnsignup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         pack();
@@ -234,7 +360,7 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
 
     private void btnsignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsignupActionPerformed
         // TODO add your handling code here:
-        if(verifyFields()){
+        if(verifyFields()&&checksignupcont()&&checksignuppass()&&checksignupemail()&&checksignupname()&&checksignupid()){
             String fname = txtfirstname.getText();
             String lname = txtlastname.getText();
             String uname = txtUserId.getText();
@@ -264,7 +390,96 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
                 Logger.getLogger(UserSignup.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        else{
+            JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+        
+        }
     }//GEN-LAST:event_btnsignupActionPerformed
+
+    private void txtUserIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserIdKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z 0-9]{5,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtUserId.getText());
+        if(!match.matches()){
+           jLabel19.setText("invalid");
+        }
+        else{
+            jLabel19.setText(null);
+        }
+    }//GEN-LAST:event_txtUserIdKeyReleased
+
+    private void txtfirstnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfirstnameKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{2,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtfirstname.getText());
+        if(!match.matches()){
+            jLabel18.setText("invalid");
+        }
+        else{
+            jLabel18.setText(null);
+        }
+    }//GEN-LAST:event_txtfirstnameKeyReleased
+
+    private void txtlastnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtlastnameKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{2,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtlastname.getText());
+        if(!match.matches()){
+           jLabel18.setText("invalid");
+        }
+        else{
+            jLabel18.setText(null);
+        }
+    }//GEN-LAST:event_txtlastnameKeyReleased
+
+    private void txtemailidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtemailidKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[A-Za-z0-9]{5,30}[@][A-Za-z0-9]{1,30}[.][A-Za-z0-9]{1,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtemailid.getText());
+        if(!match.matches()){
+           jLabel17.setText("invalid");
+        }
+        else{
+            jLabel17.setText(null);
+        }
+    }//GEN-LAST:event_txtemailidKeyReleased
+
+    private void txtpasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z 0-9]{5,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtpassword.getText());
+        if(!match.matches()){
+           jLabel16.setText("invalid");
+        }
+        else{
+            jLabel16.setText(null);
+        }
+    }//GEN-LAST:event_txtpasswordKeyReleased
+
+    private void txtcontactnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcontactnoKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{7,10}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtcontactno.getText());
+        if(!match.matches()){
+           jLabel10.setText("invalid");
+        }
+        else{
+            jLabel10.setText(null);
+        }
+    }//GEN-LAST:event_txtcontactnoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -284,6 +499,16 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
     private javax.swing.JButton btnsignup;
     private javax.swing.JComboBox<String> gendercmb;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

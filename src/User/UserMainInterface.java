@@ -5,6 +5,7 @@
  */
 package User;
 
+import Admin.AddTrain;
 import Req_Res.Req_Res;
 import java.io.Serializable;
 import java.net.Socket;
@@ -45,6 +46,7 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        Addtrain = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +110,13 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
             }
         });
 
+        Addtrain.setText("Add Train");
+        Addtrain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddtrainActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,17 +129,21 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton3)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton2)
-                                    .addComponent(jButton4)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButton1)
+                                            .addComponent(jButton2)
+                                            .addComponent(jButton4))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                                        .addComponent(Addtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jButton7))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(145, 145, 145)
                                 .addComponent(jLabel1)))
-                        .addGap(0, 152, Short.MAX_VALUE))
+                        .addGap(51, 51, 51))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,12 +166,17 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
                 .addComponent(jButton6)
                 .addGap(32, 32, 32)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(Addtrain, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
                 .addGap(18, 18, 18)
@@ -216,6 +234,11 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
         new Notification(rr, userid).show();
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void AddtrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddtrainActionPerformed
+        // TODO add your handling code here:
+        new AddTrain(rr, userid).show();
+    }//GEN-LAST:event_AddtrainActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,6 +275,7 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
 //    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Addtrain;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
