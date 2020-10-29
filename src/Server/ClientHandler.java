@@ -35,6 +35,7 @@ import Server.Requests.SendQueryRequest;
 import Server.Requests.TicketsRequest;
 import Server.Requests.TrainStatusRequest;
 import Server.Requests.TravelInfoRequest;
+import Server.Requests.WaitingRequest;
 import User.Queries;
 import User.UserDetail;
 import User.UserLogin;
@@ -179,6 +180,7 @@ public class ClientHandler implements Runnable,Serializable{
             if(request.equals("Reserve Seat")){
                 System.out.println("1\n");
                 PassDetail pass=(PassDetail)OIS.readObject();
+                int discount=(int) OIS.readObject();
                 TrainStatusRequest tss=new TrainStatusRequest(pass);
                 int check=tss.getTrainStatus();
                 
@@ -195,7 +197,7 @@ public class ClientHandler implements Runnable,Serializable{
                     
                 }
                 else if(check==1){
-                    ReserveSeatsRequest rss=new ReserveSeatsRequest(pass);
+                    ReserveSeatsRequest rss=new ReserveSeatsRequest(pass,discount);
                     boolean b=rss.bookticket(this.getUserMainID());
                     if(b){ System.out.println("9\n");
                     OOS.writeObject("valid");
@@ -203,7 +205,7 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("seat booked\n");
                     }
                     else{
-                    OOS.writeObject("Sorry ! Seats not Available");
+                    OOS.writeObject("waiting");
                     OOS.flush();
                     System.out.println("Seats ! Not Available\n");
                     }
@@ -214,7 +216,11 @@ public class ClientHandler implements Runnable,Serializable{
                     OOS.flush();
                 }
             }
-            
+            if(request.equals("Reserve Waiting")){
+                PassDetail pass=(PassDetail)OIS.readObject();
+                int discount=(int) OIS.readObject();
+                new WaitingRequest(pass,discount);
+            }
             if(request.equals("Uncancel Train")){
                 ViewTrain train=(ViewTrain)OIS.readObject();
                 CancelTrainRequest trainn=new CancelTrainRequest(train);

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -66,6 +67,7 @@ public class SearchTrainRequest implements Serializable {
                 v.setfee3(rs.getInt("feeSleeperClass"));
                 v.setdays(f);
                 v.setcancel(rs.getInt("cancel"));
+                v.setdmc(rs.getInt("dmc"));
                 vt.add(v);
               
            Response="valid";

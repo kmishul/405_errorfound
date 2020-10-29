@@ -17,6 +17,8 @@ import java.sql.Statement;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.text.DateFormat;
+import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  *
@@ -24,18 +26,21 @@ import java.text.DateFormat;
  */
 public class ReserveSeatsRequest implements Serializable{
     private final Connection con;
-    private PreparedStatement st,st1,st2;
+    private PreparedStatement st,st1,st2,st3;
     private static Statement stmt;
     public String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
-    public int seatno,age,fare;
+    public int seatno,age,fare,dynamicfareinc=0;
      public Date date;
      PassDetail pass;
      String dbpassclass;
     java.sql.Date sqldate;
+    int discountt=0;
     //To initialize datamembers
-     public ReserveSeatsRequest(PassDetail pass) throws SQLException{
+     public ReserveSeatsRequest(PassDetail pass,int dis) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
-       this.pass=pass;
+        dynamicfareinc=getDynamicincrement(pass.trainNum,pass.date,pass.passclass);
+        
+        this.pass=pass;
         this.trainNum = pass.trainNum;
         this.userId = pass.userId;
         this.passclass = pass.passclass;
@@ -47,8 +52,9 @@ public class ReserveSeatsRequest implements Serializable{
         this.seatno = pass.seatno;
         this.age = pass.age;
         this.date = pass.date;
-        java.util.Date utilObj = date;
-            sqldate = new java.sql.Date(utilObj.getTime());
+            java.util.Date utilObj = date;
+         this.sqldate = new java.sql.Date(utilObj.getTime());
+         this.discountt=dis;
         
     }
     
@@ -109,9 +115,23 @@ public class ReserveSeatsRequest implements Serializable{
     public boolean updateQueries(int seatno,String ticketid,String userid) throws SQLException
     {   int check=0;
             
+            if(fare-discountt>=0)
+            {
+                String query="DELETE FROM discounts where userId=?";
+            st=con.prepareStatement(query);
+            st.setString(1,userid);
+            st.execute();
+            fare=fare-discountt;
+            }
+            else {
+                String query="UPDATE discounts SET discount=? where userId=?";
+            st=con.prepareStatement(query);
+            st.setInt(1,discountt-fare);
+            st.execute();
+            }  
+            
             
             System.out.println("7\n");
-            
             
             String query2="INSERT INTO `passengerdetail`(`trainNum`, `userId`, `passclass`,`berth`,`passseatNo`, `passengerTicketId`, `passengerFirstName`, `passengerLastName`, `passengerAge`, `passengergender`, `travdate`,`fare`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             st=con.prepareStatement(query2);
@@ -126,7 +146,7 @@ public class ReserveSeatsRequest implements Serializable{
             st.setInt(9,age);
             st.setString(10,gender);
             st.setDate(11,sqldate);
-            st.setInt(12,fare);
+            st.setInt(12,fare+dynamicfareinc);
             
             st.execute();
             System.out.println("8\n");
@@ -373,6 +393,40 @@ public class ReserveSeatsRequest implements Serializable{
         
     return false;
     
+    }
+
+    private int getDynamicincrement(String trainNum, Date date,String pclass) throws SQLException {
+    String queryz="SELECT * FROM traininfo WHERE trainNum=?";
+        int check=0,inc;
+        LocalDate ld1 = java.time.LocalDate.now();//today's date
+             LocalDate ld2 = new java.sql.Date( date.getTime() ).toLocalDate();//util to local
+              int diff=(int) DAYS.between(ld1,ld2); //diff bw two local dates
+             
+                if(diff<6)
+                    
+                {PreparedStatement stz=con.prepareStatement(queryz);
+                    ResultSet rsz=stz.executeQuery();
+                    if(rsz.next())
+                    { check=rsz.getInt("dmc");
+                    if(check==1)
+                    {if(pclass.equalsIgnoreCase("First AC"))
+                    {
+                        inc=(int) (rsz.getInt("feeFirstClass")*0.2);
+                    }
+                    else if(pclass.equalsIgnoreCase("Second AC"))
+                    {
+                        inc=(int) (rsz.getInt("feeSecondClass")*0.2);
+                    }
+                    else
+                    {
+                      inc=(int) (rsz.getInt("feeSleeperClass")*0.2);
+                    } 
+                    return inc;
+                    }
+                    }
+                }
+                    
+    return 0;
     }
     
 }
