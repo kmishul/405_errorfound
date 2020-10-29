@@ -27,6 +27,7 @@ import java.io.IOException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -184,10 +185,11 @@ public class Req_Res implements Serializable{
        s=(String) OIS1.readObject();
        return s;
     }
-    public String seatavail(String tnum) throws IOException, ClassNotFoundException{
+    public String seatavail(String tnum,Date date) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Seat Avail");
        OOS1.writeObject(tnum);
+       OOS1.writeObject(date);
        OOS1.flush();
        s=(String) OIS1.readObject();
        return s;
