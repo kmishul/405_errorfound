@@ -25,6 +25,7 @@ public class NotificationRequest {
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
     public boolean getrecent(String uid) throws SQLException{
+        System.out.println("get recent method");
         boolean r=false;
         Date date=java.sql.Date.valueOf(java.time.LocalDate.now().plusDays(1));
         String q1="SELECT * FROM passengerdetail WHERE userId=? AND travdate=?";
@@ -32,6 +33,7 @@ public class NotificationRequest {
         st.setString(1, uid);
         st.setDate(2, (java.sql.Date) date);
         ResultSet rs=st.executeQuery();
+        System.out.println("after query");
         while(rs.next()){
             String s="";
             String tnum=rs.getString("trainNum");
@@ -45,6 +47,7 @@ public class NotificationRequest {
             s=s+tnum+"~"+ticketid+"~"+starttm;
             vt.add(s);
             r=true;
+            System.out.println("return true");
         }
         return r;
     }
