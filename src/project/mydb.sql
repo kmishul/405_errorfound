@@ -152,3 +152,21 @@ CREATE TABLE chats (
     reply VARCHAR(500),
     FOREIGN KEY(userId) REFERENCES userlogin(userId)
 );
+
+-- Create Table For The Passengers 
+-- Who Are in Waiting
+CREATE TABLE waitingpassengers (
+    --ID INT AUTO_INCREMENT NOT NULL UNIQUE,
+    trainNum VARCHAR(10) NOT NULL,
+    userId VARCHAR(50) NOT NULL,
+    passclass VARCHAR(20) NOT NULL,
+    passengerFirstName VARCHAR(50) NOT NULL,
+    passengerLastName VARCHAR(50),
+    passengerAge INT NOT NULL,
+    passengergender VARCHAR(10) NOT NULL,
+    travdate DATE NOT NULL,
+    fare INT NOT NULL,
+    
+    FOREIGN KEY(userId) REFERENCES userlogin(userId),
+    FOREIGN KEY(trainNum) REFERENCES traininfo(trainNum)
+);

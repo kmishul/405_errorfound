@@ -49,7 +49,7 @@ public class ViewTrainsRequest implements Serializable {
                  d1=rs.getString("days");
                 for(int i=0;i<7;i++)
                     if(d1.charAt(i)=='1') days+=arr[i];
-      
+                
                 
                 
                 v.settrainNum(rs.getString("trainNum"));
@@ -63,6 +63,8 @@ public class ViewTrainsRequest implements Serializable {
                 v.setfee3(rs.getInt("feeSleeperClass"));
                 v.setdays(days);
                 v.setstatus(status);
+                v.setdmc(rs.getInt("dmc"));
+                
                 
                 
                     vt.add(v);
