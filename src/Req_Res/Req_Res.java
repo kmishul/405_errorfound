@@ -276,12 +276,15 @@ public class Req_Res implements Serializable{
     public String showreply(String u) throws IOException, ClassNotFoundException{
         OOS1.writeObject("Show Reply");
         OOS1.writeObject(u);
+        OOS1.flush();
         s=(String) OIS1.readObject();
         return s;
     }
     public String notification(String s) throws IOException, ClassNotFoundException{
+        System.out.println("req res method");
         OOS1.writeObject("Notify");
         OOS1.writeObject(s);
+        OOS1.flush();
         s=(String) OIS1.readObject();
         return s;
     }
