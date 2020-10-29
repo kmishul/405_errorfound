@@ -141,6 +141,16 @@ public class Req_Res implements Serializable{
        return s;
        
     }
+    
+     public String giveDiscount() throws IOException, ClassNotFoundException{
+    
+       OOS1.writeObject("Discounts");
+       OOS1.flush();
+       s=(String) OIS1.readObject();
+       return s;
+       
+    }
+     
     public String addseatfc(ViewTrain train) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Add FC");
@@ -230,6 +240,13 @@ public class Req_Res implements Serializable{
         OOS1.writeObject(s2);
         OOS1.flush();
         s=(String) OIS1.readObject();
+        return s;
+    }
+    public String checkDiscount(String userid) throws IOException, ClassNotFoundException{
+      OOS1.writeObject("Check Discount");
+      OOS1.writeObject(userid);
+       OOS1.flush();
+       s=(String) OIS1.readObject();
         return s;
     }
     public String sendquery(Queries query) throws IOException, ClassNotFoundException{

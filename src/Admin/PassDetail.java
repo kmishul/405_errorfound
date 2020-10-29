@@ -14,14 +14,14 @@ import java.util.Date;
  */
 public class PassDetail implements Serializable{
     public String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
-        public int seatno,age;
+        public int seatno,age,fare;
         public Date date;
         
     public PassDetail() {
       
     }
     
-    public PassDetail(String trainNum,String userId,String passclass,int seatno,String ticketid,String fname,String lname,int age,String gender,Date date) {
+    public PassDetail(String trainNum,String userId,String passclass,int seatno,String ticketid,String fname,String lname,int age,String gender,Date date,int fare) {
        this.trainNum=trainNum;
        this.userId=userId;
        this.passclass=passclass;
@@ -32,6 +32,7 @@ public class PassDetail implements Serializable{
        this.age=age;
        this.gender=gender;
        this.date=date;
+       this.fare=fare;
     }
     //getter functions
     public void settrainNum(String s)
@@ -77,6 +78,10 @@ public class PassDetail implements Serializable{
     public void setberth(String s)
     {
         berth=s;
+    }
+    public void setfare(int i)
+    {
+        fare=i;
     }
     
     
@@ -125,6 +130,10 @@ public class PassDetail implements Serializable{
     public String getberth()
     {
         return berth;
+    }
+    public int getfare()
+    {
+        return fare;
     }
 
 }

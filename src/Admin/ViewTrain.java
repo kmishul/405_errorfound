@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 public class ViewTrain implements Serializable{
     public String trainNum,trainName,fstation,lstation,dtime,atime,days,status;
-    int Nosfc,Nossc,Nosslc,fee1,fee2,fee3,cancel;
+    int Nosfc,Nossc,Nosslc,fee1,fee2,fee3,cancel,dmc;
 
     public ViewTrain() {
     
@@ -78,6 +78,10 @@ public class ViewTrain implements Serializable{
          status=s;
         }
 
+    public void setdmc(int dmc) {
+        this.dmc = dmc;
+    }
+    
     //getter functions
     
     public String gettrainName()
@@ -141,9 +145,13 @@ public class ViewTrain implements Serializable{
         return status;
         }
 
+    public int getdmc() {
+        return dmc;
+    }
+
     
     
-    public ViewTrain(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,int Nosfc,int Nossc,int Nosslc,int fee1,int fee2,int fee3,String days) {
+    public ViewTrain(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,int Nosfc,int Nossc,int Nosslc,int fee1,int fee2,int fee3,String days,int dmc) {
        this.trainNum=trainNum;
        this.trainName=trainName;
        this.fstation=fstation;
@@ -158,20 +166,22 @@ public class ViewTrain implements Serializable{
        this.fee3=fee3;
        this.days=days;
        this.cancel=cancel;
+       this.dmc=dmc;
     }
-    public ViewTrain(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,int fee1,int fee2,int fee3,String days,int cancel) {
-       this.trainNum=trainNum;
-       this.trainName=trainName;
-       this.fstation=fstation;
-       this.lstation=lstation;
-       this.dtime=dtime;
-       this.atime=atime;
-       this.fee1=fee1;
-       this.fee2=fee2;
-       this.fee3=fee3;
-       this.days=days;
-       this.cancel=cancel;
-    }
+//    public ViewTrain(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,int fee1,int fee2,int fee3,String days,int cancel,int dmc) {
+//       this.trainNum=trainNum;
+//       this.trainName=trainName;
+//       this.fstation=fstation;
+//       this.lstation=lstation;
+//       this.dtime=dtime;
+//       this.atime=atime;
+//       this.fee1=fee1;
+//       this.fee2=fee2;
+//       this.fee3=fee3;
+//       this.days=days;
+//       this.cancel=cancel;
+//       this.dmc=dmc;
+//    }
 
     
 
