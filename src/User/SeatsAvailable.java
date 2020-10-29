@@ -11,6 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,6 +54,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
         txtsc = new javax.swing.JTextField();
         txtslc = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel5.setText("jLabel5");
 
@@ -62,6 +65,17 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
 
         jLabel2.setText("Train Number:");
 
+        xtxtrainno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xtxtrainnoActionPerformed(evt);
+            }
+        });
+        xtxtrainno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                xtxtrainnoKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Second Class:");
 
         jLabel4.setText("Sleeper Class:");
@@ -70,6 +84,12 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        txtfc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfcKeyReleased(evt);
             }
         });
 
@@ -85,9 +105,18 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(317, 317, 317))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(350, 350, 350))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(281, 281, 281)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -101,19 +130,16 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
                             .addComponent(txtslc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(242, 242, 242)
-                        .addComponent(jLabel2)
-                        .addGap(77, 77, 77)
-                        .addComponent(xtxtrainno, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(187, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(317, 317, 317))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(350, 350, 350))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(123, 123, 123))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(77, 77, 77)
+                                .addComponent(xtxtrainno, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(150, 150, 150)))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +150,11 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(xtxtrainno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(80, 80, 80)
+                .addGap(84, 84, 84)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -138,7 +166,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtslc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,6 +178,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    if(checkfields()){
         txtfc.setEditable(true);
         txtsc.setEditable(true);
         txtslc.setEditable(true);
@@ -181,8 +210,41 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(SeatsAvailable.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    else{
+            JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void xtxtrainnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_xtxtrainnoKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{2,5}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(xtxtrainno.getText());
+        if(!match.matches()){
+           jLabel7.setText("invalid password");
+        }
+        else{
+            jLabel7.setText(null);
+        }
+    }//GEN-LAST:event_xtxtrainnoKeyReleased
+
+    private void txtfcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfcKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtfcKeyReleased
+
+    private void xtxtrainnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xtxtrainnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_xtxtrainnoActionPerformed
+    public boolean checkfields(){
+        if (jLabel7.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -226,6 +288,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtfc;
     private javax.swing.JTextField txtsc;
     private javax.swing.JTextField txtslc;

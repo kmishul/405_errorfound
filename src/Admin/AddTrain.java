@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -129,6 +131,12 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
         jLabel14 = new javax.swing.JLabel();
         btnaddtrain = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,27 +145,99 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
 
         jLabel2.setText("Train Num:");
 
+        txttrainnum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttrainnumKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Train name:");
+
+        txttrainname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttrainnameKeyReleased(evt);
+            }
+        });
 
         jLabel4.setText("Start Station:");
 
+        txtstartstn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtstartstnKeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("Stop Station:");
+
+        txtstopstn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtstopstnKeyReleased(evt);
+            }
+        });
 
         jLabel6.setText("Start Time:");
 
         jLabel7.setText("Stop Time:");
 
+        txtstarttm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtstarttmKeyReleased(evt);
+            }
+        });
+
+        txtstoptm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtstoptmKeyReleased(evt);
+            }
+        });
+
         jLabel8.setText("NOC First Class:");
 
         jLabel9.setText("NOC Second Class:");
 
+        txtNOSfc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNOSfcKeyReleased(evt);
+            }
+        });
+
+        txtNOSsc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNOSscKeyReleased(evt);
+            }
+        });
+
         jLabel10.setText("NOC Sleeper class:");
+
+        txtNOSslc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNOSslcKeyReleased(evt);
+            }
+        });
 
         jLabel11.setText("Fare First Class:");
 
+        txtfarefc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfarefcKeyReleased(evt);
+            }
+        });
+
         jLabel12.setText("Fare Second Class:");
 
+        txtfaresc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfarescKeyReleased(evt);
+            }
+        });
+
         jLabel13.setText("Fare Sleeper Class:");
+
+        txtfareslc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtfareslcKeyReleased(evt);
+            }
+        });
 
         MonRB.setText("Monday");
 
@@ -248,22 +328,34 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
                             .addComponent(jRadioButton1)))
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnaddtrain)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(MonRB)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TueRB)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(WedRB)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ThuRB)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(FriRB)))
+                        .addComponent(MonRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TueRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(WedRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ThuRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FriRB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(SatRB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SunRB)))
+                        .addComponent(SunRB))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(120, 120, 120)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnaddtrain)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
+                                .addGap(100, 100, 100)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))))))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -318,11 +410,25 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
                     .addComponent(FriRB)
                     .addComponent(SatRB)
                     .addComponent(SunRB))
-                .addGap(52, 52, 52)
-                .addComponent(btnaddtrain)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton1)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(btnaddtrain)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton1)
+                        .addGap(48, 48, 48)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -331,7 +437,7 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
 
     private void btnaddtrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddtrainActionPerformed
         // TODO add your handling code here:
-        if(verifyTrains()){
+        if(verifyTrains()&&checkfields1()&&checkfields2()&&checkfields3()&&checkfields4()&&checkfields5()&&checkfields6()){
             System.out.println("11\n");
             String tNum=txttrainnum.getText();
             String tName= txttrainname.getText();
@@ -417,7 +523,178 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
                 Logger.getLogger(AddTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else{
+            JOptionPane.showMessageDialog(this, "check if u have entered valid entries");
+        
+        }
     }//GEN-LAST:event_btnaddtrainActionPerformed
+
+    private void txttrainnumKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttrainnumKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{2,5}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txttrainnum.getText());
+        if(!match.matches()){
+            jLabel15.setText("invalid");
+        }
+        else{
+            jLabel15.setText(null);
+        }
+    }//GEN-LAST:event_txttrainnumKeyReleased
+
+    private void txttrainnameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttrainnameKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{3,10}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txttrainname.getText());
+        if(!match.matches()){
+            jLabel16.setText("invalid");
+        }
+        else{
+            jLabel16.setText(null);
+        }
+    }//GEN-LAST:event_txttrainnameKeyReleased
+
+    private void txtstartstnKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstartstnKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{3,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtstartstn.getText());
+        if(!match.matches()){
+            jLabel17.setText("invalid");
+        }
+        else{
+            jLabel17.setText(null);
+        }        
+    }//GEN-LAST:event_txtstartstnKeyReleased
+
+    private void txtstopstnKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstopstnKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[a-z A-Z]{3,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtstopstn.getText());
+        if(!match.matches()){
+            jLabel17.setText("invalid");
+        }
+        else{
+            jLabel17.setText(null);
+        }              
+    }//GEN-LAST:event_txtstopstnKeyReleased
+
+    private void txtstarttmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstarttmKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{5,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtstarttm.getText());
+        if(!match.matches()){
+            jLabel18.setText("invalid");
+        }
+        else{
+            jLabel18.setText(null);
+        }                      
+    }//GEN-LAST:event_txtstarttmKeyReleased
+
+    private void txtstoptmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstoptmKeyReleased
+        // TODO add your handling code here:
+
+        String PATTERN="^[0-9]{5,30}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtstoptm.getText());
+        if(!match.matches()){
+            jLabel18.setText("invalid");
+        }
+        else{
+            jLabel18.setText(null);
+        }                      
+    }//GEN-LAST:event_txtstoptmKeyReleased
+
+    private void txtNOSfcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNOSfcKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{1,2}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtNOSfc.getText());
+        if(!match.matches()){
+            jLabel19.setText("invalid");
+        }
+        else{
+            jLabel19.setText(null);
+        }         
+    }//GEN-LAST:event_txtNOSfcKeyReleased
+
+    private void txtNOSscKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNOSscKeyReleased
+        // TODO add your handling code here:
+        String PATTERN="^[0-9]{1,2}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtNOSsc.getText());
+        if(!match.matches()){
+            jLabel19.setText("invalid");
+        }
+        else{
+            jLabel19.setText(null);
+        }         
+    }//GEN-LAST:event_txtNOSscKeyReleased
+
+    private void txtNOSslcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNOSslcKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{1,2}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtNOSslc.getText());
+        if(!match.matches()){
+            jLabel19.setText("invalid");
+        }
+        else{
+            jLabel19.setText(null);
+        }         
+    }//GEN-LAST:event_txtNOSslcKeyReleased
+
+    private void txtfarefcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfarefcKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{1,10}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtfarefc.getText());
+        if(!match.matches()){
+            jLabel20.setText("invalid");
+        }
+        else{
+            jLabel20.setText(null);
+        }         
+    }//GEN-LAST:event_txtfarefcKeyReleased
+
+    private void txtfarescKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfarescKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{1,10}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtfaresc.getText());
+        if(!match.matches()){
+            jLabel20.setText("invalid");
+        }
+        else{
+            jLabel20.setText(null);
+        }         
+    }//GEN-LAST:event_txtfarescKeyReleased
+
+    private void txtfareslcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfareslcKeyReleased
+        // TODO add your handling code here:
+        
+        String PATTERN="^[0-9]{1,10}$";
+        Pattern patt=Pattern.compile(PATTERN);
+        Matcher match=patt.matcher(txtfareslc.getText());
+        if(!match.matches()){
+            jLabel20.setText("invalid");
+        }
+        else{
+            jLabel20.setText(null);
+        }         
+    }//GEN-LAST:event_txtfareslcKeyReleased
 public boolean verifyTrains(){ 
             System.out.println("13\n");
             String tNum=txttrainnum.getText();
@@ -489,7 +766,50 @@ public boolean verifyTrains(){
                 return true;
             }
     }
-    
+    public boolean checkfields1(){
+        if (jLabel15.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    public boolean checkfields2(){
+        if (jLabel16.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }public boolean checkfields3(){
+        if (jLabel17.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }public boolean checkfields4(){
+        if (jLabel18.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }public boolean checkfields5(){
+        if (jLabel19.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }public boolean checkfields6(){
+        if (jLabel20.getText()=="invalid"){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -541,7 +861,13 @@ public boolean verifyTrains(){
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
