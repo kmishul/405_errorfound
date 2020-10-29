@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -168,12 +169,13 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
                         .addGap(171, 171, 171)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(ReserveSeatBT))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(ReserveSeatBT)
+                .addGap(15, 244, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,6 +223,7 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
 
     private void ReserveSeatBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserveSeatBTActionPerformed
         if(verifyField()){
+            int discount=0;
             String trainno=TrainNumTF.getText();
             String fname=PassengerAgeTF.getText();
             String lname=passLname.getText();
@@ -239,20 +242,25 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             pass.setberth(Berth);
             pass.setage(age);
             pass.setgender(gender);
-            //ObjectOutputStream oos=rr.getObjectOutputStream();
-            //ObjectInputStream ois=rr.getObjectInputStream();
             try {
-                String Res=rr.reserveseat(pass);
+                discount=getDiscountforuser();
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                String Res=rr.reserveseat(pass,discount);
                 if(Res.equals("valid")){
                     JOptionPane.showMessageDialog(this, "Seat booked successfully! Check your ticket now.");
+                }
+                else if(Res.equals("waiting")){
+                    rr.reservewaiting(pass,discount);
+                    JOptionPane.showMessageDialog(this, "Your Seat is in Waiting! Hope you get the seat.");
                 }
                 else{
                     JOptionPane.showMessageDialog(this,Res);
                     System.out.println("\n"+Res);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
@@ -279,6 +287,24 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             return true;
         }
     }
+    
+    private int getDiscountforuser() throws IOException, ClassNotFoundException {
+        
+        String Res=rr.checkDiscount(userid);
+         if(Res.equalsIgnoreCase("valid"))
+         { 
+             ObjectInputStream ois=rr.getObjectInputStream();
+             int i=(int) ois.readObject();
+             java.sql.Date d=(java.sql.Date) ois.readObject();
+             String dis=Integer.toString(i);
+             //LocalDate ld=d.toLocalDate().plusDays(30);
+             //String date=ld.toString();
+             return i;
+         }
+         else return 0;
+       }
+    
+    
     private void scgenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scgenderActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_scgenderActionPerformed
@@ -350,4 +376,6 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     private javax.swing.JTextField passLname;
     private javax.swing.JComboBox<String> scgender;
     // End of variables declaration//GEN-END:variables
+
+    
 }
