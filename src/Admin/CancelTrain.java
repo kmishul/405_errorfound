@@ -164,6 +164,7 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
 
     private void btnuncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncancelActionPerformed
         // TODO add your handling code here:
+    if(checkfields()){    
         String tNum=txttrainnum.getText();
         if(tNum.trim().equals("")){
             JOptionPane.showMessageDialog(this, "Enter Train Number");
@@ -188,29 +189,31 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
                 Logger.getLogger(CancelTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        }
+    else{
+        JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+    }
     }//GEN-LAST:event_btnuncancelActionPerformed
 
     private void txttrainnumKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttrainnumKeyReleased
         // TODO add your handling code here:
         
-        String PATTERN="^[0-9]{2,5}$";
-        Pattern patt=Pattern.compile(PATTERN);
+       String PATTERN="^[0-9]{2,5}$";
+       Pattern patt=Pattern.compile(PATTERN);
         Matcher match=patt.matcher(txttrainnum.getText());
         if(!match.matches()){
-           jLabel3.setText("invalid password");
-        }
-        else{
+           jLabel3.setText("invalid password");        }
+       else{
             jLabel3.setText(null);
         }
     }//GEN-LAST:event_txttrainnumKeyReleased
-    public boolean checkfields(){
+   public boolean checkfields(){
         if (jLabel3.getText()=="invalid"){
-            return false;
+         return false;
         }
         else{
             return true;
-        }
+       }
     }
     /**
      * @param args the command line arguments

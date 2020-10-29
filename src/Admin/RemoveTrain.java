@@ -115,7 +115,7 @@ public class RemoveTrain extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_RemovetrainTFActionPerformed
 
     private void RemoveTrainBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveTrainBTActionPerformed
-        if(verifyRemTrNo()){
+        if(verifyRemTrNo()&&checkfields()){
             try{
                 String tNum=RemovetrainTF.getText();
                 //Req_Res remtr=new Req_Res();
@@ -139,6 +139,10 @@ public class RemoveTrain extends javax.swing.JFrame implements Serializable{
             }
         }
         
+        else{
+        JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+    }
+        
     }//GEN-LAST:event_RemoveTrainBTActionPerformed
 
     private void RemovetrainTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RemovetrainTFKeyReleased
@@ -158,6 +162,14 @@ public class RemoveTrain extends javax.swing.JFrame implements Serializable{
         String tum=RemovetrainTF.getText();
         if(tum.trim().equals("")){
             JOptionPane.showMessageDialog(this,"Abe train number to daal yrr!!");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    public boolean checkfields(){
+        if (jLabel3.getText()=="invalid"){
             return false;
         }
         else{

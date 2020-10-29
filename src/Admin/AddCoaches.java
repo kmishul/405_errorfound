@@ -51,6 +51,7 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel4.setText("jLabel4");
 
@@ -63,6 +64,11 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
 
         jLabel3.setText("Class:");
 
+        txttrainno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttrainnoActionPerformed(evt);
+            }
+        });
         txttrainno.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txttrainnoKeyReleased(evt);
@@ -104,12 +110,16 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbclass, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txttrainno, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txttrainno, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(57, 57, 57)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(155, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,23 +132,22 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(txttrainno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbclass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68)
                 .addComponent(jButton1)
                 .addContainerGap(205, Short.MAX_VALUE))
         );
@@ -222,17 +231,17 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txttrainnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttrainnoKeyReleased
-        // TODO add your handling code here:
+//        TODO add your handling code here:
         
-        String PATTERN="^[0-9]{2,5}$";
-        Pattern patt=Pattern.compile(PATTERN);
-        Matcher match=patt.matcher(txttrainno.getText());
-        if(!match.matches()){
-           jLabel6.setText("invalid password");
-        }
-        else{
-            jLabel6.setText(null);
-        }
+            String PATTERN="^[0-9]{2,5}$";
+           Pattern patt=Pattern.compile(PATTERN);
+           Matcher match=patt.matcher(txttrainno.getText());
+            if(!match.matches()){
+             jLabel6.setText("invalid password");
+            }
+            else{
+                jLabel6.setText(null);
+            }
     }//GEN-LAST:event_txttrainnoKeyReleased
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -242,18 +251,22 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         // TODO add your handling code here:
         
-        String PATTERN="^[0-9]{1,5}$";
+        String PATTERN="^[0-9]{1,2}$";
         Pattern patt=Pattern.compile(PATTERN);
         Matcher match=patt.matcher(jTextField1.getText());
         if(!match.matches()){
-           jLabel6.setText("invalid password");
+           jLabel7.setText("invalid ");
         }
         else{
-            jLabel6.setText(null);
+            jLabel7.setText(null);
         }
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void txttrainnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttrainnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttrainnoActionPerformed
     public boolean checkfields(){
-        if (jLabel4.getText()=="invalid"){
+        if (jLabel6.getText()=="invalid"&&jLabel7.getText()=="invalid"){
             return false;
         }
         else{
@@ -304,6 +317,7 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txttrainno;
     // End of variables declaration//GEN-END:variables
