@@ -305,7 +305,7 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
         new AdminMainInterface(rr, adminid).show();
     }//GEN-LAST:event_jButton2ActionPerformed
     public boolean checkfields(){
-        if (jLabel6.getText().equals("invalid")&&jLabel7.getText().equals("invalid")){
+        if (jLabel6.getText()=="invalid"&&jLabel7.getText()=="invalid"){
             return false;
         }
         else{

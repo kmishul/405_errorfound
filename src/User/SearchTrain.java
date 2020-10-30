@@ -310,7 +310,7 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public boolean checkfields(){
-        if(jLabel4.getText().equals("invalid station")){
+        if(jLabel4.getText()=="invalid station"){
             return false;
         }
         else{

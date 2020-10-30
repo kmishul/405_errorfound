@@ -525,7 +525,7 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
         // TODO add your handling code here:
     }//GEN-LAST:event_discountActionPerformed
     public boolean checkfields(){
-        if (jLabel4.getText().equals("invalid")&&jLabel2.getText().equals("invalid")&&jLabel3.getText().equals("invalid")&&jLabel4.getText().equals("invalid")){
+        if (jLabel4.getText()=="invalid"&&jLabel2.getText()=="invalid"&&jLabel3.getText()=="invalid"&&jLabel4.getText()=="invalid"){
             return false;
         }
         else{
