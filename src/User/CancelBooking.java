@@ -8,7 +8,6 @@ package User;
 
 import Req_Res.Req_Res;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -120,10 +119,7 @@ public class CancelBooking extends javax.swing.JFrame implements Serializable{
     private void CancelTrainBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelTrainBTActionPerformed
         String pnr= CancelPnrTF.getText();
         try {
-//            rr.cancelbooking(pnr);
-//            ObjectInputStream ois=rr.getObjectInputStream();
-//            String Res=(String) ois.readObject();
-              String Res=rr.cancelbooking(pnr);
+              String Res=rr.cancelBooking(pnr);
             if(Res.equals("valid")){
                  System.out.println(Res+"2\n");
                     JOptionPane.showMessageDialog(this," Ticket Cancelled");
@@ -133,10 +129,7 @@ public class CancelBooking extends javax.swing.JFrame implements Serializable{
                     JOptionPane.showMessageDialog(this,Res);
                     System.out.println("\n"+Res);
                 }
-            // TODO add your handling code here:
-        } catch (IOException ex) {
-            Logger.getLogger(CancelBooking.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(CancelBooking.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_CancelTrainBTActionPerformed

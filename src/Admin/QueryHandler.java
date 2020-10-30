@@ -159,11 +159,11 @@ public class QueryHandler extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3))
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -221,7 +221,7 @@ public class QueryHandler extends javax.swing.JFrame {
             q.setuserid(userid);
             q.setreply(reply);
             try {
-                String Res=rr.sendreply(q);
+                String Res=rr.sendReply(q);
                 if(Res.equals("valid")){
                      JOptionPane.showMessageDialog(this,"Reply sent");
                      System.out.println("Reply sent");

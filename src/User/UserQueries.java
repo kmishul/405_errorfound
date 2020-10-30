@@ -161,7 +161,7 @@ public class UserQueries extends javax.swing.JFrame {
             q1.setuserid(userid);
             q1.setquery(query);
             try {
-                String Res=rr.sendquery(q1);
+                String Res=rr.sendQuery(q1);
                 if(Res.equals("valid")){
                     JOptionPane.showMessageDialog(this,"Query sent!");
                      System.out.println("\n"+Res);
@@ -170,9 +170,7 @@ public class UserQueries extends javax.swing.JFrame {
                      JOptionPane.showMessageDialog(this,Res);
                      System.out.println("\n"+Res);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(UserQueries.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(UserQueries.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -182,7 +180,7 @@ public class UserQueries extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtreply.setEditable(true);
         try {
-            String Res=rr.showreply(userid);
+            String Res=rr.showReply(userid);
             if(Res.equals("valid")){
                 ObjectInputStream ois=rr.getObjectInputStream();
                 String rep=(String) ois.readObject();
@@ -192,9 +190,7 @@ public class UserQueries extends javax.swing.JFrame {
             else{
                 JOptionPane.showMessageDialog(this,Res);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(UserQueries.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(UserQueries.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -9,10 +9,7 @@ import Admin.PassDetail;
 import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,11 +24,14 @@ import javax.swing.JOptionPane;
 public class ReserveSeats extends javax.swing.JFrame implements Serializable{
     private final String userid;
     private final Req_Res rr; 
+    private int dis=0;
     Date present=java.sql.Date.valueOf(java.time.LocalDate.now());
     Date after30days=java.sql.Date.valueOf(java.time.LocalDate.now().plusDays(30));
     
     /**
      * Creates new form ReserveSeats
+     * @param rr
+     * @param userid
      */
     public ReserveSeats(Req_Res rr,String userid) {
         initComponents();
@@ -328,7 +328,7 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
         
             
         if(verifyField()&&checkfields()){
-            int discount=0;
+            
             String trainno=TrainNumTF.getText();
             String fname=PassengerAgeTF.getText();
             String lname=passLname.getText();
@@ -348,29 +348,33 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
             pass.setage(age);
             pass.setgender(gender);
             try {
-                discount=getDiscountforuser();
+                if(discount.isSelected())
+                dis=getDiscountforuser();
+                else dis=0;
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                String Res=rr.reserveseat(pass,discount);
-                if(Res.equals("valid")){
-                    JOptionPane.showMessageDialog(this, "Seat booked successfully! Check your ticket now.");
-                }
-                else if(Res.equals("waiting")){
-                    rr.reservewaiting(pass,discount);
-                    JOptionPane.showMessageDialog(this, "Your Seat is in Waiting! Hope you get the seat.");
-                }
-                else{
-                    JOptionPane.showMessageDialog(this,Res);
-                    System.out.println("\n"+Res);
+                String Res=rr.reserveSeat(pass,dis);
+                switch (Res) {
+                    case "valid":
+                        JOptionPane.showMessageDialog(this, "Seat booked successfully! Check your ticket now.");
+                        break;
+                    case "waiting":
+                        rr.reserveWaiting(pass,dis);
+                        JOptionPane.showMessageDialog(this, "Your Seat is in Waiting! Hope you get the seat.");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(this,Res);
+                        System.out.println("\n"+Res);
+                        break;
                 }
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ReserveSeats.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
         else{
-            JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+            JOptionPane.showMessageDialog(this, "Check if you have entered valid entries");
         }
     }//GEN-LAST:event_ReserveSeatBTActionPerformed
 
@@ -513,48 +517,14 @@ public class ReserveSeats extends javax.swing.JFrame implements Serializable{
         // TODO add your handling code here:
     }//GEN-LAST:event_passLnameActionPerformed
     public boolean checkfields(){
-        if (jLabel4.getText()=="invalid"&&jLabel2.getText()=="invalid"&&jLabel3.getText()=="invalid"&&jLabel4.getText()=="invalid"){
+        if (jLabel4.getText().equals("invalid")&&jLabel2.getText().equals("invalid")&&jLabel3.getText().equals("invalid")&&jLabel4.getText().equals("invalid")){
             return false;
         }
         else{
             return true;
         }
     }
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ReserveSeats.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ReserveSeats.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ReserveSeats.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ReserveSeats.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ReserveSeats().setVisible(true);
-//            }
-//        });
-//    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> BerthPrefCB;
     private javax.swing.JComboBox<String> ClassCB;

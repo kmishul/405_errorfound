@@ -13,7 +13,6 @@ import java.awt.HeadlessException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +25,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TravelInfo extends javax.swing.JFrame implements Serializable{
 private DefaultTableModel model1;
-    //private final Socket s;
     private final String userid;
     private final Req_Res rr;
     /**

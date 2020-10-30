@@ -139,9 +139,15 @@
                       <EmptySpace min="73" pref="73" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+<<<<<<< HEAD
                               <Component id="MonRB" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="ThuRB" min="-2" pref="97" max="-2" attributes="0"/>
+=======
+                              <Component id="btnaddtrain" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="201" max="32767" attributes="0"/>
+                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+>>>>>>> ab7eed85ee1a6332cc4c2d78d5a19e2910491fa7
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="TueRB" min="-2" pref="85" max="-2" attributes="0"/>

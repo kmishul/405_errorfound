@@ -8,6 +8,7 @@ package Admin;
 import Req_Res.Req_Res;
 import User.UserLogin;
 import User.UserMainInterface;
+import java.awt.HeadlessException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -173,7 +174,7 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable{
                 }
             } catch (IOException ex) {
                 Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
-            } catch(Exception e) {
+            } catch(HeadlessException | ClassNotFoundException e) {
                 Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, e);
             }
         }

@@ -127,9 +127,7 @@ public class CheckDiscount extends javax.swing.JFrame {
              jLabel2.setText("You don't have any discount !!");
          }
              
-             } catch (IOException ex) {
-         Logger.getLogger(CheckDiscount.class.getName()).log(Level.SEVERE, null, ex);
-     } catch (ClassNotFoundException ex) {
+             } catch (IOException | ClassNotFoundException ex) {
          Logger.getLogger(CheckDiscount.class.getName()).log(Level.SEVERE, null, ex);
      }
         

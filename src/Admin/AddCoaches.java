@@ -7,8 +7,6 @@ package Admin;
 
 import Req_Res.Req_Res;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +23,10 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
     private final String adminid;
     /**
      * Creates new form AddSeats
+     * @param rr
+     * @param adminid
      */
+   
     public AddCoaches(Req_Res rr,String adminid) {
         initComponents();
         this.rr=rr;
@@ -198,8 +199,7 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
         String tnum=txttrainno.getText();
         String clss=(String) cmbclass.getSelectedItem();
         int coach=Integer.parseInt(jTextField1.getText());
-       // ObjectOutputStream oos=rr.getObjectOutputStream();
-        //ObjectInputStream ois=rr.getObjectInputStream();
+       
         String Res="";
         int seats = 0;
         switch (clss) {
@@ -210,13 +210,11 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
                     ViewTrain train=new ViewTrain();
                     train.settrainNum(tnum);
                     train.setNOSfc(seats);
-                    Res=rr.addseatfc(train);
-                    //oos.writeObject(train);
-                } catch (IOException ex) {
+                    Res=rr.addSeatfc(train);
+                    
+                } catch (IOException | ClassNotFoundException ex) {
                     Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                }
                 break;
             }
             case "Second AC"  :{
@@ -225,13 +223,11 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
                     ViewTrain train=new ViewTrain();
                     train.settrainNum(tnum);
                     train.setNOSsc(seats);
-                    Res=rr.addseatsc(train);
-                    //oos.writeObject(train);
-                } catch (IOException ex) {
+                    Res=rr.addSeatsc(train);
+                    
+                } catch (IOException | ClassNotFoundException ex) {
                     Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                }
                 break;
             }
             default :{
@@ -240,13 +236,10 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
                 train.settrainNum(tnum);
                 train.setNOSslc(seats);
             try {
-                Res=rr.addseatlc(train);
-            } catch (IOException ex) {
-                Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+                Res=rr.addSeatlc(train);
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(AddCoaches.class.getName()).log(Level.SEVERE, null, ex);
             }
-                //oos.writeObject(train);
                 break;
             }
 
@@ -263,7 +256,7 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
         }
     }
     else{
-        JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+        JOptionPane.showMessageDialog(this, "Check if u have entered valid entries");
     }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -309,48 +302,14 @@ public class AddCoaches extends javax.swing.JFrame implements Serializable{
         new AdminMainInterface(rr, adminid).show();
     }//GEN-LAST:event_jButton2ActionPerformed
     public boolean checkfields(){
-        if (jLabel6.getText()=="invalid"&&jLabel7.getText()=="invalid"){
+        if (jLabel6.getText().equals("invalid")&&jLabel7.getText().equals("invalid")){
             return false;
         }
         else{
             return true;
         }
     }
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(AddSeats.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(AddSeats.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(AddSeats.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(AddSeats.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new AddSeats().setVisible(true);
-//            }
-//        });
-//    }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbclass;
     private javax.swing.JButton jButton1;

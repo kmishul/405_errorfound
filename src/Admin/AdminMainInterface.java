@@ -217,6 +217,7 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
         new QueryHandler(rr, adminid).show();
     }//GEN-LAST:event_jButton8ActionPerformed
 
+
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -257,6 +258,7 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
 //            }
 //        });
 //    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

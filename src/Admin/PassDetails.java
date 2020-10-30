@@ -126,7 +126,7 @@ private final Req_Res rr;
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -143,9 +143,7 @@ private final Req_Res rr;
          model1=(DefaultTableModel) tbl1.getModel();
         try {
                 
-                //rr.passDetails();
                 ObjectInputStream ois=rr.getObjectInputStream();
-                //String Res=(String) ois.readObject();
                 String Res=rr.passDetails();
                 
                 if(Res.equals("valid")){
@@ -184,6 +182,7 @@ private final Req_Res rr;
         // TODO add your handling code here:
         model1.setRowCount(0);
     }//GEN-LAST:event_jButton2ActionPerformed
+
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:

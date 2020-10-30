@@ -7,12 +7,10 @@ package User;
 
 import Admin.ViewTrain;
 import Req_Res.Req_Res;
-import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -211,10 +209,9 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
         }
         else{
             try {
-                //Req_Res res=new Req_Res();
                 
                 ObjectInputStream ois=rr.getObjectInputStream();
-                String Res=rr.searchtrain(startstn,stopstn);
+                String Res=rr.searchTrain(startstn,stopstn);
                 if(Res.equals("valid")){
                     ArrayList<ViewTrain> vt = new ArrayList<ViewTrain>();
                     vt=(ArrayList<ViewTrain>) ois.readObject();
@@ -312,48 +309,14 @@ public class SearchTrain extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public boolean checkfields(){
-        if (jLabel4.getText()=="invalid station"){
+        if(jLabel4.getText().equals("invalid station")){
             return false;
         }
         else{
             return true;
         }
     }
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(SearchTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(SearchTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(SearchTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(SearchTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new SearchTrain().setVisible(true);
-//            }
-//        });
-//    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnclear;
     private javax.swing.ButtonGroup buttonGroup1;

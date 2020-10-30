@@ -5,22 +5,13 @@
  */
 package Admin;
 import Req_Res.Req_Res;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.HeadlessException;
-import java.awt.LayoutManager;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -159,10 +150,6 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         model=(DefaultTableModel) tbl.getModel();
         try {
-                //Req_Res res=new Req_Res();
-                //String Res=res.viewTrains();
-                //rr.viewTrains();
-                //String Res="valid";
                 String Res=rr.viewTrains();
                 ObjectInputStream ois=rr.getObjectInputStream();
                 System.out.println("isme galti ni h\n");
@@ -195,7 +182,6 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
                                 });
                     System.out.println("Client2\n");
                     }
-                   // this.dispose();
                 }
                 else{
                     JOptionPane.showMessageDialog(this,"No Train Found !");
@@ -204,9 +190,7 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
             } catch (IOException | HeadlessException | ClassNotFoundException ex) {
                 Logger.getLogger(ViewTrains.class.getName()).log(Level.SEVERE, null, ex);
             }
-    // TODO add your handling code here:
     
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

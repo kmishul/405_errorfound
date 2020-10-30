@@ -167,9 +167,7 @@ private final Req_Res rr;
         String Res="";
     try {
         Res = rr.giveDiscount();
-    } catch (IOException ex) {
-        Logger.getLogger(GiveDiscounts.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
+    } catch (IOException | ClassNotFoundException ex) {
         Logger.getLogger(GiveDiscounts.class.getName()).log(Level.SEVERE, null, ex);
     }
                 

@@ -21,8 +21,6 @@ import javax.swing.JOptionPane;
  * @author kmish
  */
 public class AddTrain extends javax.swing.JFrame implements Serializable{
-//    public String tnum,tname,startstn,stopstn,starttm,stoptm,days;
-//    public int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc;
      private final Req_Res rr;
      private final String adminid;
 
@@ -541,7 +539,7 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
             try {
                 //Req_Res addt=new Req_Res();
                 ViewTrain train=new ViewTrain(tNum,tName,StartStation,StopStation,StartTime,StopTime,NOSFirst,NOSSecond,NOSSleeper,FareFirst,FareSecond,FareSleeper,rundays,dmc);
-                String Res=rr.addtrain(train);
+                String Res=rr.addTrain(train);
                 System.out.println(Res+"2");
                 if(Res.equals("valid")){
                     System.out.println(Res+"2\n");
@@ -552,13 +550,11 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
                     JOptionPane.showMessageDialog(this,Res);
                     System.out.println("\n"+Res);
                 }
-            }catch (IOException ex) {
+            }catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(AddTrain.class.getName()).log(Level.SEVERE, null, ex);
             }catch(HeadlessException e){
                 System.out.println(e);
                 System.out.println("error");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AddTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else{
@@ -832,7 +828,7 @@ public boolean verifyTrains(){
             }
     }
     public boolean checkfields1(){
-        if (jLabel15.getText()=="invalid"){
+        if (jLabel15.getText().equals("invalid")){
             return false;
         }
         else{
@@ -840,77 +836,42 @@ public boolean verifyTrains(){
         }
     }
     public boolean checkfields2(){
-        if (jLabel16.getText()=="invalid"){
+        if (jLabel16.getText().equals("invalid")){
             return false;
         }
         else{
             return true;
         }
     }public boolean checkfields3(){
-        if (jLabel17.getText()=="invalid"){
+        if (jLabel17.getText().equals("invalid")){
             return false;
         }
         else{
             return true;
         }
     }public boolean checkfields4(){
-        if (jLabel18.getText()=="invalid"){
+        if (jLabel18.getText().equals("invalid")){
             return false;
         }
         else{
             return true;
         }
     }public boolean checkfields5(){
-        if (jLabel19.getText()=="invalid"){
+        if (jLabel19.getText().equals("invalid")){
             return false;
         }
         else{
             return true;
         }
     }public boolean checkfields6(){
-        if (jLabel20.getText()=="invalid"){
+        if (jLabel20.getText().equals("invalid")){
             return false;
         }
         else{
             return true;
         }
     }
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(AddTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(AddTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(AddTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(AddTrain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                new AddTrain().setVisible(true);
-//            }
-//        });
-//    }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton FriRB;
     private javax.swing.JRadioButton MonRB;
