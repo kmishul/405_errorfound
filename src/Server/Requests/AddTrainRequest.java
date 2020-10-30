@@ -31,6 +31,10 @@ public class AddTrainRequest implements Serializable{
     private static Statement stmt;
     private String tnum,tname,startstn,stopstn,starttm,stoptm,days;
     private int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc,dmc;
+     //Constructor(passing object of ViewTrain having all information about Train to add)
+    //public AddTrainRequest(ViewTrain train) throws SQLException{ 
+//        private String tnum,tname,startstn,stopstn,starttm,stoptm,days;
+//        private int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc,dmc;
     public AddTrainRequest(ViewTrain train) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=train.gettrainNum();
@@ -49,6 +53,9 @@ public class AddTrainRequest implements Serializable{
         dmc=train.getdmc();
         
     }
+
+    //Method returning arraylist of all dates in upcoming 30 days when this train will run
+    //public ArrayList<Date> getDates(String rundays){ 
     
     private ArrayList<Date> getDates(String rundays){
     ArrayList<Date> dates=new ArrayList();
@@ -70,12 +77,14 @@ public class AddTrainRequest implements Serializable{
             
     return dates;
     }
+    //Method to query to enter data in database 
     public boolean addtrain() throws SQLException{
         System.out.println("Receiving Train details");
         System.out.println(tnum+tname+startstn+stopstn+starttm+stoptm+NOSfc+NOSsc+NOSslc+farefc+faresc+fareslc+days);
         try{
-        if(!checktrainname(tname)){
+        if(!checktrainnum(tname)){
             System.out.println("after queries");
+            //Inserting data in table traininfo
             st=con.prepareStatement("INSERT INTO traininfo(`trainNum`, `trainName`, `firstStation`, `lastStation`, `departureTime`, `arrivalTime`, `feeFirstClass`, `feeSecondClass`, `feeSleeperClass`, `days`,`dmc`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
             st.setString(1,tnum);
             st.setString(2,tname);
@@ -91,7 +100,7 @@ public class AddTrainRequest implements Serializable{
             st.execute();
             
             ArrayList<Date> dates=getDates(days);
-            
+            //Entering data for each date in tables firstclass,secondclass, and sleeperclass
             for(int i=0;i<dates.size();i++){
                java.util.Date utilObj = dates.get(i);
             java.sql.Date sqldate = new java.sql.Date(utilObj.getTime());
@@ -124,7 +133,8 @@ public class AddTrainRequest implements Serializable{
             return false;
         }
     }
-    private boolean checktrainname(String trainname){
+    //Method to check if this train num is already in the table
+    private boolean checktrainnum(String trainnum){
         
         //PreparedStatement st;
         //ResultSet rs;
@@ -136,7 +146,7 @@ public class AddTrainRequest implements Serializable{
             String query = "SELECT * FROM `traininfo` WHERE `trainNum` = ?";
             //con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             st = con.prepareStatement(query);
-            st.setString(1,trainname);
+            st.setString(1,trainnum);
             ResultSet rs = st.executeQuery();
             System.out.println("checkk\n");
         
