@@ -38,6 +38,8 @@ public class UserProfile extends javax.swing.JFrame {
         txtgender.setEnabled(false); 
     }
 
+    
+
 //    UserProfile(Req_Res rr, String userid, String fname, String lname, String emailid, String connt, String gender) {
 //        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
