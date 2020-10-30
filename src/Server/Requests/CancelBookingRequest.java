@@ -39,6 +39,7 @@ public class CancelBookingRequest implements Serializable{
             String tnum=rs.getString("trainNum");
             int seatno=rs.getInt("passseatNo");
             String berth=rs.getString("berth");
+            int refund=rs.getInt("fare");
             
             switch(passclass){
                 case "firstClass":
@@ -171,6 +172,12 @@ public class CancelBookingRequest implements Serializable{
             }
             st2=con.prepareStatement("SET foreign_key_checks=0;");
             st2.execute();
+            
+            String query8="INSERT INTO `userlogin`(`userwallet`) VALUES (?)";//To give Refund to this user
+            st=con.prepareStatement(query8);
+            st.setInt(1,refund);
+            st.execute();
+
             st3=con.prepareStatement("DELETE FROM `passengerdetail` WHERE passengerTicketId =?");
             st3.setString(1, pnr);
             st3.execute();

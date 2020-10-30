@@ -24,6 +24,7 @@ public class AddCoachesRequest implements Serializable{
     public AddCoachesRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
+    
     public boolean addfc(ViewTrain train) throws SQLException{
        String tnum=train.gettrainNum();
        if(checktrainname(tnum)){

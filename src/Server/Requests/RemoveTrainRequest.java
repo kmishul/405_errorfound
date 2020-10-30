@@ -29,7 +29,7 @@ public class RemoveTrainRequest implements Serializable{
     private PreparedStatement st5;
     private PreparedStatement st6;
     private static Statement stmt;
-    String tnum;
+    private String tnum;
     public RemoveTrainRequest(ViewTrain train) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=train.gettrainNum();

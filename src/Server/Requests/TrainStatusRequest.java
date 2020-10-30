@@ -23,8 +23,8 @@ public class TrainStatusRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     private static Statement stmt;
-    String tnum;
-    int i;
+    private String tnum;
+    private int i;
 
     public TrainStatusRequest(PassDetail pass) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

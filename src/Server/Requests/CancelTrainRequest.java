@@ -24,7 +24,7 @@ public class CancelTrainRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     private static Statement stmt;
-    String tnum;
+    private String tnum;
 
     public CancelTrainRequest(ViewTrain train) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
