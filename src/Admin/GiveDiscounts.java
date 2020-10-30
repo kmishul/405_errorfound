@@ -160,13 +160,13 @@ private final Req_Res rr;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(checkfields()){
+       // if(checkfields()){
         int x=Integer.parseInt(jTextField1.getText());
         int dis=Integer.parseInt(jTextField2.getText());
         
         String Res="";
     try {
-        Res = rr.giveDiscount();
+        Res = rr.giveDiscount(x,dis);
     } catch (IOException | ClassNotFoundException ex) {
         Logger.getLogger(GiveDiscounts.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -181,36 +181,36 @@ private final Req_Res rr;
             JOptionPane.showMessageDialog(this,"No user found under this category");
             System.out.println("\n"+Res);
         }
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
-        }
+        //}
+//        else{
+//            JOptionPane.showMessageDialog(this, "check if u have entered valic entries");
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         // TODO add your handling code here:
         
-        String PATTERN="^[0-9]{0-2}$";
-       Pattern patt=Pattern.compile(PATTERN);
-        Matcher match=patt.matcher(jTextField1.getText());
-        if(!match.matches()){
-           jLabel4.setText("invalid text");        }
-       else{
-            jLabel4.setText(null);
-        }
+//        String PATTERN="^[0-9]{0-2}$";
+//       Pattern patt=Pattern.compile(PATTERN);
+//        Matcher match=patt.matcher(jTextField1.getText());
+//        if(!match.matches()){
+//           jLabel4.setText("invalid text");        }
+//       else{
+//            jLabel4.setText(null);
+//        }
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
         // TODO add your handling code here:
         
-        String PATTERN="^[0-9]{0-2}$";
-       Pattern patt=Pattern.compile(PATTERN);
-        Matcher match=patt.matcher(jTextField1.getText());
-        if(!match.matches()){
-           jLabel5.setText("invalid text");        }
-        else{
-            jLabel5.setText(null);
-        }
+//        String PATTERN="^[0-9]{0-2}$";
+//       Pattern patt=Pattern.compile(PATTERN);
+//        Matcher match=patt.matcher(jTextField1.getText());
+//        if(!match.matches()){
+//           jLabel5.setText("invalid text");        }
+//        else{
+//            jLabel5.setText(null);
+//        }
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -219,14 +219,14 @@ private final Req_Res rr;
         this.dispose();
         new AdminMainInterface(rr, adminid).show();
     }//GEN-LAST:event_jButton2ActionPerformed
-        public boolean checkfields(){
-        if (jLabel4.getText()=="invalid"&&jLabel5.getText()=="invalid"){
-         return false;
-        }
-        else{
-            return true;
-       }
-    }
+//        public boolean checkfields(){
+//        if (jLabel4.getText()=="invalid"&&jLabel5.getText()=="invalid"){
+//         return false;
+//        }
+//        else{
+//            return true;
+//       }
+//    }
     /**
      * @param args the command line arguments
      */
