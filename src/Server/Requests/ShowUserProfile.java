@@ -37,6 +37,7 @@ public class ShowUserProfile {
         user.setEmailid(rs.getString("userEmailid"));
         user.setContact(rs.getString("userContactNo"));
         user.setGender(rs.getString("userGender"));
+        user.setWallet(rs.getInt("userwallet"));
         return user;
     }
 }
