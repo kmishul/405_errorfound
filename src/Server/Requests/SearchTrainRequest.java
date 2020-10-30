@@ -26,6 +26,7 @@ public class SearchTrainRequest implements Serializable {
     public SearchTrainRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
+    //Method returning valid if there are trains between the givenm stations and inserting train object in arraylist else false
      public String getTrain(String s1,String s2){   
         System.out.println("checkgettrain\n");
         String Response="";
@@ -72,11 +73,7 @@ public class SearchTrainRequest implements Serializable {
               
            Response="valid";
             }
-           
-               
-           
-    
-    
+ 
    return Response;
         
     }
@@ -88,7 +85,7 @@ public class SearchTrainRequest implements Serializable {
             }        
         
         }
-
+//Method returning final arraylist
     public ArrayList<ViewTrain> getList() {
         return vt;
     }

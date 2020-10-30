@@ -21,6 +21,7 @@ public class ChangePasswordRequest {
     public ChangePasswordRequest() throws SQLException{
          con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
+    //Method returning false if current password entered by user is wrong else true
     public boolean changepass(String uid,String opass,String npass) throws SQLException{
         String query="Select userPass From userlogin where userId='"+(uid)+"';";
             st = con.prepareStatement(query);

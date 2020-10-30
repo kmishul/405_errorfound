@@ -27,6 +27,7 @@ public class SendQueryRequest implements Serializable {
     public SendQueryRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
+    //Method returning true on successfully inserting query in database else false if that userid does not exist
     public boolean sendquery(Queries q) throws SQLException{
         String uid=q.getuserid();
         String query=q.getquery();
@@ -43,6 +44,7 @@ public class SendQueryRequest implements Serializable {
             return false;
         }
     }
+    //Method returning valid if table has queries for admin else invalid 
     public String getqry() throws SQLException{
         System.out.println("checkgetqry\n");
         String Response="";
@@ -66,9 +68,11 @@ public class SendQueryRequest implements Serializable {
             
             }        
     }
+    //Method returning list of all the queries
     public ArrayList<Queries> getList() {
         return vt;
     }
+    //Method to insert reply for that user query
     public boolean sendreply(Queries q) throws SQLException{
         System.out.println("in send reply");
         String uid=q.getuserid();
@@ -93,6 +97,7 @@ public class SendQueryRequest implements Serializable {
             
             }        
     }
+    //method returning 0 if user has got the reply from admin,2 if user has no queries and 1 if no reply from admin
     public int showreply(String uid) throws SQLException{
         if(checkusername1(uid)){
             if(!checkusername(uid)){
@@ -113,9 +118,11 @@ public class SendQueryRequest implements Serializable {
         }
         
     }
+    //Method showing reply from the admin
     public String reply(){
         return rep;
     }
+    //method to delete that query from database
     public void deleterep(String u) throws SQLException{
         String q="DELETE FROM chats WHERE userId=?";
         st=con.prepareStatement(q);
@@ -125,15 +132,10 @@ public class SendQueryRequest implements Serializable {
     }
     private boolean checkusername(String uid){
         
-        //PreparedStatement st;
-        //ResultSet rs;
         boolean uname_exist = false;
-        
-        //String query = "SELECT * FROM `users` WHERE `userId` = ?";
         
         try {
             String query = "SELECT * FROM `chats` WHERE `userId` = ? AND reply IS NULL";
-            //con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             st = con.prepareStatement(query);
             st.setString(1,uid);
             ResultSet rs = st.executeQuery();
@@ -143,27 +145,19 @@ public class SendQueryRequest implements Serializable {
             {
                 uname_exist = true;
                 System.out.println("user name true\n");
-               // JOptionPane.showMessageDialog(null, "This Username is Already Taken, Choose Another One", "Username Failed", 2);
             }
             
         } catch (HeadlessException | SQLException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
             System.out.println("checkusername\n");
         }
         
         return uname_exist;
     }
     private boolean checkusername1(String uid){
-        
-        //PreparedStatement st;
-        //ResultSet rs;
         boolean uname_exist = false;
-        
-        //String query = "SELECT * FROM `users` WHERE `userId` = ?";
-        
+       
         try {
             String query = "SELECT * FROM `chats` WHERE `userId` = ?";
-            //con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             st = con.prepareStatement(query);
             st.setString(1,uid);
             ResultSet rs = st.executeQuery();
@@ -173,11 +167,9 @@ public class SendQueryRequest implements Serializable {
             {
                 uname_exist = true;
                 System.out.println("user name true\n");
-               // JOptionPane.showMessageDialog(null, "This Username is Already Taken, Choose Another One", "Username Failed", 2);
             }
             
         } catch (HeadlessException | SQLException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
             System.out.println("checkusername\n");
         }
         

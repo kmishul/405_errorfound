@@ -26,14 +26,13 @@ public class AdminLoginRequest implements Serializable{
     private static Statement stmt;
     private PreparedStatement st;
     String Adminid, Adminpass;
-//    public AdminLoginRequest(Admindetail adminl) throws SQLException{ //Contructor passing object of AdminDetail class
-//    private String Adminid, Adminpass;
+
     public AdminLoginRequest(Admindetail adminl) throws SQLException{
         this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         Adminid=adminl.adminid;
-        Adminpass=adminl.adminpass;
-        
+        Adminpass=adminl.adminpass;  
     }
+    //Method returning true if password entered by user is correct else returns false
     public boolean checkadminlogininfo() {
         
         try{
@@ -41,14 +40,11 @@ public class AdminLoginRequest implements Serializable{
             System.out.println(Adminid +Adminpass);
             String query="Select AdminPass From adminaccount where AdminId='"+(Adminid)+"';";
             st = con.prepareStatement(query);
-    
-            
             ResultSet rs=st.executeQuery(query);
             rs.next();
             String actual_password=rs.getString("adminPass");
             rs.close();
-            if (actual_password.equals(Adminpass)){
-                
+            if (actual_password.equals(Adminpass)){   
                 return true;
             }
             else{
@@ -56,12 +52,10 @@ public class AdminLoginRequest implements Serializable{
             }
            
         }catch (HeadlessException | SQLException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
             System.out.println(ex);
             return false;
             
         }catch(Exception e){
-            //System.out.println(e);
             System.out.println(e);
             return false;
             

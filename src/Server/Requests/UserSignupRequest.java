@@ -38,6 +38,7 @@ public class UserSignupRequest implements Serializable{
         contact=user.contact;
         gender=user.gender;
     }
+    //Method returning true on inserting all details and false if that username already exists
     public boolean adduser(){
         System.out.println("Receiving details");
         //String[] data=new String[7];

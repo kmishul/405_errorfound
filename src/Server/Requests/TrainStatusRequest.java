@@ -34,7 +34,7 @@ public class TrainStatusRequest implements Serializable{
          i=date.getDay();
     }
 
-    
+    //Method returning 
     public int getTrainStatus() throws SQLException{
         try{
         String query1="Select cancel From traininfo where trainNum='"+(tnum)+"';";

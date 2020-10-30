@@ -29,7 +29,7 @@ public class ViewTrainsRequest implements Serializable {
     public ViewTrainsRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
-    
+    //Method returning true on fetching all the train details else false if no trains exist
     public String getTrain()
     {   System.out.println("checkgettrain\n");
         String Response="";
@@ -71,11 +71,7 @@ public class ViewTrainsRequest implements Serializable {
               
            Response="valid";
             }
-           
-               
-           
-    
-    
+ 
    return Response;
         
     }
@@ -87,7 +83,7 @@ public class ViewTrainsRequest implements Serializable {
             }        
         
         }
-
+//Method returning final array list
     public ArrayList<ViewTrain> getList() {
     return vt;
     }

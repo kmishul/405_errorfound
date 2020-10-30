@@ -30,9 +30,7 @@ public class TravelInfoRequest implements Serializable{
     public TravelInfoRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
-    
-    
-
+    //Method returning valid if user has travel details and fetching all the data from database
     public String getInfo(UserDetail uid) {
         String Response="";
         try{ 
@@ -40,10 +38,7 @@ public class TravelInfoRequest implements Serializable{
             stmt1=con.prepareStatement(q1);
             stmt1.setString(1,uid.getUserid());
             ResultSet rs1=stmt1.executeQuery();
-               // 
-//            
-//            
-            //while(rs1.next() && rs2.next()){
+            
             while(rs1.next())   { 
             PassDetail p=new PassDetail();
                 ViewTrain v=new ViewTrain();
@@ -65,27 +60,13 @@ public class TravelInfoRequest implements Serializable{
                 p.setgender(rs1.getString("passengergender"));
                 p.setdate(rs1.getDate("travdate"));
                 p.setfare(rs1.getInt("fare"));
-                
-                //v.settrainNum(rs2.getString("trainNum"));
                 v.settrainName(rs2.getString("trainName"));
-//                v.setfstation(rs2.getString("firstStation"));
-//                v.setlstation(rs2.getString("lastStation"));
-//                v.setdtime(rs2.getString("departureTime"));
-//                v.setatime(rs2.getString("arrivalTime"));
-//                v.setfee1(rs2.getInt("feeFirstClass"));
-//                v.setfee2(rs2.getInt("feeSecondClass"));
-//                v.setfee3(rs2.getInt("feeSleeperClass"));
-//                v.setdays(rs2.getString("days"));
-//                v.setcancel(rs2.getInt("cancel"));
-                
                  
                 pd.add(p);
                 vt.add(v);
             Response="valid";
             }
-           
-    
-    
+  
     return Response;
         
     }
@@ -95,7 +76,7 @@ public class TravelInfoRequest implements Serializable{
             }
         }
 
-    
+    //Method returning passenger list
    public ArrayList<PassDetail> getPassList() {
         return pd;
         }

@@ -31,10 +31,7 @@ public class AddTrainRequest implements Serializable{
     private static Statement stmt;
     private String tnum,tname,startstn,stopstn,starttm,stoptm,days;
     private int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc,dmc;
-     //Constructor(passing object of ViewTrain having all information about Train to add)
-    //public AddTrainRequest(ViewTrain train) throws SQLException{ 
-//        private String tnum,tname,startstn,stopstn,starttm,stoptm,days;
-//        private int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc,dmc;
+   
     public AddTrainRequest(ViewTrain train) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=train.gettrainNum();
@@ -55,7 +52,6 @@ public class AddTrainRequest implements Serializable{
     }
 
     //Method returning arraylist of all dates in upcoming 30 days when this train will run
-    //public ArrayList<Date> getDates(String rundays){ 
     
     private ArrayList<Date> getDates(String rundays){
     ArrayList<Date> dates=new ArrayList();
@@ -136,11 +132,7 @@ public class AddTrainRequest implements Serializable{
     //Method to check if this train num is already in the table
     private boolean checktrainnum(String trainnum){
         
-        //PreparedStatement st;
-        //ResultSet rs;
         boolean tname_exist = false;
-        
-        //String query = "SELECT * FROM `users` WHERE `userId` = ?";
         
         try {
             String query = "SELECT * FROM `traininfo` WHERE `trainNum` = ?";
@@ -154,11 +146,9 @@ public class AddTrainRequest implements Serializable{
             {
                 tname_exist = true;
                 System.out.println("train name true\n");
-               // JOptionPane.showMessageDialog(null, "This Username is Already Taken, Choose Another One", "Username Failed", 2);
             }
             
         } catch (HeadlessException | SQLException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
             System.out.println("checkTrainname\n");
         }
         
