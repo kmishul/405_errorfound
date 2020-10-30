@@ -286,7 +286,8 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
             String emailid=user.getEmailid();
             String connt=user.getContact();
             String gender=user.getGender();
-            new UserProfile(rr, userid, fname, lname, emailid, connt, gender).show();
+            int wallet=user.getWallet();
+            new UserProfile(rr, userid, fname, lname, emailid, connt, gender,wallet).show();
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex);
         }

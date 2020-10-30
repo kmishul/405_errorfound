@@ -15,8 +15,8 @@ import java.util.logging.Logger;
  * @author Folio
  */
 public class UserProfile extends javax.swing.JFrame {
-    private final Req_Res rr;
-    private final String userid;
+    public final Req_Res rr;
+    public final String userid;
     /**
      * Creates new form UserProfile
      */

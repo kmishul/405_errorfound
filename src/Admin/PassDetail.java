@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class PassDetail implements Serializable{
     public String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
+
         public int seatno,age,fare;
         public Date date;
         
