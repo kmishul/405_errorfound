@@ -72,9 +72,23 @@ public class QueryHandler extends javax.swing.JFrame {
             new String [] {
                 "User Id", "Query"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbl.setIntercellSpacing(new java.awt.Dimension(1, 4));
+        tbl.setRowHeight(20);
         jScrollPane1.setViewportView(tbl);
+        if (tbl.getColumnModel().getColumnCount() > 0) {
+            tbl.getColumnModel().getColumn(0).setMinWidth(160);
+            tbl.getColumnModel().getColumn(0).setPreferredWidth(160);
+            tbl.getColumnModel().getColumn(0).setMaxWidth(160);
+        }
 
         jLabel2.setText("User Id:");
 
@@ -126,11 +140,11 @@ public class QueryHandler extends javax.swing.JFrame {
                                 .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(116, 116, 116)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(32, 32, 32)
-                                .addComponent(txtuserid)
-                                .addGap(132, 132, 132)
-                                .addComponent(txtreply)))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(txtuserid, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtreply, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(58, 58, 58))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
@@ -167,12 +181,10 @@ public class QueryHandler extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(38, 38, 38))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(txtuserid)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtuserid))
                         .addGap(35, 35, 35))
                     .addComponent(txtreply))
                 .addContainerGap())

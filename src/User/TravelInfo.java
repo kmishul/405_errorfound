@@ -80,6 +80,7 @@ public DefaultTableModel model1;
                 return canEdit [columnIndex];
             }
         });
+        tbl1.setRowHeight(20);
         jScrollPane1.setViewportView(tbl1);
 
         jButton1.setText("View");
@@ -132,7 +133,7 @@ public DefaultTableModel model1;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(26, 26, 26)

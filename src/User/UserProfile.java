@@ -86,8 +86,6 @@ public class UserProfile extends javax.swing.JFrame {
             }
         });
 
-        txtgender.setText("jLabel7");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

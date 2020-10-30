@@ -158,9 +158,6 @@
     <Component class="javax.swing.JLabel" name="txtcno">
     </Component>
     <Component class="javax.swing.JLabel" name="txtgender">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel7"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
