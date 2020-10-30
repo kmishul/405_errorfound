@@ -9,6 +9,8 @@ import Admin.AddTrain;
 import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.net.Socket;
 
 /**
@@ -275,7 +277,19 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        
+        try {
+            // TODO add your handling code here:
+            UserDetail user=rr.userprofile(userid);
+            System.out.println("\nafter req res");
+            String fname=user.getFname();
+            String lname=user.getLname();
+            String emailid=user.getEmailid();
+            String connt=user.getContact();
+            String gender=user.getGender();
+            new UserProfile(rr, userid, fname, lname, emailid, connt, gender).show();
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println(ex);
+        }
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
