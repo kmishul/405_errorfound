@@ -122,7 +122,7 @@ public class ChangePassword extends javax.swing.JFrame {
             try {
                 String Res=rr.changepass(userid, pass, pass1);
                 if(Res.equals("valid")){
-                    JOptionPane.showMessageDialog(this,"Password changes successfully");
+                    JOptionPane.showMessageDialog(this,"Password changed successfully");
                 }
                 else{
                     JOptionPane.showMessageDialog(this,Res);

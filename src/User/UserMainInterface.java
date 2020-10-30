@@ -7,8 +7,11 @@ package User;
 
 import Admin.AddTrain;
 import Req_Res.Req_Res;
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,6 +50,7 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         Addtrain = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +121,13 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
             }
         });
 
+        jButton10.setText("User Profile");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,6 +167,10 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
                                     .addComponent(jButton9))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +200,9 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
                 .addComponent(jButton8)
                 .addGap(27, 27, 27)
                 .addComponent(jButton9)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton10)
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,6 +256,22 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
         new AddTrain(rr, userid).show();
     }//GEN-LAST:event_AddtrainActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        try {
+            // TODO add your handling code here:
+            UserDetail user=rr.userprofile(userid);
+            System.out.println("\nafter req res");
+            String fname=user.getFname();
+            String lname=user.getLname();
+            String emailid=user.getEmailid();
+            String connt=user.getContact();
+            String gender=user.getGender();
+            new UserProfile(rr, userid, fname, lname, emailid, connt, gender).show();
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(UserMainInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -277,6 +310,7 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Addtrain;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
