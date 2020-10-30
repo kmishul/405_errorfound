@@ -26,7 +26,9 @@ public class AdminLoginRequest implements Serializable{
     private static Statement stmt;
     private PreparedStatement st;
     String Adminid, Adminpass;
-    public AdminLoginRequest(Admindetail adminl) throws SQLException{ //Contructor passing object of AdminDetail class
+//    public AdminLoginRequest(Admindetail adminl) throws SQLException{ //Contructor passing object of AdminDetail class
+//    private String Adminid, Adminpass;
+    public AdminLoginRequest(Admindetail adminl) throws SQLException{
         this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         Adminid=adminl.adminid;
         Adminpass=adminl.adminpass;

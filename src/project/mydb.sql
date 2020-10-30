@@ -30,7 +30,8 @@ CREATE TABLE userlogin (
     userEmailid VARCHAR(50) NOT NULL UNIQUE,
     userPass VARCHAR(100) NOT NULL,
     userContactNo VARCHAR(11) NOT NULL,
-    userGender VARCHAR(10) NOT NULL
+    userGender VARCHAR(10) NOT NULL,
+    userwallet INT DEFAULT 0
 );
 
 

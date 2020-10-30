@@ -25,6 +25,7 @@ public class AddCoachesRequest implements Serializable{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
     //Method to add coaches in first class
+    
     public boolean addfc(ViewTrain train) throws SQLException{
        String tnum=train.gettrainNum();
        if(checktrainnum(tnum)){    //if train number is there in database
@@ -96,7 +97,7 @@ public class AddCoachesRequest implements Serializable{
             {
                 tname_exist = true;
                 System.out.println("train name true\n");
-               // JOptionPane.showMessageDialog(null, "This Username is Already Taken, Choose Another One", "Username Failed", 2);
+              
             }
             
         } catch (HeadlessException | SQLException ex) {

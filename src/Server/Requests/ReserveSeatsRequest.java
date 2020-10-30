@@ -28,11 +28,11 @@ public class ReserveSeatsRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st,st1,st2,st3;
     private static Statement stmt;
-    public String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
-    public int seatno,age,fare,dynamicfareinc=0;
-     public Date date;
-     PassDetail pass;
-     String dbpassclass;
+    private String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
+    private int seatno,age,fare,dynamicfareinc=0;
+     private Date date;
+     private PassDetail pass;
+     private String dbpassclass;
     java.sql.Date sqldate;
     int discountt=0;
     //To initialize datamembers
@@ -79,7 +79,7 @@ public class ReserveSeatsRequest implements Serializable{
     }
      
      //To check if cancelled seats are available 
-     public int availableSeatfromcancelled(String berth) throws SQLException
+     private int availableSeatfromcancelled(String berth) throws SQLException
     {   //int remaining=0;
         String query1="";
         String query2="";
@@ -112,7 +112,7 @@ public class ReserveSeatsRequest implements Serializable{
      
     
     //To update Queries in Database
-    public boolean updateQueries(int seatno,String ticketid,String userid) throws SQLException
+    private boolean updateQueries(int seatno,String ticketid,String userid) throws SQLException
     {   int check=0;
             
             if(fare-discountt>=0)
@@ -159,7 +159,7 @@ public class ReserveSeatsRequest implements Serializable{
     
     
     //To book seat
-    public boolean bookSeat(ResultSet rs,String berth,String userid) throws SQLException
+    private boolean bookSeat(ResultSet rs,String berth,String userid) throws SQLException
     {   int seatno,bookedseats,n,nos;
         String ticketid;
         String d=Integer.toString(date.getDay())+Integer.toString(date.getMonth())+Integer.toString(date.getYear());
@@ -396,7 +396,7 @@ public class ReserveSeatsRequest implements Serializable{
     }
 
     private int getDynamicincrement(String trainNum, Date date,String pclass) throws SQLException {
-    String queryz="SELECT * FROM traininfo WHERE trainNum=?";
+    
         int check=0,inc;
         LocalDate ld1 = java.time.LocalDate.now();//today's date
              LocalDate ld2 = new java.sql.Date( date.getTime() ).toLocalDate();//util to local
@@ -404,7 +404,9 @@ public class ReserveSeatsRequest implements Serializable{
              
                 if(diff<6)
                     
-                {PreparedStatement stz=con.prepareStatement(queryz);
+                {   String queryz="SELECT * FROM traininfo WHERE trainNum=?";
+                    PreparedStatement stz=con.prepareStatement(queryz);
+                    stz.setString(1, trainNum);
                     ResultSet rsz=stz.executeQuery();
                     if(rsz.next())
                     { check=rsz.getInt("dmc");

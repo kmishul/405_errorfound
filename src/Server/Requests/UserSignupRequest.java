@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 
 /**
  *
@@ -26,14 +27,14 @@ public class UserSignupRequest implements Serializable{
     private final Connection con;
     private static Statement stmt;
     private PreparedStatement st;
-    String userid,fname,lname,emailid,pass,contact,gender;
+    private String userid,fname,lname,emailid,pass,contact,gender;
     public UserSignupRequest(UserDetail user) throws SQLException{
         this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         userid=user.userid;
         fname=user.fname;
         lname=user.lname;
         emailid=user.emailid;
-        pass=user.pass;
+        pass=getEncoded(user.pass);
         contact=user.contact;
         gender=user.gender;
     }
@@ -71,7 +72,7 @@ public class UserSignupRequest implements Serializable{
             return false;
         }
     }
-    public boolean checkUsername(String username){
+    private boolean checkUsername(String username){
         
         //PreparedStatement st;
         //ResultSet rs;
@@ -105,5 +106,9 @@ public class UserSignupRequest implements Serializable{
         }
         
         return username_exist;
+    }
+    private String getEncoded(String valueOf) {
+        
+        return Base64.getEncoder().encodeToString(valueOf.getBytes());
     }
 }
