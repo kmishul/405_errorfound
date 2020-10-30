@@ -527,29 +527,29 @@ public class AddTrain extends javax.swing.JFrame implements Serializable{
     private void txtstarttmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstarttmKeyReleased
         // TODO add your handling code here:
         
-        String PATTERN="^([01]?[0-9]2[0-3]):[0-5][0-9]$";
-        Pattern patt=Pattern.compile(PATTERN);
-        Matcher match=patt.matcher(txtstarttm.getText());
-        if(!match.matches()){
-            jLabel18.setText("invalid");
-        }
-        else{
-            jLabel18.setText(null);
-        }                      
+//        String PATTERN="^([01]?[0-9]2[0-3]):[0-5][0-9]$";
+//        Pattern patt=Pattern.compile(PATTERN);
+//        Matcher match=patt.matcher(txtstarttm.getText());
+//        if(!match.matches()){
+//            jLabel18.setText("invalid");
+//        }
+//        else{
+//            jLabel18.setText(null);
+//        }                      
     }//GEN-LAST:event_txtstarttmKeyReleased
 
     private void txtstoptmKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstoptmKeyReleased
         // TODO add your handling code here:
 
-        String PATTERN="^([01]?[0-9]2[0-3]):[0-5][0-9]$";
-        Pattern patt=Pattern.compile(PATTERN);
-        Matcher match=patt.matcher(txtstoptm.getText());
-        if(!match.matches()){
-            jLabel18.setText("invalid");
-        }
-        else{
-            jLabel18.setText(null);
-        }                      
+//        String PATTERN="^([01]?[0-9]2[0-3]):[0-5][0-9]$";
+//        Pattern patt=Pattern.compile(PATTERN);
+//        Matcher match=patt.matcher(txtstoptm.getText());
+//        if(!match.matches()){
+//            jLabel18.setText("invalid");
+//        }
+//        else{
+//            jLabel18.setText(null);
+//        }                      
     }//GEN-LAST:event_txtstoptmKeyReleased
 
     private void txtNOSfcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNOSfcKeyReleased
@@ -706,7 +706,7 @@ public boolean verifyTrains(){
             }
     }
     public boolean checkfields1(){
-        if (jLabel15.getText().equals("invalid")){
+        if (jLabel15.getText()=="invalid"){
             return false;
         }
         else{
@@ -714,35 +714,35 @@ public boolean verifyTrains(){
         }
     }
     public boolean checkfields2(){
-        if (jLabel16.getText().equals("invalid")){
+        if (jLabel16.getText()=="invalid"){
             return false;
         }
         else{
             return true;
         }
     }public boolean checkfields3(){
-        if (jLabel17.getText().equals("invalid")){
+        if (jLabel17.getText()=="invalid"){
             return false;
         }
         else{
             return true;
         }
     }public boolean checkfields4(){
-        if (jLabel18.getText().equals("invalid")){
+        if (jLabel18.getText()=="invalid"){
             return false;
         }
         else{
             return true;
         }
     }public boolean checkfields5(){
-        if (jLabel19.getText().equals("invalid")){
+        if (jLabel19.getText()=="invalid"){
             return false;
         }
         else{
             return true;
         }
     }public boolean checkfields6(){
-        if (jLabel20.getText().equals("invalid")){
+        if (jLabel20.getText()=="invalid"){
             return false;
         }
         else{

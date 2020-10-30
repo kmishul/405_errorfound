@@ -220,7 +220,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    if(checkfields()){
+    if(checkfields() && verifydate()){
         txtfc.setEditable(true);
         txtsc.setEditable(true);
         txtslc.setEditable(true);
@@ -248,14 +248,14 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
             txtslc.setEditable(false);
             }
             else{
-                 JOptionPane.showMessageDialog(this,"Train Number does not exist");
+                 JOptionPane.showMessageDialog(this,Res);
             }
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(SeatsAvailable.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     else{
-            JOptionPane.showMessageDialog(this, "check if you have entered valid entries");
+            JOptionPane.showMessageDialog(this, "Check if you have entered valid entries");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -288,7 +288,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
         new UserMainInterface(rr, userid).show();
     }//GEN-LAST:event_jButton2ActionPerformed
     public boolean checkfields(){
-        if (jLabel7.getText().equals("invalid")){
+        if (jLabel7.getText()=="invalid"){
             return false;
         }
         else{
@@ -298,7 +298,7 @@ public class SeatsAvailable extends javax.swing.JFrame implements Serializable{
     public boolean verifydate(){
         Date date=datech.getDate();
         if(date.compareTo(present)<0||after30days.compareTo(date)<0){
-        JOptionPane.showMessageDialog(this, "enter date which is between next today and next 30 days ");
+       // JOptionPane.showMessageDialog(this, "enter date which is between next today and next 30 days ");
             return false;
         }
         else{

@@ -120,9 +120,11 @@ public class Req_Res implements Serializable{
        
     }
     
-     public String giveDiscount() throws IOException, ClassNotFoundException{
+     public String giveDiscount(int limit,int dis) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Discounts");
+       OOS1.writeObject(limit);
+       OOS1.writeObject(dis);
        OOS1.flush();
        s=(String) OIS1.readObject();
        return s;

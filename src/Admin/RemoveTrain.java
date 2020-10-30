@@ -195,7 +195,7 @@ public class RemoveTrain extends javax.swing.JFrame implements Serializable{
         }
     }
     public boolean checkfields(){
-        if (jLabel3.getText().equals("invalid")){
+        if (jLabel3.getText()=="invalid"){
             return false;
         }
         else{

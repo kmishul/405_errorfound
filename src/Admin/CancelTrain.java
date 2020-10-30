@@ -224,7 +224,7 @@ public class CancelTrain extends javax.swing.JFrame implements Serializable{
         new AdminMainInterface(rr, adminid).show();
     }//GEN-LAST:event_jButton1ActionPerformed
    public boolean checkfields(){
-        if (jLabel3.getText().equals("invalid")){
+        if (jLabel3.getText()=="invalid"){
          return false;
         }
         else{

@@ -64,7 +64,7 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
         }
     }
     private boolean checksignupcont(){
-        if (jLabel10.getText().equals("invalid")){
+        if (jLabel10.getText()=="invalid"){
             return false;
         }
         else{
@@ -72,7 +72,7 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
         }
     }
     private boolean checksignuppass(){
-        if (jLabel16.getText().equals("invalid")){
+        if (jLabel16.getText()=="invalid"){
             return false;
         }
         else{
@@ -80,7 +80,7 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
         }
     }
     private boolean checksignupemail(){
-        if (jLabel17.getText().equals("invalid")){
+        if (jLabel17.getText()=="invalid"){
             return false;
         }
         else{
@@ -88,7 +88,7 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
         }
     }
     private boolean checksignupname(){
-        if (jLabel18.getText().equals("invalid")){
+        if (jLabel18.getText()=="invalid"){
             return false;
         }
         else{
@@ -96,7 +96,7 @@ public class UserSignup extends javax.swing.JFrame implements Serializable{
         }
     }
     private boolean checksignupid(){
-        if (jLabel19.getText().equals("invalid")){
+        if (jLabel19.getText()=="invalid"){
             return false;
         }
         else{
