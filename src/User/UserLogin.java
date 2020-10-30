@@ -14,16 +14,6 @@ public class UserLogin extends javax.swing.JFrame implements Serializable{
     public UserLogin() {
         initComponents();
     }
-//    public UserDetail(String uname, String upass){
-//        this.username=uname;
-//        this.upassword=upass;
-//    }
-//    public void setusername(String uname){
-//        this.username=uname;
-//    }
-//    public void setuserpassword(String password){
-//        this.upassword=password;
-//    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

@@ -5,22 +5,13 @@
  */
 package Admin;
 import Req_Res.Req_Res;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.HeadlessException;
-import java.awt.LayoutManager;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -140,10 +131,6 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         model=(DefaultTableModel) tbl.getModel();
         try {
-                //Req_Res res=new Req_Res();
-                //String Res=res.viewTrains();
-                //rr.viewTrains();
-                //String Res="valid";
                 String Res=rr.viewTrains();
                 ObjectInputStream ois=rr.getObjectInputStream();
                 System.out.println("isme galti ni h\n");
@@ -176,7 +163,6 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
                                 });
                     System.out.println("Client2\n");
                     }
-                   // this.dispose();
                 }
                 else{
                     JOptionPane.showMessageDialog(this,"No Train Found !");
@@ -185,46 +171,10 @@ public class ViewTrains extends javax.swing.JFrame implements Serializable{
             } catch (IOException | HeadlessException | ClassNotFoundException ex) {
                 Logger.getLogger(ViewTrains.class.getName()).log(Level.SEVERE, null, ex);
             }
-    // TODO add your handling code here:
     
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ViewTrains.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ViewTrains.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ViewTrains.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ViewTrains.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ViewTrains().setVisible(true);
-//            }
-//        });
-//    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

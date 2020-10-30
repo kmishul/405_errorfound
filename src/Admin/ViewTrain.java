@@ -13,8 +13,8 @@ import java.io.Serializable;
  */
 
 public class ViewTrain implements Serializable{
-    public String trainNum,trainName,fstation,lstation,dtime,atime,days,status;
-    int Nosfc,Nossc,Nosslc,fee1,fee2,fee3,cancel,dmc;
+    private String trainNum,trainName,fstation,lstation,dtime,atime,days,status;
+    private int Nosfc,Nossc,Nosslc,fee1,fee2,fee3,cancel,dmc;
 
     public ViewTrain() {
     
