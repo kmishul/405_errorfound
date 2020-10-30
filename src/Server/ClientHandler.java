@@ -22,6 +22,7 @@ import Server.Requests.PassDetailsRequest;
 import Server.Requests.UserSignupRequest;
 import Server.Requests.ViewTrainsRequest;
 import Server.Requests.CancelTrainRequest;
+import Server.Requests.ChangePasswordRequest;
 import Server.Requests.NotificationRequest;
 
 import Server.Requests.DiscountsRequest;
@@ -32,6 +33,7 @@ import Server.Requests.ReserveSeatsRequest;
 import Server.Requests.SearchTrainRequest;
 import Server.Requests.SeatsAvailRequest;
 import Server.Requests.SendQueryRequest;
+import Server.Requests.ShowUserProfile;
 import Server.Requests.TicketsRequest;
 import Server.Requests.TrainStatusRequest;
 import Server.Requests.TravelInfoRequest;
@@ -569,8 +571,24 @@ public class ClientHandler implements Runnable,Serializable{
                 String uid=(String) OIS.readObject();
                 String opass=(String) OIS.readObject();
                 String npass=(String) OIS.readObject();
+                ChangePasswordRequest cp=new ChangePasswordRequest();
+                if(cp.changepass(uid, opass, npass)){
+                    OOS.writeObject("valid");
+                    OOS.flush();
+                }
+                else{
+                    OOS.writeObject("Incorrect Current Password");
+                    OOS.flush();
+                }
             }
+            if(request.equals("User Profile")){
+                System.out.println("reached client handler\n");
+                String uid=(String) OIS.readObject();
+                ShowUserProfile u=new ShowUserProfile();
+                UserDetail user=u.showdetail(uid);
+                OOS.writeObject(user);
             }
+           }
         }catch (IOException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

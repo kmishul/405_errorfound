@@ -24,9 +24,10 @@ public class AddCoachesRequest implements Serializable{
     public AddCoachesRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
+    //Method to add coaches in first class
     public boolean addfc(ViewTrain train) throws SQLException{
        String tnum=train.gettrainNum();
-       if(checktrainname(tnum)){
+       if(checktrainnum(tnum)){    //if train number is there in database
             int seats=train.getNosfc();
             String q1="UPDATE firstclass SET totalseats=totalseats+? WHERE trainNum=?";
             st=con.prepareStatement(q1);
@@ -40,9 +41,10 @@ public class AddCoachesRequest implements Serializable{
            return false;
        }
     }
+     //Method to add coaches in second class
     public boolean addsc(ViewTrain train) throws SQLException{
        String tnum=train.gettrainNum();
-       if(checktrainname(tnum)){
+       if(checktrainnum(tnum)){   //if train number is there in database
             int seats=train.getNossc();
             String q1="UPDATE secondclass SET totalseats=totalseats+? WHERE trainNum=?";
             st=con.prepareStatement(q1);
@@ -56,9 +58,10 @@ public class AddCoachesRequest implements Serializable{
            return false;
        }
     }
+     //Method to add coaches in sleeper class
     public boolean addslc(ViewTrain train) throws SQLException{
        String tnum=train.gettrainNum();
-       if(checktrainname(tnum)){
+       if(checktrainnum(tnum)){  //if train number is there in database
             int seats=train.getNosslc();
             String q1="UPDATE sleeperclass SET totalseats=totalseats+? WHERE trainNum=?";
             st=con.prepareStatement(q1);
@@ -72,7 +75,8 @@ public class AddCoachesRequest implements Serializable{
            return false;
        }
     }
-    private boolean checktrainname(String trainname){
+    //method to check wheher train number sent by client exist or not
+    private boolean checktrainnum(String trainname){
         
         //PreparedStatement st;
         //ResultSet rs;
