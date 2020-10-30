@@ -6,7 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -25,79 +25,82 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtstopstn" pref="143" max="32767" attributes="0"/>
-                                  <Component id="txtstartstn" max="32767" attributes="0"/>
-                                  <Component id="txtTno" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                              <Component id="jLabel5" min="-2" pref="85" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="292" pref="292" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="196" pref="196" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" pref="74" max="-2" attributes="0"/>
+                      <EmptySpace min="81" pref="81" max="-2" attributes="0"/>
+                      <Component id="txtstartstn" min="-2" pref="143" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="196" pref="196" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" pref="66" max="-2" attributes="0"/>
+                      <EmptySpace min="89" pref="89" max="-2" attributes="0"/>
+                      <Component id="txtstopstn" min="-2" pref="143" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="306" pref="306" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                      <Component id="jLabel7" min="-2" pref="75" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="169" pref="169" max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" pref="377" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="343" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="196" pref="196" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="93" max="-2" attributes="0"/>
+                      <EmptySpace min="62" pref="62" max="-2" attributes="0"/>
+                      <Component id="txtTno" min="-2" pref="143" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" pref="85" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="41" max="32767" attributes="0"/>
+              <EmptySpace pref="105" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="31" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="63" pref="63" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel2" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="txtTno" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel5" min="-2" pref="28" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel5" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtTno" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="txtstartstn" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="txtstopstn" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="45" pref="45" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
+                      <Component id="jLabel7" min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtstartstn" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtstopstn" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-              <Component id="jLabel7" min="-2" pref="34" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" pref="39" max="-2" attributes="0"/>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,6 +108,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Sylfaen" size="18" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Reroute Train"/>
       </Properties>
     </Component>
