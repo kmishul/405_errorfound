@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author kmish
  */
 public class TravelInfo extends javax.swing.JFrame implements Serializable{
-private DefaultTableModel model1;
+public DefaultTableModel model1;
     private final String userid;
     private final Req_Res rr;
     /**
