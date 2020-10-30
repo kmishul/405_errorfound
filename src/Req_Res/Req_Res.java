@@ -273,10 +273,20 @@ public class Req_Res implements Serializable{
     }
     public String changePass(String s,String p,String p1) throws IOException, ClassNotFoundException{
         System.out.println("req res method");
-        OOS1.writeObject("Notify");
+        OOS1.writeObject("Change Password");
         OOS1.writeObject(s);
+        OOS1.writeObject(p);
+        OOS1.writeObject(p1);
         OOS1.flush();
         s=(String) OIS1.readObject();
         return s;
+    }
+    public UserDetail userprofile(String uid) throws IOException, ClassNotFoundException{
+        System.out.println("req res method");
+        OOS1.writeObject("User Profile");
+        OOS1.writeObject(uid);
+        OOS1.flush();
+        UserDetail u=(UserDetail) OIS1.readObject();
+        return u;
     }
 }

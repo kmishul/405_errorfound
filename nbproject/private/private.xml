@@ -2,6 +2,30 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/Queries.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Req_Res/Req_Res.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/ViewTrains.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/Admindetail.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/PassDetails.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/ReserveSeats.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/CheckDiscount.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/CancelBooking.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/ViewTrain.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/UserMainInterface.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/AdminMainInterface.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/GiveDiscounts.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/UserSignup.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/UserProfile.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/Notification.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/ChangePassword.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/SearchTrain.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/AddTrain.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/SeatsAvailable.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/QueryHandler.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/PassDetail.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/Admin/AddCoaches.java</file>
+            <file>file:/C:/Users/Folio/Documents/NetBeansProjects/Lockdown-Traveller/src/User/UserQueries.java</file>
+        </group>
     </open-files>
 </project-private>
