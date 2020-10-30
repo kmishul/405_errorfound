@@ -51,7 +51,7 @@ public class CancelBooking extends javax.swing.JFrame implements Serializable{
 
         jLabel2.setText("PNR Number");
 
-        CancelTrainBT.setText("Sochkr click krne ka");
+        CancelTrainBT.setText("Cancel");
         CancelTrainBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelTrainBTActionPerformed(evt);
@@ -97,8 +97,8 @@ public class CancelBooking extends javax.swing.JFrame implements Serializable{
                         .addGap(19, 19, 19)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(44, 44, 44)))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -108,8 +108,8 @@ public class CancelBooking extends javax.swing.JFrame implements Serializable{
                         .addGap(12, 12, 12)
                         .addComponent(CancelPnrTF)))
                 .addGap(57, 57, 57)
-                .addComponent(CancelTrainBT, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                .addGap(58, 58, 58))
+                .addComponent(CancelTrainBT)
+                .addGap(85, 85, 85))
         );
 
         pack();

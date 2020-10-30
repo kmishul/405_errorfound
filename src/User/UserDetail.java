@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class UserDetail implements Serializable{
     public String userid,fname,lname,emailid,pass,contact,gender;
-    public int wallet;
+   public int wallet;
     public UserDetail() {
     }
        
