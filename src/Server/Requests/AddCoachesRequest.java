@@ -79,15 +79,10 @@ public class AddCoachesRequest implements Serializable{
     //method to check wheher train number sent by client exist or not
     private boolean checktrainnum(String trainname){
         
-        //PreparedStatement st;
-        //ResultSet rs;
         boolean tname_exist = false;
-        
-        //String query = "SELECT * FROM `users` WHERE `userId` = ?";
         
         try {
             String query = "SELECT * FROM `traininfo` WHERE `trainNum` = ?";
-            //con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             st = con.prepareStatement(query);
             st.setString(1,trainname);
             ResultSet rs = st.executeQuery();
@@ -101,7 +96,6 @@ public class AddCoachesRequest implements Serializable{
             }
             
         } catch (HeadlessException | SQLException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
             System.out.println("checkTrainname\n");
         }
         

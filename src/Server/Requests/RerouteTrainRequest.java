@@ -24,8 +24,8 @@ public class RerouteTrainRequest implements Serializable{
     public RerouteTrainRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
+    //Method returning 1 on rerouting train succesfully,2 if train has tickets reserved,3 if train does not exist 
     public int reroute(ViewTrain train) throws SQLException{
-       
         String tnum=train.gettrainNum();
         String startstn=train.getfstation();
         String stopstn=train.getlstation();

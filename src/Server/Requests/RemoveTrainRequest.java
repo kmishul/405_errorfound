@@ -34,10 +34,11 @@ public class RemoveTrainRequest implements Serializable{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=train.gettrainNum();
     }
+    //Method to delete train information from traininfo and all classes tables
     public String removetrain() throws SQLException{
         try{
-            if(checktrainname(tnum)){
-                if(!checktrainpass(tnum)){
+            if(checktrainname(tnum)){  //to check whether that train number exist or not
+                if(!checktrainpass(tnum)){  //to check if that train has seats reserved
                     System.out.println("removing..");
                     System.out.println(tnum);
                     st6=con.prepareStatement("SET foreign_key_checks=0;");
@@ -50,9 +51,6 @@ public class RemoveTrainRequest implements Serializable{
                     st2.setString(1, tnum);
                     st3=con.prepareStatement("DELETE FROM `sleeperclass` WHERE trainNum=?");
                     st3.setString(1, tnum);
-//                    st4=con.prepareStatement("DELETE FROM `passengerdetail` WHERE trainNum=?");
-//                    st4.setString(1, tnum);
-//                    st4.execute();
                     st3.execute();
                     st2.execute();
                     st5.execute();
@@ -63,12 +61,6 @@ public class RemoveTrainRequest implements Serializable{
                     System.out.println("not in passdetail");
                     return "This train has seats reserved,can't be deleted";
                 }
-////                stt.execute();
-////                sttt.execute();
-////                stttt.execute();
-//                //sttttt.execute();
-//                //st.execute();
-//                return "valid";
             }
             else{
                 System.out.println("1.Train number does not exist\n");
@@ -81,16 +73,12 @@ public class RemoveTrainRequest implements Serializable{
         }
     }
     private boolean checktrainname(String trainname){
-        
-        //PreparedStatement st;
-        //ResultSet rs;
+   
         boolean tname_exist = false;
-        
-        //String query = "SELECT * FROM `users` WHERE `userId` = ?";
+     
         
         try {
             String query = "SELECT * FROM `traininfo` WHERE `trainNum` = ?";
-            //con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             st = con.prepareStatement(query);
             st.setString(1,trainname);
             ResultSet rs = st.executeQuery();
@@ -101,7 +89,7 @@ public class RemoveTrainRequest implements Serializable{
                 tname_exist = true;
                 System.out.println("train name true\n");
                 return true;
-               // JOptionPane.showMessageDialog(null, "This Username is Already Taken, Choose Another One", "Username Failed", 2);
+
             }
             else{
                 System.out.println("train name false\n");
@@ -109,7 +97,6 @@ public class RemoveTrainRequest implements Serializable{
             }
             
         } catch (HeadlessException | SQLException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
             System.out.println("error in checkTrainname\n");
             return false;
         }
@@ -118,15 +105,9 @@ public class RemoveTrainRequest implements Serializable{
     }
     private boolean checktrainpass(String trainname){
         
-        //PreparedStatement st;
-        //ResultSet rs;
         boolean tname_exist = false;
-        
-        //String query = "SELECT * FROM `users` WHERE `userId` = ?";
-        
         try {
             String query = "SELECT * FROM `passengerdetail` WHERE `trainNum` = ?";
-            //con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
             st = con.prepareStatement(query);
             st.setString(1,trainname);
             ResultSet rs = st.executeQuery();
@@ -137,7 +118,6 @@ public class RemoveTrainRequest implements Serializable{
                 tname_exist = true;
                 System.out.println("train name passenger true\n");
                 return true;
-               // JOptionPane.showMessageDialog(null, "This Username is Already Taken, Choose Another One", "Username Failed", 2);
             }
             else{
                 System.out.println("train name passenger false\n");

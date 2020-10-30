@@ -26,9 +26,7 @@ public class PassDetailsRequest implements Serializable{
     public PassDetailsRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
-    
-    
-
+    //Method to fetch all the details of passengers and storing the object in arraylist
     public String getPassengers() {
         String Response="";
         try{
@@ -63,7 +61,7 @@ public class PassDetailsRequest implements Serializable{
             return "error";
             }
         }
-
+//Method returning final arraylist of all objects of passengerdetails
     public ArrayList<PassDetail> getList() {
         return pd;
         }

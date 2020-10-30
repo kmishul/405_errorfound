@@ -24,6 +24,7 @@ public class NotificationRequest {
     public NotificationRequest() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
+    //Method returning true if user has tickets on next day and fetching details from database about tickets else false
     public boolean getrecent(String uid) throws SQLException{
         System.out.println("get recent method");
         boolean r=false;
@@ -51,6 +52,7 @@ public class NotificationRequest {
         }
         return r;
     }
+    //method returning array list of strings with all details of ticket
     public ArrayList<String> getList() {
     return vt;
     }

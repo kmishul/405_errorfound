@@ -42,10 +42,7 @@ public class TicketsRequest implements Serializable{
             stmt1=con.prepareStatement(q1);
             stmt1.setString(1,uid.getUserid());
             ResultSet rs1=stmt1.executeQuery();
-     
-         
-            
-            //while(rs1.next() && rs2.next()){
+ 
             while(rs1.next())   { 
                 int flag=0;
             PassDetail p=new PassDetail();
@@ -86,9 +83,7 @@ public class TicketsRequest implements Serializable{
                  }
             
             }
-           
-    
-    
+  
     return Response;
         
     }
@@ -98,7 +93,6 @@ public class TicketsRequest implements Serializable{
             }
         }
 
-    
    public ArrayList<PassDetail> getPassList() {
         return pd;
         }

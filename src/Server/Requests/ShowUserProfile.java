@@ -22,6 +22,7 @@ public class ShowUserProfile {
     public ShowUserProfile() throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
     }
+    //Method returning object of user with all the details
     public UserDetail showdetail(String uid) throws SQLException{
         System.out.println("showdetail method\n");
         UserDetail user=new UserDetail();

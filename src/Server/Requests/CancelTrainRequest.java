@@ -27,10 +27,10 @@ public class CancelTrainRequest implements Serializable{
     private String tnum;
 
     public CancelTrainRequest(ViewTrain train) throws SQLException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=train.gettrainNum();
     }
+    //Method returning true on successfully cancelling train and false if train does not exist or already cancelled
     public boolean canceltrain() throws SQLException{
         try{
         System.out.println("cancelling..");

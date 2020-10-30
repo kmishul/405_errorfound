@@ -28,7 +28,8 @@ public class CancelBookingRequest implements Serializable{
 }
     
     public boolean cancel(String pnr) throws SQLException{
-        String query="SELECT * FROM passengerdetail WHERE passengerTicketId=?";
+        //query to fetch all details of passenger from database whose ticket has to be cancelled
+        String query="SELECT * FROM passengerdetail WHERE passengerTicketId=?";  
         st=con.prepareStatement(query);
         st.setString(1,pnr);
         ResultSet rs=st.executeQuery();
@@ -40,7 +41,7 @@ public class CancelBookingRequest implements Serializable{
             int seatno=rs.getInt("passseatNo");
             String berth=rs.getString("berth");
             int refund=rs.getInt("fare");
-            
+    //Inserting all seat details in cancel tables of each respective class of train
             switch(passclass){
                 case "firstClass":
                     switch(berth){

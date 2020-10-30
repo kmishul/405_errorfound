@@ -57,6 +57,7 @@ public class SeatsAvailRequest implements Serializable{
         
         return tname_exist;
     }
+    //Class wise methods returning remaining seats in that class of given train number and on given date
     public int getseatsfc(String tnum,Date date) throws SQLException{
         int rem;
         java.util.Date utilObj = date;
@@ -112,6 +113,7 @@ public class SeatsAvailRequest implements Serializable{
         rem=total-(lo+up+su+sl+md)+getcancelslc(tnum, date);
         return rem;
     }
+    //Class wise method returning number of seats cancelled in given train number and on given date
     private int getcancelfc(String tnum,Date date) throws SQLException{
         String q1="SELECT * FROM firstClasscancel WHERE trainNum=? AND rundate=?";
         int count=0;

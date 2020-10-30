@@ -32,6 +32,7 @@ public class UserLoginRequest implements Serializable{
         userid=userl.getUserid();
         password=userl.getPass();
     }
+     //Method returning true if password entered by user is correct else returns false
     public boolean checklogininfo() {
         
         try{
@@ -54,12 +55,10 @@ public class UserLoginRequest implements Serializable{
             }
            
         }catch (HeadlessException | SQLException ex) {
-            //JOptionPane.showMessageDialog(this, ex.getMessage());
             System.out.println(ex);
             return false;
             
         }catch(Exception e){
-            //System.out.println(e);
             System.out.println(e);
             return false;
             
