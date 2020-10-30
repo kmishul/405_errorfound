@@ -13,9 +13,9 @@ import java.util.Date;
  * @author kmish
  */
 public class PassDetail implements Serializable{
-    public String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
-        public int seatno,age,fare;
-        public Date date;
+    private String trainNum,userId,passclass,ticketid,fname,lname,gender,berth;
+        private int seatno,age,fare;
+        private Date date;
         
     public PassDetail() {
       

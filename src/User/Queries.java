@@ -12,15 +12,14 @@ import java.io.Serializable;
  * @author Folio
  */
 public class Queries implements Serializable {
-    public String userid,query,reply;
+    private String userid,query,reply;
     public Queries(String userid,String query,String reply){
         this.userid=userid;
         this.query=query;
     }
 
     public Queries() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        }
     public void setuserid(String userid){
         this.userid=userid;
     }

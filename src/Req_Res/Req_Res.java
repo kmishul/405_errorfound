@@ -7,26 +7,11 @@
 package Req_Res;
 import Admin.*;
 import User.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 import java.io.IOException;
-
-import java.io.IOException;
-
-import java.io.IOException;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -35,39 +20,42 @@ import java.util.Date;
  */
 
 public class Req_Res implements Serializable{
-    public final String ip="localhost";
-    public final int port=8806;
+    private final String ip;
+    private final int port;
+    private final Socket socket;
+    private final ObjectOutputStream OOS1;
+    private final ObjectInputStream OIS1;
+    private String s;
 
-    public final Socket socket = new Socket(ip,port);
-    ObjectOutputStream OOS1=new ObjectOutputStream(socket.getOutputStream());
-    ObjectInputStream OIS1=new ObjectInputStream(socket.getInputStream());
-    //DataOutputStream DOS1=new DataOutputStream(socket.getOutputStream());
-    //DataInputStream DIS1=new DataInputStream(socket.getInputStream());
-    String s;
-
-    //private Object OOS;
+    //To get ObjectOuputStream Object
     public ObjectOutputStream getObjectOutputStream()
     {
         return OOS1;
     }
+    //To get ObjectInputStream Object
     public ObjectInputStream getObjectInputStream()
     {
         return OIS1;
     }
-    
+    //To get Socket
     public Socket getSocket()
     {
         return socket;
     }
     
+    //Constructor --call upon object creation
     public Req_Res() throws IOException{
+        this.ip = "localhost";
+        this.port = 8806;
+        this.socket = new Socket(ip,port);
+        this.OOS1 = new ObjectOutputStream(socket.getOutputStream());
+        this.OIS1 = new ObjectInputStream(socket.getInputStream());
          System.out.println("Connected!");
           
           
     }
     
     public String sendUserSignup(UserDetail user) throws IOException, ClassNotFoundException{
-    //public void sendUserSignup(UserSignup user,String s) throws IOException{
        OOS1.writeObject("User SignUp");
         OOS1.writeObject(user);
         OOS1.flush();
@@ -81,8 +69,6 @@ public class Req_Res implements Serializable{
         OOS1.writeObject(user);
         OOS1.flush();
         s=(String) OIS1.readObject();
-        
-        System.out.println(s+"  :this is s");
         return s;
     }
     public String sendAdminLogin(Admindetail admin) throws IOException, ClassNotFoundException{
@@ -91,16 +77,13 @@ public class Req_Res implements Serializable{
         OOS1.writeObject(admin);
         OOS1.flush();
         s=(String) OIS1.readObject();
-        System.out.println(s+"  :this is s");
         return s;
     }
-    public String addtrain(ViewTrain train) throws IOException, ClassNotFoundException{
-       //OOS1.reset();
+    public String addTrain(ViewTrain train) throws IOException, ClassNotFoundException{
         OOS1.writeObject("Add Train");
         OOS1.writeObject(train);
         OOS1.flush();
         s=(String) OIS1.readObject();
-        System.out.println(s+"1");
         return s;
     }
 
@@ -110,12 +93,9 @@ public class Req_Res implements Serializable{
         OOS1.flush();
         String s=(String) OIS1.readObject();
        return s;
-        //s=DIS1.readUTF();
-        //System.out.println(s);
-        //return s;
-    }
+        }
 
-    public String canceltrain(ViewTrain train) throws IOException, ClassNotFoundException{
+    public String cancelTrain(ViewTrain train) throws IOException, ClassNotFoundException{
         OOS1.writeObject("Cancel Train");
         OOS1.writeObject(train);
         OOS1.flush();
@@ -123,16 +103,13 @@ public class Req_Res implements Serializable{
         return s;
     }
 
-    public String uncanceltrain(ViewTrain train) throws IOException, ClassNotFoundException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String uncancelTrain(ViewTrain train) throws IOException, ClassNotFoundException {
         OOS1.writeObject("Uncancel Train");
         OOS1.writeObject(train);
         OOS1.flush();
         s=(String) OIS1.readObject();
         return s;
     }
-
-        
 
     public String viewTrains() throws IOException, ClassNotFoundException{
     
@@ -152,7 +129,7 @@ public class Req_Res implements Serializable{
        
     }
      
-    public String addseatfc(ViewTrain train) throws IOException, ClassNotFoundException{
+    public String addSeatfc(ViewTrain train) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Add FC");
        OOS1.writeObject(train);
@@ -161,7 +138,7 @@ public class Req_Res implements Serializable{
        return s;
        
     }
-     public String addseatsc(ViewTrain train) throws IOException, ClassNotFoundException{
+     public String addSeatsc(ViewTrain train) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Add SC");
        OOS1.writeObject(train);
@@ -169,7 +146,7 @@ public class Req_Res implements Serializable{
        s=(String) OIS1.readObject();
        return s;
     }
-      public String addseatlc(ViewTrain train) throws IOException, ClassNotFoundException{
+      public String addSeatlc(ViewTrain train) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Add SLC");
        OOS1.writeObject(train);
@@ -185,7 +162,7 @@ public class Req_Res implements Serializable{
        s=(String) OIS1.readObject();
        return s;
     }
-    public String seatavail(String tnum,Date date) throws IOException, ClassNotFoundException{
+    public String seatAvail(String tnum,Date date) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Seat Avail");
        OOS1.writeObject(tnum);
@@ -194,7 +171,7 @@ public class Req_Res implements Serializable{
        s=(String) OIS1.readObject();
        return s;
     }
-     public String cancelbooking(String pnr) throws IOException, ClassNotFoundException{
+     public String cancelBooking(String pnr) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Cancel Booking");
         OOS1.writeObject(pnr);
@@ -210,7 +187,7 @@ public class Req_Res implements Serializable{
        String s=(String) OIS1.readObject();
        return s;
     }
-    public String reserveseat(PassDetail pass,int discount) throws IOException, ClassNotFoundException{
+    public String reserveSeat(PassDetail pass,int discount) throws IOException, ClassNotFoundException{
     
        OOS1.writeObject("Reserve Seat");
        OOS1.writeObject(pass);
@@ -220,8 +197,7 @@ public class Req_Res implements Serializable{
          return s;       
        
     }
-    public void reservewaiting(PassDetail pass,int discount) throws IOException, ClassNotFoundException{
-    
+    public void reserveWaiting(PassDetail pass,int discount) throws IOException, ClassNotFoundException{
        OOS1.writeObject("Reserve Waiting");
        OOS1.writeObject(pass);
        OOS1.writeObject(discount);
@@ -229,8 +205,6 @@ public class Req_Res implements Serializable{
        
     }
     public String travelInfo() throws IOException, ClassNotFoundException{
-    System.out.println("travel method check\n");
-                
        OOS1.writeObject("Travel Info");
        OOS1.flush();
        s=(String) OIS1.readObject();
@@ -238,14 +212,12 @@ public class Req_Res implements Serializable{
         return s;
        }
     public String tickets() throws IOException, ClassNotFoundException{
-    
-                
        OOS1.writeObject("Tickets");
        OOS1.flush();
        s=(String) OIS1.readObject();
         return s;
     }
-    public String searchtrain(String s1,String s2) throws IOException, ClassNotFoundException{
+    public String searchTrain(String s1,String s2) throws IOException, ClassNotFoundException{
         OOS1.writeObject("Search Train");
         OOS1.writeObject(s1);
         OOS1.writeObject(s2);
@@ -260,7 +232,7 @@ public class Req_Res implements Serializable{
        s=(String) OIS1.readObject();
         return s;
     }
-    public String sendquery(Queries query) throws IOException, ClassNotFoundException{
+    public String sendQuery(Queries query) throws IOException, ClassNotFoundException{
         OOS1.writeObject("Send Query");
         OOS1.writeObject(query);
         //OOS1.writeObject(s2);
@@ -276,7 +248,7 @@ public class Req_Res implements Serializable{
        return s;
        
     }
-    public String sendreply(Queries query) throws IOException, ClassNotFoundException{
+    public String sendReply(Queries query) throws IOException, ClassNotFoundException{
         OOS1.writeObject("Send Reply");
         OOS1.writeObject(query);
         //OOS1.writeObject(s2);
@@ -284,7 +256,7 @@ public class Req_Res implements Serializable{
         s=(String) OIS1.readObject();
         return s;
     }
-    public String showreply(String u) throws IOException, ClassNotFoundException{
+    public String showReply(String u) throws IOException, ClassNotFoundException{
         OOS1.writeObject("Show Reply");
         OOS1.writeObject(u);
         OOS1.flush();
@@ -299,7 +271,7 @@ public class Req_Res implements Serializable{
         s=(String) OIS1.readObject();
         return s;
     }
-    public String changepass(String s,String p,String p1) throws IOException, ClassNotFoundException{
+    public String changePass(String s,String p,String p1) throws IOException, ClassNotFoundException{
         System.out.println("req res method");
         OOS1.writeObject("Change Password");
         OOS1.writeObject(s);

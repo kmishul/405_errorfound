@@ -12,8 +12,8 @@ import java.io.Serializable;
  * @author kmish
  */
 public class UserDetail implements Serializable{
-    public String userid,fname,lname,emailid,pass,contact,gender;
-   
+    private String userid,fname,lname,emailid,pass,contact,gender;
+   private int wallet;
     public UserDetail() {
     }
        
@@ -59,6 +59,10 @@ public class UserDetail implements Serializable{
     public String getGender() {
         return gender;
     }
+
+    public int getWallet() {
+        return wallet;
+    }
     
     //setter functions
 
@@ -88,6 +92,10 @@ public class UserDetail implements Serializable{
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setWallet(int wallet) {
+        this.wallet = wallet;
     }
     
 }

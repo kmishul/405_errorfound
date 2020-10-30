@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Folio
  */
 public class Admindetail implements Serializable {
-    public String adminid, adminpass;
+    private String adminid, adminpass;
     public Admindetail(String Adminid, String Adminpass){
         this.adminid=Adminid;
         this.adminpass=Adminpass;
