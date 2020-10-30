@@ -25,7 +25,7 @@ public class UserLoginRequest implements Serializable{
     private final Connection con;
     private static Statement stmt;
     private PreparedStatement st;
-    String userid, password;
+    private String userid, password;
     public UserLoginRequest(UserDetail userl) throws SQLException{
         this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         userid=userl.getUserid();

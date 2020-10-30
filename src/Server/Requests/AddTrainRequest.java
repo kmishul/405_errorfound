@@ -29,8 +29,8 @@ public class AddTrainRequest implements Serializable{
     private PreparedStatement sttt;
     private PreparedStatement stttt;
     private static Statement stmt;
-    String tnum,tname,startstn,stopstn,starttm,stoptm,days;
-    int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc,dmc;
+    private String tnum,tname,startstn,stopstn,starttm,stoptm,days;
+    private int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc,dmc;
     public AddTrainRequest(ViewTrain train) throws SQLException{
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=train.gettrainNum();
@@ -50,7 +50,7 @@ public class AddTrainRequest implements Serializable{
         
     }
     
-    public ArrayList<Date> getDates(String rundays){
+    private ArrayList<Date> getDates(String rundays){
     ArrayList<Date> dates=new ArrayList();
     int i,arr[]=new int[7];
     if(rundays.charAt(6)=='1') arr[0]=1;
@@ -67,7 +67,7 @@ public class AddTrainRequest implements Serializable{
     
     for(i=0;i<dates.size();i++)
             System.out.print(dates.get(i));
-            System.out.println();
+            
     return dates;
     }
     public boolean addtrain() throws SQLException{

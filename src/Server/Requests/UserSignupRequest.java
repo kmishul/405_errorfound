@@ -26,7 +26,7 @@ public class UserSignupRequest implements Serializable{
     private final Connection con;
     private static Statement stmt;
     private PreparedStatement st;
-    String userid,fname,lname,emailid,pass,contact,gender;
+    private String userid,fname,lname,emailid,pass,contact,gender;
     public UserSignupRequest(UserDetail user) throws SQLException{
         this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         userid=user.userid;
@@ -71,7 +71,7 @@ public class UserSignupRequest implements Serializable{
             return false;
         }
     }
-    public boolean checkUsername(String username){
+    private boolean checkUsername(String username){
         
         //PreparedStatement st;
         //ResultSet rs;
