@@ -449,10 +449,13 @@ public class ClientHandler implements Runnable,Serializable{
                     int fc=av.getseatsfc(tnum,date);
                     int sc=av.getseatssc(tnum,date);
                     int slc=av.getseatsslc(tnum,date);
+                    if(fc==-1 || sc==-1 || slc==-1)
+                        OOS.writeObject("Train is not running on this day!");
+                    else{   
                     OOS.writeObject("valid");
                     OOS.writeObject(fc);
                     OOS.writeObject(sc);
-                    OOS.writeObject(slc);
+                    OOS.writeObject(slc);}
                     OOS.flush();
                 }
                 else{
@@ -462,6 +465,7 @@ public class ClientHandler implements Runnable,Serializable{
                 }
             }
             if(request.equals("Discounts")){
+                System.out.println("checkDiscount");
                 int limit=(int) OIS.readObject();
                 int discount=(int) OIS.readObject();
                 DiscountsRequest dr=new DiscountsRequest();

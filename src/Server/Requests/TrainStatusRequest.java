@@ -24,20 +24,20 @@ public class TrainStatusRequest implements Serializable{
     private PreparedStatement st;
     private static Statement stmt;
     private String tnum;
-    private int i;
+    private int j;
 
     public TrainStatusRequest(PassDetail pass) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
         tnum=pass.gettrainNum();
         Date date=pass.getdate();
-         i=date.getDay();
+         j=date.getDay();
     }
 
     //Method returning 
     public int getTrainStatus() throws SQLException{
         try{
-        String query1="Select cancel From traininfo where trainNum='"+(tnum)+"';";
+        String query1="Select * From traininfo where trainNum='"+(tnum)+"';";
         st = con.prepareStatement(query1);
         ResultSet rs=st.executeQuery(query1);
         int c=-1;
@@ -54,14 +54,13 @@ public class TrainStatusRequest implements Serializable{
             int temp[]=new int[7];
             if(s.charAt(6)=='1') temp[0]=1;
             else temp[0]=0;
-            if(s.charAt(0)=='1') temp[6]=1;
-            else temp[6]=0;
             
-            for(int i=1;i<6;i++)
-             if(s.charAt(i)=='1') temp[i]=1;
-            else temp[i]=0;
+            
+            for(int i=0;i<6;i++)
+             if(s.charAt(i)=='1') temp[i+1]=1;
+            else temp[i+1]=0;
                
-         if(temp[i]==1)
+         if(temp[j]==1)
              return 1;
          else return 2;
             
