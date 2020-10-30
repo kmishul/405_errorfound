@@ -67,7 +67,7 @@ public class SeatsAvailRequest implements Serializable{
         st.setString(1, tnum);
         st.setDate(2, sqldate);
         ResultSet rs=st.executeQuery();
-        rs.next();
+        if(rs.next()){
         int total=rs.getInt("totalseats");
         int lo=rs.getInt("lowers");
         int up=rs.getInt("uppers");
@@ -75,6 +75,8 @@ public class SeatsAvailRequest implements Serializable{
         int sl=rs.getInt("sidelowers");
         rem=total-(lo+up+su+sl)+getcancelfc(tnum, date);
         return rem;
+        }
+        else return -1;
     }
     public int getseatssc(String tnum,Date date) throws SQLException{
         int rem;
@@ -85,7 +87,7 @@ public class SeatsAvailRequest implements Serializable{
         st1.setString(1, tnum);
         st1.setDate(2, sqldate);
         ResultSet rs=st1.executeQuery();
-        rs.next();
+        if(rs.next()){
         int total=rs.getInt("totalseats");
         int lo=rs.getInt("lowers");
         int up=rs.getInt("uppers");
@@ -93,6 +95,7 @@ public class SeatsAvailRequest implements Serializable{
         int sl=rs.getInt("sidelowers");
         rem=total-(lo+up+su+sl)+getcancelsc(tnum, date);
         return rem;
+        }else return 0;
     }
     public int getseatsslc(String tnum,Date date) throws SQLException{
         int rem;
@@ -103,7 +106,7 @@ public class SeatsAvailRequest implements Serializable{
         st2.setString(1, tnum);
         st2.setDate(2, sqldate);
         ResultSet rs=st2.executeQuery();
-        rs.next();
+        if(rs.next()){
         int total=rs.getInt("totalseats");
         int lo=rs.getInt("lowers");
         int up=rs.getInt("uppers");
@@ -112,6 +115,7 @@ public class SeatsAvailRequest implements Serializable{
         int md=rs.getInt("middles");
         rem=total-(lo+up+su+sl+md)+getcancelslc(tnum, date);
         return rem;
+        }else return 0;
     }
     //Class wise method returning number of seats cancelled in given train number and on given date
     private int getcancelfc(String tnum,Date date) throws SQLException{

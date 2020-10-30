@@ -47,11 +47,13 @@ public boolean giveDiscounts(int limit,int dis) throws SQLException
             
        
             String query1="SELECT DISTINCT userId FROM passengerdetail WHERE travdate BETWEEN ? AND ?";
-            String query2="",query3="";
+            String query2="";
             st = con.prepareStatement(query1);
             st.setDate(1,d1);
-            st.setDate(1,d2);
+            st.setDate(2,d2);
+            System.out.println("Dekh ho gayi");
             ResultSet rs = st.executeQuery();
+            System.out.println("Discount1");
             while(rs.next())
             {   String userid=rs.getString("userId");
                 query2="SELECT SUM(fare) FROM passengerdetail WHERE userId=? AND travdate BETWEEN ? AND ?";
@@ -60,10 +62,12 @@ public boolean giveDiscounts(int limit,int dis) throws SQLException
                 st1.setDate(2,d1);
                 st1.setDate(3,d2);
                 ResultSet rs1 = st1.executeQuery();
+                System.out.println("Discount2");
                 int price=0;
                 if(rs1.next())
-                    price =  ((Number) rs.getObject(1)).intValue(); //also Integer.parseInt(rs.getObject(1));
+                    price =  ((Number) rs1.getObject(1)).intValue(); //also Integer.parseInt(rs.getObject(1));
                 
+                System.out.println("Discount3");
                 if(limit<=price)
                 {
                     st2=con.prepareStatement("INSERT INTO discounts(`userId`, `discount`,`discountdate`) VALUES (?,?,?)");
@@ -71,7 +75,7 @@ public boolean giveDiscounts(int limit,int dis) throws SQLException
                     st2.setInt(2,dis);
                     st2.setDate(3,today);
                     st2.execute();
-            
+                    System.out.println("Discount4");
                 }
                 b=true;
             }

@@ -40,6 +40,7 @@ public class CancelBookingRequest implements Serializable{
             String tnum=rs.getString("trainNum");
             int seatno=rs.getInt("passseatNo");
             String berth=rs.getString("berth");
+            String userid=rs.getString("userId");
             int refund=rs.getInt("fare");
     //Inserting all seat details in cancel tables of each respective class of train
             switch(passclass){
@@ -174,9 +175,10 @@ public class CancelBookingRequest implements Serializable{
             st2=con.prepareStatement("SET foreign_key_checks=0;");
             st2.execute();
             
-            String query8="INSERT INTO `userlogin`(`userwallet`) VALUES (?)";//To give Refund to this user
+            String query8="UPDATE userlogin SET userwallet=? WHERE userid=?";//To give Refund to this user
             st=con.prepareStatement(query8);
             st.setInt(1,refund);
+            st.setString(2,userid);
             st.execute();
 
             st3=con.prepareStatement("DELETE FROM `passengerdetail` WHERE passengerTicketId =?");
