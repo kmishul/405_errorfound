@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 /**
  *
  * @author kmish
@@ -42,7 +43,7 @@ public class UserLoginRequest implements Serializable{
             
             ResultSet rs=st.executeQuery(query);
             rs.next();
-            String actual_password=rs.getString("userPass");
+            String actual_password=getDecoded(rs.getString("userPass"));
             rs.close();
             if (actual_password.equals(password)){
                 
@@ -64,5 +65,8 @@ public class UserLoginRequest implements Serializable{
             
         }
         
+    }
+    private static String getDecoded(String hashed){
+        return new String(Base64.getMimeDecoder().decode(hashed));
     }
 }

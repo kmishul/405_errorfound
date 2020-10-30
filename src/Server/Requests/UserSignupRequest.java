@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 
 /**
  *
@@ -33,7 +34,7 @@ public class UserSignupRequest implements Serializable{
         fname=user.fname;
         lname=user.lname;
         emailid=user.emailid;
-        pass=user.pass;
+        pass=getEncoded(user.pass);
         contact=user.contact;
         gender=user.gender;
     }
@@ -105,5 +106,9 @@ public class UserSignupRequest implements Serializable{
         }
         
         return username_exist;
+    }
+    private String getEncoded(String valueOf) {
+        
+        return Base64.getEncoder().encodeToString(valueOf.getBytes());
     }
 }
