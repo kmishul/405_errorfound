@@ -12,8 +12,8 @@ import java.io.Serializable;
  * @author kmish
  */
 public class UserDetail implements Serializable{
-    private String userid,fname,lname,emailid,pass,contact,gender;
-   private int wallet;
+    public String userid,fname,lname,emailid,pass,contact,gender;
+    public int wallet;
     public UserDetail() {
     }
        

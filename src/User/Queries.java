@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Folio
  */
 public class Queries implements Serializable {
-    private String userid,query,reply;
+    public String userid,query,reply;
     public Queries(String userid,String query,String reply){
         this.userid=userid;
         this.query=query;
