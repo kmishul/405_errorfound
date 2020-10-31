@@ -291,4 +291,8 @@ public class Req_Res implements Serializable{
         UserDetail u=(UserDetail) OIS1.readObject();
         return u;
     }
+    public void logout() throws IOException{
+        socket.close();
+        System.out.println("Disconnected");
+    }
 }
