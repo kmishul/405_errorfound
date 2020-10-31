@@ -8,6 +8,7 @@ package Admin;
 import Req_Res.Req_Res;
 import User.UserLogin;
 import User.UserMainInterface;
+import Welcome.WelcomePage;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -56,12 +57,16 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable{
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin Login");
+        setResizable(false);
 
-        jLabel1.setText("Admin login");
+        jLabel1.setFont(new java.awt.Font("Stencil", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("LOGIN");
 
-        jLabel2.setText("Admin ID");
+        jLabel2.setText("Admin ID:");
 
-        jLabel3.setText("Password ");
+        jLabel3.setText("Password :");
 
         AdminidTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +80,7 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable{
             }
         });
 
-        AdminLoginBT.setText("Apun heech bhgwaan hai");
+        AdminLoginBT.setText("Login");
         AdminLoginBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AdminLoginBTActionPerformed(evt);
@@ -96,9 +101,9 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable{
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel1)
-                        .addGap(121, 121, 121)
+                        .addGap(143, 143, 143)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(74, 74, 74)
@@ -107,8 +112,8 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable{
                         .addComponent(AdminidTF, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(74, 74, 74)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
                         .addComponent(AdminpassTF, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(95, 95, 95)
@@ -182,8 +187,8 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-     
+        this.dispose();
+        new WelcomePage().show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public boolean verifyField(){
