@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -267,9 +268,21 @@ public class UserMainInterface extends javax.swing.JFrame implements Serializabl
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new UserLogin().show();
+       int i=JOptionPane.showConfirmDialog(this,"Are You Sure You Want To Log out?",null,JOptionPane.YES_NO_OPTION);
+            if(i==0)
+            {    
+                try 
+                {
+                        rr.logout();
+                        this.dispose();
+                        new UserLogin().show();
+
+                }
+                catch (IOException ex) 
+                {
+                    System.out.println(ex.getMessage());
+                }
+            }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

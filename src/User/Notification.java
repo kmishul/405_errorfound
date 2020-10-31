@@ -113,6 +113,7 @@ public class Notification extends javax.swing.JFrame {
             System.out.println("button check");
             String Res=rr.notification(userid);
             if(Res.equals("valid")){
+                String r="";
                 System.out.println("valid check client");
                 ObjectInputStream ois=rr.getObjectInputStream();
                 ArrayList<String> vt = new ArrayList<String>();
@@ -121,7 +122,8 @@ public class Notification extends javax.swing.JFrame {
                     String s=vt.get(i);
                     String[] data=new String[3];
                     data=s.split("~");
-                    txtpane.setText(i+1+". Train Number: "+data[0]+"\n    Ticket Id: "+data[1]+"\n    Time of departure: "+data[2]+"\n");
+                    r=r+"\n"+i+1+". Train Number: "+data[0]+"\n    Ticket Id: "+data[1]+"\n    Time of departure: "+data[2];
+                    txtpane.setText(r+"\n"+i+1+". Train Number: "+data[0]+"\n    Ticket Id: "+data[1]+"\n    Time of departure: "+data[2]+"\n");
                 }
             }
             else{
