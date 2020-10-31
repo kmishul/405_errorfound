@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 /**
  *
@@ -23,16 +24,17 @@ public class ChangePasswordRequest {
     }
     //Method returning false if current password entered by user is wrong else true
     public boolean changepass(String uid,String opass,String npass) throws SQLException{
+        String newencodedpass=getEncoded(npass);
         String query="Select userPass From userlogin where userId='"+(uid)+"';";
             st = con.prepareStatement(query);
             ResultSet rs=st.executeQuery(query);
             rs.next();
-            String actual_password=rs.getString("userPass");
+            String actual_password=getDecoded(rs.getString("userPass"));
             rs.close();
             if (actual_password.equals(opass)){
                 String q="UPDATE userlogin SET userPass=? WHERE userId=?";
                 st=con.prepareStatement(q);
-                st.setString(1, npass);
+                st.setString(1, newencodedpass);
                 st.setString(2, uid);
                 st.execute();
                 System.out.println("update done");
@@ -42,5 +44,12 @@ public class ChangePasswordRequest {
                 System.out.println("Wrong password");
                 return false;
             }
+    }
+    private static String getDecoded(String hashed){
+        return new String(Base64.getMimeDecoder().decode(hashed));
+    }
+    private String getEncoded(String valueOf) {
+        
+        return Base64.getEncoder().encodeToString(valueOf.getBytes());
     }
 }
