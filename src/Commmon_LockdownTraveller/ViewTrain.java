@@ -141,7 +141,7 @@ public class ViewTrain implements Serializable{
     {
         return cancel;
     }
-    String getstatus() {
+    public String getstatus() {
         return status;
         }
 
