@@ -168,20 +168,6 @@ public class ViewTrain implements Serializable{
        this.cancel=cancel;
        this.dmc=dmc;
     }
-//    public ViewTrain(String trainNum,String trainName,String fstation,String lstation,String dtime,String atime,int fee1,int fee2,int fee3,String days,int cancel,int dmc) {
-//       this.trainNum=trainNum;
-//       this.trainName=trainName;
-//       this.fstation=fstation;
-//       this.lstation=lstation;
-//       this.dtime=dtime;
-//       this.atime=atime;
-//       this.fee1=fee1;
-//       this.fee2=fee2;
-//       this.fee3=fee3;
-//       this.days=days;
-//       this.cancel=cancel;
-//       this.dmc=dmc;
-//    }
 
     
 
