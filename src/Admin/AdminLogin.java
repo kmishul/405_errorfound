@@ -7,7 +7,6 @@ package Admin;
 
 import Req_Res.Req_Res;
 import User.UserLogin;
-import User.UserMainInterface;
 import Welcome.WelcomePage;
 import java.awt.HeadlessException;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import Commmon_LockdownTraveller.*;
 
 /**
  *
@@ -166,7 +166,7 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable{
             adminpass = AdminpassTF.getText();
             try{
                 Req_Res res=new Req_Res();
-                Admindetail admin=new Admindetail(adminid,adminpass);
+                AdminDetail admin=new AdminDetail(adminid,adminpass);
                 String Res=res.sendAdminLogin(admin);
                 if(Res.equals("validlogindetailsforadmin")){
                     JOptionPane.showMessageDialog(this,"Successful Admin Login");
@@ -177,10 +177,8 @@ public class AdminLogin extends javax.swing.JFrame implements Serializable{
                     JOptionPane.showMessageDialog(this,Res);
                     System.out.println("\n"+Res);
                 }
-            } catch (IOException ex) {
+            } catch (IOException | HeadlessException | ClassNotFoundException ex) {
                 Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
-            } catch(HeadlessException | ClassNotFoundException e) {
-                Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }//GEN-LAST:event_AdminLoginBTActionPerformed

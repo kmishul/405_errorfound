@@ -6,7 +6,10 @@
 package Admin;
 
 import Req_Res.Req_Res;
+import User.UserLogin;
+import java.io.IOException;
 import java.io.Serializable;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -242,8 +245,22 @@ public class AdminMainInterface extends javax.swing.JFrame implements Serializab
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new AdminLogin().show();
+        int i=JOptionPane.showConfirmDialog(this,"Are You Sure You Want To Log out?",null,JOptionPane.YES_NO_OPTION);
+            if(i==0)
+            {    
+                try 
+                {
+                        rr.logout();
+                        this.dispose();
+                        new AdminLogin().show();
+
+                }
+                catch (IOException ex) 
+                {
+                    System.out.println(ex.getMessage());
+                }
+            }
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed

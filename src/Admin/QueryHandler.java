@@ -6,7 +6,7 @@
 package Admin;
 
 import Req_Res.Req_Res;
-import User.Queries;
+import Commmon_LockdownTraveller.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;

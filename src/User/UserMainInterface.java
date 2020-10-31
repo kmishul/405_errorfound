@@ -4,14 +4,10 @@
  * and open the template in the editor.
  */
 package User;
-
-import Admin.AddTrain;
+import Commmon_LockdownTraveller.*;
 import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
-import java.net.Socket;
 import javax.swing.JOptionPane;
 
 /**

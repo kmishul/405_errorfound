@@ -5,8 +5,7 @@
  */
 package User;
 
-import Admin.PassDetail;
-import Admin.ViewTrain;
+import Commmon_LockdownTraveller.*;
 import Admin.ViewTrains;
 import Req_Res.Req_Res;
 import java.awt.HeadlessException;

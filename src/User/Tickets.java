@@ -5,9 +5,7 @@
  */
 package User;
 
-import Admin.PassDetail;
-import Admin.ViewTrain;
-import Admin.ViewTrains;
+import Commmon_LockdownTraveller.*;
 import Req_Res.Req_Res;
 import java.awt.HeadlessException;
 import java.io.IOException;
@@ -201,7 +199,7 @@ public class Tickets extends javax.swing.JFrame implements Serializable{
                     
                 }
             } catch (IOException | HeadlessException | ClassNotFoundException ex) {
-                Logger.getLogger(ViewTrains.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ViewTrain.class.getName()).log(Level.SEVERE, null, ex);
             }
     }//GEN-LAST:event_jButton1ActionPerformed
 

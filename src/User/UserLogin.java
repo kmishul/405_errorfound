@@ -4,7 +4,7 @@ import Req_Res.Req_Res;
 import Welcome.WelcomePage;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.Socket;
+import Commmon_LockdownTraveller.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

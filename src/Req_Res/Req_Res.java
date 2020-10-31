@@ -5,15 +5,13 @@
  */
 
 package Req_Res;
-import Admin.*;
-import User.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.io.IOException;
 import java.util.Date;
-
+import Commmon_LockdownTraveller.*;
 /**
  *
  * @author Folio
@@ -71,7 +69,7 @@ public class Req_Res implements Serializable{
         s=(String) OIS1.readObject();
         return s;
     }
-    public String sendAdminLogin(Admindetail admin) throws IOException, ClassNotFoundException{
+    public String sendAdminLogin(AdminDetail admin) throws IOException, ClassNotFoundException{
         System.out.println("reached sendAdminlogin in req_ress");
         OOS1.writeObject("Admin Login");
         OOS1.writeObject(admin);

@@ -5,7 +5,7 @@
  */
 package User;
 
-import Admin.ViewTrain;
+import Commmon_LockdownTraveller.*;
 import Req_Res.Req_Res;
 import java.io.IOException;
 import java.io.ObjectInputStream;
