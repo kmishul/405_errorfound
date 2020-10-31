@@ -5,8 +5,8 @@
  */
 package Server.Requests;
 import Admin.PassDetail;
+import Server.DBConnect;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -18,11 +18,12 @@ public class WaitingRequest {
  private final Connection con;
     private PreparedStatement st;
    
+    //Constructor
     public WaitingRequest(PassDetail pass ,int discount) throws SQLException {
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+         con = DBConnect.con;
         
        int fare=pass.getfare();
-        if(fare-discount>=0)
+        if(fare-discount>=0) //To check if there any discount applied
             {
                 String query="DELETE FROM discounts where userId=?";
             st=con.prepareStatement(query);
@@ -30,24 +31,25 @@ public class WaitingRequest {
             st.execute();
             fare=fare-discount;
             }
-            else {
+            else {//if still discount left update discount in table
                 String query="UPDATE discounts SET discount=? where userId=?";
             st=con.prepareStatement(query);
             st.setInt(1,discount-fare);
             st.execute();
             }
         
-        String dbpassclass="";
-        if(pass.getpassclass().equalsIgnoreCase("First AC"))
-           dbpassclass="firstClass";
+        String dbpassclass="";  //It contains class of train in which passenger will travel
+            if(pass.getpassclass().equalsIgnoreCase("First AC"))
+            dbpassclass="firstClass";
             else if(pass.getpassclass().equalsIgnoreCase("Second AC"))
             dbpassclass="secondClass";
             else if(pass.getpassclass().equalsIgnoreCase("Sleeper"))
             dbpassclass="sleeperClass";
             
-            java.util.Date udate = pass.getdate();
-            java.sql.Date date = new java.sql.Date(udate.getTime());
+            java.util.Date udate = pass.getdate(); // booking date
+            java.sql.Date date = new java.sql.Date(udate.getTime());//typecast to sql date
        
+           //Insert into waiting passenger table
             String query1="INSERT INTO `waitingpassengers`(`trainNum`, `userId`, `passclass`, `passengerFirstName`, `passengerLastName`, `passengerAge`, `passengergender`, `travdate`,`fare`) VALUES (?,?,?,?,?,?,?,?,?)";
             st=con.prepareStatement(query1);
             st.setString(1,pass.gettrainNum());

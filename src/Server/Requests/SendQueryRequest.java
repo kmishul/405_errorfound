@@ -5,11 +5,11 @@
  */
 package Server.Requests;
 
+import Server.DBConnect;
 import User.Queries;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,9 +24,11 @@ public class SendQueryRequest implements Serializable {
     private PreparedStatement st;
     private ArrayList<Queries> vt=new ArrayList<>();
     private String rep;
-    public SendQueryRequest() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    
+    public SendQueryRequest() {
+         con = DBConnect.con;
     }
+    
     //Method returning true on successfully inserting query in database else false if that userid does not exist
     public boolean sendquery(Queries q) throws SQLException{
         String uid=q.getuserid();

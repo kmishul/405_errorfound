@@ -6,14 +6,13 @@
 package Server.Requests;
 
 import Admin.ViewTrain;
+import Server.DBConnect;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -23,8 +22,9 @@ public class SearchTrainRequest implements Serializable {
     private final Connection con;
     private PreparedStatement stmt;
     private ArrayList<ViewTrain> vt=new ArrayList<>();
-    public SearchTrainRequest() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    
+    public SearchTrainRequest() {
+        con = DBConnect.con;
     }
     //Method returning valid if there are trains between the givenm stations and inserting train object in arraylist else false
      public String getTrain(String s1,String s2){   

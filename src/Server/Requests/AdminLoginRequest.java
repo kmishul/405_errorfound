@@ -7,11 +7,11 @@ package Server.Requests;
 
 import Admin.AdminLogin;
 import Admin.Admindetail;
+import Server.DBConnect;
 import User.UserLogin;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,9 +27,9 @@ public class AdminLoginRequest implements Serializable{
     private PreparedStatement st;
     String Adminid, Adminpass;
 
-    public AdminLoginRequest(Admindetail adminl) throws SQLException{
-        this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
-        Adminid=adminl.adminid;
+    public AdminLoginRequest(Admindetail adminl){
+         con = DBConnect.con;
+         Adminid=adminl.adminid;
         Adminpass=adminl.adminpass;  
     }
     //Method returning true if password entered by user is correct else returns false

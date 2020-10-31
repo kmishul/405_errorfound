@@ -5,8 +5,8 @@
  */
 package Server.Requests;
 
-import Admin.RemoveTrain;
 import Admin.ViewTrain;
+import Server.DBConnect;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -30,8 +30,8 @@ public class RemoveTrainRequest implements Serializable{
     private PreparedStatement st6;
     private static Statement stmt;
     private String tnum;
-    public RemoveTrainRequest(ViewTrain train) throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    public RemoveTrainRequest(ViewTrain train){
+         con = DBConnect.con;
         tnum=train.gettrainNum();
     }
     //Method to delete train information from traininfo and all classes tables

@@ -5,8 +5,8 @@
  */
 package Server.Requests;
 
+import Server.DBConnect;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,8 +18,8 @@ import java.sql.SQLException;
 public class ChangePasswordRequest {
     private final Connection con;
     private PreparedStatement st;
-    public ChangePasswordRequest() throws SQLException{
-         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    public ChangePasswordRequest() {
+          con = DBConnect.con;
     }
     //Method returning false if current password entered by user is wrong else true
     public boolean changepass(String uid,String opass,String npass) throws SQLException{

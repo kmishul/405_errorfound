@@ -6,17 +6,15 @@
 package Server.Requests;
 
 import Admin.PassDetail;
+import Server.DBConnect;
 import User.UserDetail;
-import com.mysql.cj.protocol.Resultset;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.sql.ResultSet;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -35,26 +33,29 @@ public class ReserveSeatsRequest implements Serializable{
      private String dbpassclass;
     java.sql.Date sqldate;
     int discountt=0;
+    
     //To initialize datamembers
      public ReserveSeatsRequest(PassDetail pass,int dis) throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
-        dynamicfareinc=getDynamicincrement(pass.trainNum,pass.date,pass.passclass);
+         con = DBConnect.con;
         
         this.pass=pass;
-        this.trainNum = pass.trainNum;
-        this.userId = pass.userId;
-        this.passclass = pass.passclass;
-        this.ticketid = pass.ticketid;
-        this.fname = pass.fname;
-        this.lname = pass.lname;
-        this.gender = pass.gender;
-        this.berth = pass.berth;
-        this.seatno = pass.seatno;
-        this.age = pass.age;
-        this.date = pass.date;
+        this.trainNum = pass.gettrainNum();
+        this.userId = pass.getuserId();
+        this.passclass = pass.getpassclass();
+        this.ticketid = pass.getticketid();
+        this.fname = pass.getfname();
+        this.lname = pass.getlname();
+        this.gender = pass.getgender();
+        this.berth = pass.getberth();
+        this.seatno = pass.getseatno();
+        this.age = pass.getage();
+        this.date = pass.getdate();
             java.util.Date utilObj = date;
          this.sqldate = new java.sql.Date(utilObj.getTime());
          this.discountt=dis;
+         
+         dynamicfareinc=getDynamiciChange(trainNum,date,passclass);
+        
         
     }
     
@@ -115,7 +116,7 @@ public class ReserveSeatsRequest implements Serializable{
     private boolean updateQueries(int seatno,String ticketid,String userid) throws SQLException
     {   int check=0;
             
-            if(fare-discountt>=0)
+            if(fare-discountt>=0) //To check if fare is more than discount
             {
                 String query="DELETE FROM discounts where userId=?";
             st=con.prepareStatement(query);
@@ -123,7 +124,7 @@ public class ReserveSeatsRequest implements Serializable{
             st.execute();
             fare=fare-discountt;
             }
-            else {
+            else {  //Still Some Discount left
                 String query="UPDATE discounts SET discount=? where userId=?";
             st=con.prepareStatement(query);
             st.setInt(1,discountt-fare);
@@ -131,7 +132,6 @@ public class ReserveSeatsRequest implements Serializable{
             }  
             
             
-            System.out.println("7\n");
             
             String query2="INSERT INTO `passengerdetail`(`trainNum`, `userId`, `passclass`,`berth`,`passseatNo`, `passengerTicketId`, `passengerFirstName`, `passengerLastName`, `passengerAge`, `passengergender`, `travdate`,`fare`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             st=con.prepareStatement(query2);
@@ -158,7 +158,7 @@ public class ReserveSeatsRequest implements Serializable{
     
     
     
-    //To book seat
+    //Method to book seat
     private boolean bookSeat(ResultSet rs,String berth,String userid) throws SQLException
     {   int seatno,bookedseats,n,nos;
         String ticketid;
@@ -166,6 +166,7 @@ public class ReserveSeatsRequest implements Serializable{
         if(passclass.equalsIgnoreCase("Sleeper")) nos=8;
         else nos=6;
         
+        //Check berth and get seat number according to that
         if(berth.equalsIgnoreCase("lowers"))
         {  bookedseats=rs.getInt("lowers");
             n=bookedseats/2;
@@ -280,25 +281,122 @@ public class ReserveSeatsRequest implements Serializable{
         
     }
     
+   
+    //Check if train si half empty or not
+    //If half empty charges decreased
+    private boolean isTrainEmpty() throws SQLException
+    {   String query;
+        if(dbpassclass.equalsIgnoreCase("First AC"))
+        {
+            query="SELECT * FROM firstClass where trainNum=? AND rundate=?";
+            st=con.prepareStatement(query);
+                    st.setString(1, trainNum);
+                    st.setDate(2,sqldate);
+                    ResultSet rs=st.executeQuery();
+                    if(rs.next()){
+                    int totalseats=rs.getInt("totalseats");
+                    int bookedseats=rs.getInt("lowers")+rs.getInt("uppers")+rs.getInt("sideuppers")+rs.getInt("sidelowers");
+                    if(bookedseats<totalseats/2)
+                    return true;
+                    else return false;
+                }
+                    
+        }
+        else if(dbpassclass.equalsIgnoreCase("Second AC"))
+        {
+            query="SELECT * FROM secondClass where trainNum=? AND rundate=?";
+            st=con.prepareStatement(query);
+                    st.setString(1, trainNum);
+                    st.setDate(2,sqldate);
+                    ResultSet rs=st.executeQuery();
+                    if(rs.next()){
+                    int totalseats=rs.getInt("totalseats");
+                    int bookedseats=rs.getInt("lowers")+rs.getInt("uppers")+rs.getInt("sideuppers")+rs.getInt("sidelowers");
+                    if(bookedseats<totalseats/2)
+                    return true;
+                    else return false;
+                }
+          
+        }
+        else
+        {
+            query="SELECT * FROM sleeperClass where trainNum=? AND rundate=?";
+            st=con.prepareStatement(query);
+                    st.setString(1, trainNum);
+                    st.setDate(2,sqldate);
+                    ResultSet rs=st.executeQuery();
+                    if(rs.next()){
+                    int totalseats=rs.getInt("totalseats");
+                    int bookedseats=rs.getInt("lowers")+rs.getInt("uppers")+rs.getInt("middles")+rs.getInt("sideuppers")+rs.getInt("sidelowers");
+                    if(bookedseats<totalseats/2)
+                    return true;
+                    else return false;
+                }
+            
+        }
+        return false;
+    }
 
 
-
+    //To get Dynamic price which user has to pay on selected trains
+    private int getDynamiciChange(String trainNum, Date date,String pclass) throws SQLException {
+    
+        int check=0,inc,dec;
+        LocalDate ld1 = java.time.LocalDate.now();//today's date
+             LocalDate ld2 = new java.sql.Date( date.getTime() ).toLocalDate();//util to local
+              int diff=(int) DAYS.between(ld1,ld2); //diff bw two local dates
+             
+              
+                if(diff<6)
+                {   
+                    String queryz="SELECT * FROM traininfo WHERE trainNum=?";
+                    PreparedStatement stz=con.prepareStatement(queryz);
+                    stz.setString(1, trainNum);
+                    ResultSet rsz=stz.executeQuery();
+                    if(rsz.next())
+                    { check=rsz.getInt("dmc");
+                    if(check==1)
+                    {if(pclass.equalsIgnoreCase("First AC"))
+                    {
+                        inc=(int) (rsz.getInt("feeFirstClass")*0.2);    //charges increment
+                        dec=(int) (rsz.getInt("feeFirstClass")*0.1);    //charges decrement
+                    }
+                    else if(pclass.equalsIgnoreCase("Second AC"))
+                    {
+                        inc=(int) (rsz.getInt("feeSecondClass")*0.2);
+                        dec=(int) (rsz.getInt("feeSecondClass")*0.1);
+                    }
+                    else
+                    {
+                      inc=(int) (rsz.getInt("feeSleeperClass")*0.2);
+                      dec=(int) (rsz.getInt("feeSleeperClass")*0.1);
+                    } 
+                    if(isTrainEmpty()==true)
+                        return dec;
+                    else return inc;
+                    }
+                    }
+                }
+                    
+    return 0; //if booking is done on more than 5 days ago then no extra charge
+    }
+    
+    
+  
+    
     //Method Called By ClientHandler
     public boolean bookticket(UserDetail userid) throws SQLException{
-//        passclass=pass.getpassclass();
-//        berth=pass.getberth();
-        System.out.println("2\n");
-        String tnum=trainNum;
-        System.out.println(tnum);
-       // if(passclass.equalsIgnoreCase("First AC") || passclass.equalsIgnoreCase("Second AC")){
-            System.out.println("3\n");
+            String tnum=trainNum;   //Train Number
             String q1="",qq="";
-            qq="SELECT * FROM traininfo WHERE trainNum=?";//tO check fares
+            qq="SELECT * FROM traininfo WHERE trainNum=?";//To get Train Info
             st2=con.prepareStatement(qq);
-           st2.setString(1, tnum);
+            st2.setString(1, tnum);
             ResultSet rs0=(ResultSet) st2.executeQuery();
             rs0.next();
-            if(passclass.equalsIgnoreCase("First AC"))
+           
+            //Now check in which class user want to travel
+            //then store fare and passclass in respective variables
+            if(passclass.equalsIgnoreCase("First AC")) 
            { q1="SELECT * FROM firstClass WHERE trainNum=? AND rundate=?"; 
            fare=rs0.getInt("feeFirstClass");dbpassclass="firstClass";}
             else if(passclass.equalsIgnoreCase("Second AC"))
@@ -309,126 +407,88 @@ public class ReserveSeatsRequest implements Serializable{
             fare=rs0.getInt("feeSleeperClass");dbpassclass="sleeperClass";}
             
             st=con.prepareStatement(q1);
-           st.setString(1, tnum);
-           st.setDate(2, sqldate);
+            st.setString(1, tnum);
+            st.setDate(2, sqldate);
             ResultSet rs=(ResultSet) st.executeQuery();
             if(rs.next()){
-            System.out.println("4\n");
             int totalseats=rs.getInt("totalseats");
             int flag1=-1;
             int flag2=-1;
-            String[] arr=new String[]{"Lower","Middle","Upper","Side Lower","Side Upper"};
-            String[] dbarr=new String[]{"lowers","middles","uppers","sidelowers","sideuppers"};
             
-            int cancelledseatno=0;  //to store cancelled seat number if any
-            switch(berth)
-            {
-                case "Lower": if(availableSeat(rs,dbarr[0],totalseats))
-                                flag1=0;
-                              else {cancelledseatno=availableSeatfromcancelled(dbarr[0]);
-                                    if(cancelledseatno!=0) 
-                                  flag2=0;}  
-                                  break;
-                case "Middle":if(passclass.equalsIgnoreCase("Sleeper") && availableSeat(rs,dbarr[1],totalseats))
-                                flag1=1;
-                              else {cancelledseatno=availableSeatfromcancelled(dbarr[1]);
-                                    if(cancelledseatno!=0) 
-                                  flag2=1;}  
-                                    break;
-                case "Upper":if(availableSeat(rs,dbarr[2],totalseats))
-                                flag1=2;
-                              else {cancelledseatno=availableSeatfromcancelled(dbarr[2]);
-                                    if(cancelledseatno!=0) 
-                                  flag2=2;}  
-                                    break;
-                case "Side Lower":if(availableSeat(rs,dbarr[3],totalseats))
-                                flag1=3;
-                              else {cancelledseatno=availableSeatfromcancelled(dbarr[3]);
-                                    if(cancelledseatno!=0) 
-                                  flag2=3;}  
-                                    break;
-                case "Side Upper":if(availableSeat(rs,dbarr[4],totalseats))
-                                flag1=4;
-                              else {cancelledseatno=availableSeatfromcancelled(dbarr[4]);
-                                    if(cancelledseatno!=0) 
-                                  flag2=4;}  
-                                    break;
-                        
-            }
+            String[] arr=new String[]{"Lower","Middle","Upper","Side Lower","Side Upper"};//Class Syntax of user Side
+            String[] dbarr=new String[]{"lowers","middles","uppers","sidelowers","sideuppers"};//Class Syntax in Mysql table
             
-          if(flag1!=-1)
-          { //preference mil chuki hai !!
-              System.out.println("5\n");
-              boolean b=bookSeat(rs,dbarr[flag1],userid.getUserid());
+            int cancelledseatno=0;  //variable to store cancelled seat number if any(by default 0(no sense))
+        
+         switch(berth)
+          {
+            case "Lower": if(availableSeat(rs,dbarr[0],totalseats)) //To check availablitity from new seats
+                           flag1=0;
+                           else {cancelledseatno=availableSeatfromcancelled(dbarr[0]);//To check availablitity from cancelled seats
+                           if(cancelledseatno!=0) 
+                           flag2=0;}  
+                           break;
+            case "Middle":if(passclass.equalsIgnoreCase("Sleeper") && availableSeat(rs,dbarr[1],totalseats))
+                           flag1=1;
+                           else {cancelledseatno=availableSeatfromcancelled(dbarr[1]);
+                           if(cancelledseatno!=0) 
+                           flag2=1;}  
+                           break;
+            case "Upper":if(availableSeat(rs,dbarr[2],totalseats))
+                           flag1=2;
+                           else {cancelledseatno=availableSeatfromcancelled(dbarr[2]);
+                           if(cancelledseatno!=0) 
+                           flag2=2;}  
+                           break;
+            case "Side Lower":if(availableSeat(rs,dbarr[3],totalseats))
+                           flag1=3;
+                           else {cancelledseatno=availableSeatfromcancelled(dbarr[3]);
+                           if(cancelledseatno!=0) 
+                           flag2=3;}  
+                           break;
+            case "Side Upper":if(availableSeat(rs,dbarr[4],totalseats))
+                           flag1=4;
+                           else {cancelledseatno=availableSeatfromcancelled(dbarr[4]);
+                           if(cancelledseatno!=0) 
+                           flag2=4;}  
+                           break;
+
+         }
+            
+          if(flag1!=-1) //preference mil chuki hai !!
+          { 
+              boolean b=bookSeat(rs,dbarr[flag1],userid.getUserid()); //call book seat method to book in preferred berth
               return b;
           }
-          else if(flag2!=-1)
-          { //cancelled tickets me se preference mil chuki hai !!
+          else if(flag2!=-1)//cancelled tickets me se preference mil chuki hai !!
+          {   
               boolean b=bookSeatfromcancelled(cancelledseatno,dbarr[flag1],userid.getUserid());
-              return b;
+              return b;             //call book seat from cancelled method to book in preferred berth
           }
-          else {
-               
-              for(int i=0;i<5;i++) //To check cancelled seats
-                 { if(i==1 && !(passclass.equalsIgnoreCase("Sleeper")))
-                   continue;
-                    cancelledseatno=availableSeatfromcancelled(dbarr[i]);
-                   if(cancelledseatno!=0) 
-                      {boolean b=bookSeatfromcancelled(cancelledseatno,dbarr[i],userid.getUserid());
-                        return b;}  
-                  }
-              
-              
-              for(int i=0;i<5;i++) //To check new seats
-                 { if(i==1 && !(passclass.equalsIgnoreCase("Sleeper")))
+          else {//Preference Nahi Mili
+            
+               for(int i=0;i<5;i++) //To check other births 
+                 { if(i==1 && !(passclass.equalsIgnoreCase("Sleeper"))) //Middle And Non Sleeper-impossible 
                    continue;
                    if(availableSeat(rs,dbarr[i],totalseats))
-                      {boolean b=bookSeat(rs,dbarr[i],userid.getUserid());
-                        return b;}  
+                   {boolean b=bookSeat(rs,dbarr[i],userid.getUserid());
+                   return b;}  
                   }
                 
-          }
+               for(int i=0;i<5;i++) //To check other births from cancelled seats
+                { if(i==1 && !(passclass.equalsIgnoreCase("Sleeper")))//Middle And Non Sleeper-impossible
+                 continue;
+                 cancelledseatno=availableSeatfromcancelled(dbarr[i]);
+                 if(cancelledseatno!=0) 
+                 {boolean b=bookSeatfromcancelled(cancelledseatno,dbarr[i],userid.getUserid());
+                    return b;}  
+                }
+
+                }
         
         }
         
     return false;
     
     }
-
-    private int getDynamicincrement(String trainNum, Date date,String pclass) throws SQLException {
-    
-        int check=0,inc;
-        LocalDate ld1 = java.time.LocalDate.now();//today's date
-             LocalDate ld2 = new java.sql.Date( date.getTime() ).toLocalDate();//util to local
-              int diff=(int) DAYS.between(ld1,ld2); //diff bw two local dates
-             
-                if(diff<6)
-                    
-                {   String queryz="SELECT * FROM traininfo WHERE trainNum=?";
-                    PreparedStatement stz=con.prepareStatement(queryz);
-                    stz.setString(1, trainNum);
-                    ResultSet rsz=stz.executeQuery();
-                    if(rsz.next())
-                    { check=rsz.getInt("dmc");
-                    if(check==1)
-                    {if(pclass.equalsIgnoreCase("First AC"))
-                    {
-                        inc=(int) (rsz.getInt("feeFirstClass")*0.2);
-                    }
-                    else if(pclass.equalsIgnoreCase("Second AC"))
-                    {
-                        inc=(int) (rsz.getInt("feeSecondClass")*0.2);
-                    }
-                    else
-                    {
-                      inc=(int) (rsz.getInt("feeSleeperClass")*0.2);
-                    } 
-                    return inc;
-                    }
-                    }
-                }
-                    
-    return 0;
-    }
-    
 }

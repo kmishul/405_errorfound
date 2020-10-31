@@ -5,10 +5,10 @@
  */
 package Server.Requests;
 
+import Server.DBConnect;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,8 +24,8 @@ public class SeatsAvailRequest implements Serializable{
      private PreparedStatement st1;
       private PreparedStatement st2;
       java.sql.Date sqldate;
-    public SeatsAvailRequest() throws SQLException{
-         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    public SeatsAvailRequest(){
+         con = DBConnect.con;
     }
     public boolean checktrainname(String trainname){
         

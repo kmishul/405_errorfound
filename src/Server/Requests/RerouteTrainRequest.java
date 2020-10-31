@@ -6,10 +6,10 @@
 package Server.Requests;
 
 import Admin.ViewTrain;
+import Server.DBConnect;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,9 +21,11 @@ import java.sql.SQLException;
 public class RerouteTrainRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
+    
     public RerouteTrainRequest() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+        con = DBConnect.con;
     }
+    
     //Method returning 1 on rerouting train succesfully,2 if train has tickets reserved,3 if train does not exist 
     public int reroute(ViewTrain train) throws SQLException{
         String tnum=train.gettrainNum();

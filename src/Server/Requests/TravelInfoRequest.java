@@ -6,12 +6,11 @@
 package Server.Requests;
 
 import Admin.PassDetail;
-import Admin.PassDetails;
 import Admin.ViewTrain;
+import Server.DBConnect;
 import User.UserDetail;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,9 +26,12 @@ public class TravelInfoRequest implements Serializable{
     private PreparedStatement stmt2;
     private ArrayList<PassDetail> pd=new ArrayList();
     private ArrayList<ViewTrain> vt=new ArrayList();
-    public TravelInfoRequest() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    
+    public TravelInfoRequest()
+    {
+     con = DBConnect.con;    
     }
+    
     //Method returning valid if user has travel details and fetching all the data from database
     public String getInfo(UserDetail uid) {
         String Response="";

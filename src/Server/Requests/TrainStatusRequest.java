@@ -6,9 +6,9 @@
 package Server.Requests;
 
 import Admin.PassDetail;
+import Server.DBConnect;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,18 +26,17 @@ public class TrainStatusRequest implements Serializable{
     private String tnum;
     private int j;
 
-    public TrainStatusRequest(PassDetail pass) throws SQLException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    public TrainStatusRequest(PassDetail pass)  {
+         con = DBConnect.con;
         tnum=pass.gettrainNum();
         Date date=pass.getdate();
-         j=date.getDay();
+         j=date.getDay(); //to get day number
     }
 
     //Method returning 
     public int getTrainStatus() throws SQLException{
         try{
-        String query1="Select * From traininfo where trainNum='"+(tnum)+"';";
+        String query1="Select * From traininfo where trainNum='"+(tnum)+"';"; //to fetch current train details
         st = con.prepareStatement(query1);
         ResultSet rs=st.executeQuery(query1);
         int c=-1;
@@ -45,29 +44,30 @@ public class TrainStatusRequest implements Serializable{
         { c=rs.getInt("cancel");
         if(c==0){
             String s="";
-            String query2="Select days From traininfo where trainNum='"+(tnum)+"';";
+            String query2="Select days From traininfo where trainNum='"+(tnum)+"';"; //fetch running days of this train
             st = con.prepareStatement(query2);
             ResultSet rs1=st.executeQuery(query2);
             if(rs1.next())
                  s=rs1.getString("days");
             
-            int temp[]=new int[7];
+            int temp[]=new int[7]; //this array used to contain running days of this train according to their indexes
             if(s.charAt(6)=='1') temp[0]=1;
             else temp[0]=0;
             
             
-            for(int i=0;i<6;i++)
+            for(int i=0;i<6;i++) 
              if(s.charAt(i)=='1') temp[i+1]=1;
             else temp[i+1]=0;
                
          if(temp[j]==1)
              return 1;
-         else return 2;
+         else return 2; //Train is not running on this day
             
         }
-        else return 0;  //cancelled
+        else return 0;  //Train is Cancelled
             
-        } return -1;
+        }
+        return -1;//No such Train Found
         
     }catch(SQLException e)
         {

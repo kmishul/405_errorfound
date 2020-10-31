@@ -5,8 +5,8 @@
  */
 package Server.Requests;
 
+import Server.DBConnect;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -21,8 +21,9 @@ public class NotificationRequest {
     private final Connection con;
     private PreparedStatement st;
     private ArrayList<String> vt=new ArrayList<>();
-    public NotificationRequest() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    
+    public NotificationRequest() {
+         con = DBConnect.con;
     }
     //Method returning true if user has tickets on next day and fetching details from database about tickets else false
     public boolean getrecent(String uid) throws SQLException{

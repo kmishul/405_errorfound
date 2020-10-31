@@ -5,11 +5,11 @@
  */
 package Server.Requests;
 
+import Server.DBConnect;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,16 +23,19 @@ public class DiscountsRequest implements Serializable {
     private final Connection con;
     private PreparedStatement st,st1,st2;
     
-    public DiscountsRequest() throws SQLException {
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+   //Constructor
+    public DiscountsRequest() {
+         con = DBConnect.con;
     }
     
 
 
 
-    
+    //Function to give discounts to selected users who has exceed this limit of booking in last one month
 public boolean giveDiscounts(int limit,int dis) throws SQLException
 {   boolean b=false;
+       
+    //Calculating required dates and stored in variables
     Date date=java.sql.Date.valueOf(java.time.LocalDate.now());
         java.util.Date utilObj = date;
             java.sql.Date today = new java.sql.Date(utilObj.getTime());
@@ -45,29 +48,27 @@ public boolean giveDiscounts(int limit,int dis) throws SQLException
         java.util.Date utilObj2 = date2;
             java.sql.Date d2 = new java.sql.Date(utilObj2.getTime());
             
-       
+            //Find out Distinct userId
             String query1="SELECT DISTINCT userId FROM passengerdetail WHERE travdate BETWEEN ? AND ?";
             String query2="";
             st = con.prepareStatement(query1);
             st.setDate(1,d1);
             st.setDate(2,d2);
-            System.out.println("Dekh ho gayi");
             ResultSet rs = st.executeQuery();
-            System.out.println("Discount1");
             while(rs.next())
             {   String userid=rs.getString("userId");
+                    //To get total price in last one month
                 query2="SELECT SUM(fare) FROM passengerdetail WHERE userId=? AND travdate BETWEEN ? AND ?";
                 st1 = con.prepareStatement(query2);
                 st1.setString(1,userid);
                 st1.setDate(2,d1);
                 st1.setDate(3,d2);
                 ResultSet rs1 = st1.executeQuery();
-                System.out.println("Discount2");
                 int price=0;
                 if(rs1.next())
-                    price =  ((Number) rs1.getObject(1)).intValue(); //also Integer.parseInt(rs.getObject(1));
+                    price =  ((Number) rs1.getObject(1)).intValue(); 
                 
-                System.out.println("Discount3");
+                
                 if(limit<=price)
                 {
                     st2=con.prepareStatement("INSERT INTO discounts(`userId`, `discount`,`discountdate`) VALUES (?,?,?)");
@@ -75,7 +76,6 @@ public boolean giveDiscounts(int limit,int dis) throws SQLException
                     st2.setInt(2,dis);
                     st2.setDate(3,today);
                     st2.execute();
-                    System.out.println("Discount4");
                 }
                 b=true;
             }
@@ -83,6 +83,8 @@ public boolean giveDiscounts(int limit,int dis) throws SQLException
           return b;  
     }
 
+    
+    //Request by user To check discount(if any)
     public void checkDiscount(String userid,ObjectOutputStream oos) throws SQLException, IOException {
         
         String query1="SELECT * FROM discounts WHERE userId=?";

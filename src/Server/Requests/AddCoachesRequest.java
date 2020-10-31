@@ -9,10 +9,10 @@ import Admin.ViewTrain;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Server.DBConnect;
 
 /**
  *
@@ -22,10 +22,10 @@ public class AddCoachesRequest implements Serializable{
     private final Connection con;
     private PreparedStatement st;
     public AddCoachesRequest() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+        con = DBConnect.con;
     }
-    //Method to add coaches in first class
     
+    //Method to add coaches in first class
     public boolean addfc(ViewTrain train) throws SQLException{
        String tnum=train.gettrainNum();
        if(checktrainnum(tnum)){    //if train number is there in database

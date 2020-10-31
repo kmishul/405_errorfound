@@ -28,8 +28,8 @@ public class UserSignupRequest implements Serializable{
     private static Statement stmt;
     private PreparedStatement st;
     private String userid,fname,lname,emailid,pass,contact,gender;
-    public UserSignupRequest(UserDetail user) throws SQLException{
-        this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    public UserSignupRequest(UserDetail user){
+             con = DBConnect.con;
         userid=user.userid;
         fname=user.fname;
         lname=user.lname;

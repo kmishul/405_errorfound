@@ -5,9 +5,9 @@
  */
 package Server.Requests;
 
-import Admin.CancelTrain;
-import Admin.RemoveTrain;
+
 import Admin.ViewTrain;
+import Server.DBConnect;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,8 +26,8 @@ public class CancelTrainRequest implements Serializable{
     private static Statement stmt;
     private String tnum;
 
-    public CancelTrainRequest(ViewTrain train) throws SQLException {
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    public CancelTrainRequest(ViewTrain train)  {
+         con = DBConnect.con;
         tnum=train.gettrainNum();
     }
     //Method returning true on successfully cancelling train and false if train does not exist or already cancelled

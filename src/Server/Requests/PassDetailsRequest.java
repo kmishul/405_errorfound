@@ -7,6 +7,7 @@ package Server.Requests;
 
 import Admin.PassDetail;
 import Admin.PassDetails;
+import Server.DBConnect;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,8 +24,9 @@ public class PassDetailsRequest implements Serializable{
     private final Connection con;
     private PreparedStatement stmt;
     private ArrayList<PassDetail> pd=new ArrayList();
-    public PassDetailsRequest() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    
+    public PassDetailsRequest(){
+         con = DBConnect.con;
     }
     //Method to fetch all the details of passengers and storing the object in arraylist
     public String getPassengers() {

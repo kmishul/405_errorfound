@@ -5,58 +5,29 @@
  */
 package Server;
 
-import Admin.AdminLogin;
+import Server.Requests.AddTrainRequest;
+import Server.Requests.AddCoachesRequest;
 import Server.Requests.AdminLoginRequest;
 import Server.Requests.UserLoginRequest;
-import Admin.AddTrain;
 import Admin.Admindetail;
-import Admin.CancelTrain;
 import Admin.PassDetail;
-import Admin.PassDetails;
 import Admin.ViewTrain;
-import Admin.RemoveTrain;
-import Server.Requests.AddCoachesRequest;
-import Server.Requests.AddTrainRequest;
-import Server.Requests.CancelBookingRequest;
-import Server.Requests.PassDetailsRequest;
-import Server.Requests.UserSignupRequest;
-import Server.Requests.ViewTrainsRequest;
-import Server.Requests.CancelTrainRequest;
-import Server.Requests.ChangePasswordRequest;
-import Server.Requests.NotificationRequest;
-
-import Server.Requests.DiscountsRequest;
-
-import Server.Requests.RemoveTrainRequest;
-import Server.Requests.RerouteTrainRequest;
-import Server.Requests.ReserveSeatsRequest;
-import Server.Requests.SearchTrainRequest;
-import Server.Requests.SeatsAvailRequest;
-import Server.Requests.SendQueryRequest;
-import Server.Requests.ShowUserProfile;
-import Server.Requests.TicketsRequest;
-import Server.Requests.TrainStatusRequest;
-import Server.Requests.TravelInfoRequest;
-import Server.Requests.WaitingRequest;
+import Server.Requests.*;
 import User.Queries;
 import User.UserDetail;
-import User.UserLogin;
-import User.UserSignup;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.management.Notification;
 
 /**
  *
@@ -68,29 +39,25 @@ public class ClientHandler implements Runnable,Serializable{
     private PreparedStatement st;
     private ObjectOutputStream OOS;
     private ObjectInputStream OIS;
-    //private DataOutputStream DOS;
-    //private DataInputStream DIS;
     private UserDetail mainId;
     
     ClientHandler(Socket client) throws IOException{
         this.client=client;
         OOS=new ObjectOutputStream(client.getOutputStream());
         OIS=new ObjectInputStream(client.getInputStream());
-       // DOS=new DataOutputStream(client.getOutputStream());
-        //DIS=new DataInputStream(client.getInputStream());
-        System.out.println("\n done1");
     }
     
-    private UserDetail getUserMainID()
+    private UserDetail getUserMainID()  //To get userId Of user
     {
-        return this.mainId;
-       
+        return this.mainId; 
     }
-    private void setUserMainID(UserDetail u)
+    private void setUserMainID(UserDetail u) //To set userID of user
     {
         this.mainId=u;
-       
     }
+
+    
+    
     
     
     
@@ -593,14 +560,10 @@ public class ClientHandler implements Runnable,Serializable{
                 OOS.writeObject(user);
             }
            }
-        }catch (IOException ex) {
-            Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        }catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
         }catch(Exception e){
-            //System.out.println(e);
-            System.out.println("\n 1");
-            System.out.println(e);
+            e.printStackTrace();
         }
         
         

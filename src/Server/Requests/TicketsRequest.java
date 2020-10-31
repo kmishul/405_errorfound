@@ -7,15 +7,14 @@ package Server.Requests;
 
 import Admin.PassDetail;
 import Admin.ViewTrain;
+import Server.DBConnect;
 import User.UserDetail;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;  
 import java.util.Date;  
 
 /**
@@ -28,8 +27,9 @@ public class TicketsRequest implements Serializable{
     private PreparedStatement stmt2;
     private ArrayList<PassDetail> pd=new ArrayList();
     private ArrayList<ViewTrain> vt=new ArrayList();
-    public TicketsRequest() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    
+    public TicketsRequest(){
+         con = DBConnect.con;
     }
     
     
@@ -38,7 +38,7 @@ public class TicketsRequest implements Serializable{
         
         String Response="";
         try{ 
-            String q1="SELECT * FROM passengerdetail WHERE userId=?";
+            String q1="SELECT * FROM passengerdetail WHERE userId=?";//we have to fetch passenger details for tickets
             stmt1=con.prepareStatement(q1);
             stmt1.setString(1,uid.getUserid());
             ResultSet rs1=stmt1.executeQuery();
@@ -48,7 +48,7 @@ public class TicketsRequest implements Serializable{
             PassDetail p=new PassDetail();
                 ViewTrain v=new ViewTrain();
                 String tnum=rs1.getString("trainNum");
-                String q2="SELECT * FROM traininfo WHERE trainNum=?";
+                String q2="SELECT * FROM traininfo WHERE trainNum=?";//we have to fetch train details for tickets
                 stmt2=con.prepareStatement(q2);
                 stmt2.setString(1,tnum);
                 ResultSet rs2=stmt2.executeQuery();
@@ -73,13 +73,14 @@ public class TicketsRequest implements Serializable{
                 v.setfee3(rs2.getInt("feeSleeperClass"));
                 
                 Date date = java.sql.Date.valueOf(java.time.LocalDate.now());
-                if(p.getdate().after(date))
+                if(p.getdate().after(date)) //only upcoming travels would be shown in tickets table on user profile
                     flag=1;
                 
                  if(flag==1)
                  {pd.add(p);
                 vt.add(v);
-                 Response="valid";
+                
+                 Response="valid";//no problem
                  }
             
             }
@@ -93,10 +94,10 @@ public class TicketsRequest implements Serializable{
             }
         }
 
-   public ArrayList<PassDetail> getPassList() {
+   public ArrayList<PassDetail> getPassList() { //return array of passenger list
         return pd;
         }
-   public ArrayList<ViewTrain> getTrainList() {
+   public ArrayList<ViewTrain> getTrainList() { //return array of train list
         return vt;
         }
    

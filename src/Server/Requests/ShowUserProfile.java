@@ -5,9 +5,9 @@
  */
 package Server.Requests;
 
+import Server.DBConnect;
 import User.UserDetail;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -19,9 +19,10 @@ import java.sql.ResultSet;
 public class ShowUserProfile {
     private final Connection con;
     private PreparedStatement st;
-    public ShowUserProfile() throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    public ShowUserProfile() {
+         con = DBConnect.con;
     }
+    
     //Method returning object of user with all the details
     public UserDetail showdetail(String uid) throws SQLException{
         System.out.println("showdetail method\n");

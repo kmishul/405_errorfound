@@ -7,6 +7,7 @@ package Server.Requests;
 
 import Admin.AddTrain;
 import Admin.ViewTrain;
+import Server.DBConnect;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -32,8 +33,8 @@ public class AddTrainRequest implements Serializable{
     private String tnum,tname,startstn,stopstn,starttm,stoptm,days;
     private int NOSfc,NOSsc,NOSslc,farefc,faresc,fareslc,dmc;
    
-    public AddTrainRequest(ViewTrain train) throws SQLException{
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/mms","root","");
+    public AddTrainRequest(ViewTrain train) { 
+        con = DBConnect.con;
         tnum=train.gettrainNum();
         tname=train.gettrainName();
         startstn=train.getfstation();
