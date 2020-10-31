@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Requests;
+package Server.Requests.User;
 
-import Admin.PassDetail;
+import Commmon_LockdownTraveller.*;
 import Server.DBConnect;
-import User.UserDetail;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,17 +62,33 @@ public class ReserveSeatsRequest implements Serializable{
      public boolean availableSeat(ResultSet r,String berth,int total) throws SQLException
     {   int remaining=0;
        if(passclass.equalsIgnoreCase("First AC") || passclass.equalsIgnoreCase("Second AC")){
-            if(berth.equalsIgnoreCase("lowers") || berth.equalsIgnoreCase("uppers"))
-            remaining=(total/3)-r.getInt(berth);
-            else if(!(berth.equalsIgnoreCase("middles"))) remaining=(total/6)-r.getInt(berth);
-            System.out.println("6\n");
+            if(berth.equalsIgnoreCase("lowers"))
+            remaining=(total/3)-r.getInt("lowers");
+            else if (berth.equalsIgnoreCase("uppers"))
+            remaining=(total/3)-r.getInt("uppers");
+            else if (berth.equalsIgnoreCase("sideuppers"))
+            remaining=(total/6)-r.getInt("sideuppers");
+            else if (berth.equalsIgnoreCase("sidelowers"))
+            remaining=(total/6)-r.getInt("sidelowers");
+       
+            System.out.println("remaining"+remaining);
             if(remaining>0) return true;
             else return false;
        }
        else {
-            if(berth.equalsIgnoreCase("lowers") || berth.equalsIgnoreCase("uppers") || berth.equalsIgnoreCase("middles"))
+           
+            if(berth.equalsIgnoreCase("lowers"))
+            remaining=(total/4)-r.getInt("lowers");
+            else if (berth.equalsIgnoreCase("uppers"))
+            remaining=(total/4)-r.getInt("uppers");
+            else if (berth.equalsIgnoreCase("sideuppers"))
+            remaining=(total/8)-r.getInt("sideuppers");
+            else if (berth.equalsIgnoreCase("sidelowers"))
+            remaining=(total/8)-r.getInt("sidelowers");
+            else if(berth.equalsIgnoreCase("middles")) 
             remaining=(total/4)-r.getInt(berth);
-            else remaining=(total/8)-r.getInt(berth);
+       
+            System.out.println("remaining"+remaining);
             if(remaining>0) return true;
             else return false;
        }
@@ -286,7 +301,7 @@ public class ReserveSeatsRequest implements Serializable{
     //If half empty charges decreased
     private boolean isTrainEmpty() throws SQLException
     {   String query;
-        if(dbpassclass.equalsIgnoreCase("First AC"))
+        if(passclass.equalsIgnoreCase("First AC"))
         {
             query="SELECT * FROM firstClass where trainNum=? AND rundate=?";
             st=con.prepareStatement(query);
@@ -302,7 +317,7 @@ public class ReserveSeatsRequest implements Serializable{
                 }
                     
         }
-        else if(dbpassclass.equalsIgnoreCase("Second AC"))
+        else if(passclass.equalsIgnoreCase("Second AC"))
         {
             query="SELECT * FROM secondClass where trainNum=? AND rundate=?";
             st=con.prepareStatement(query);
@@ -462,7 +477,7 @@ public class ReserveSeatsRequest implements Serializable{
           }
           else if(flag2!=-1)//cancelled tickets me se preference mil chuki hai !!
           {   
-              boolean b=bookSeatfromcancelled(cancelledseatno,dbarr[flag1],userid.getUserid());
+              boolean b=bookSeatfromcancelled(cancelledseatno,dbarr[flag2],userid.getUserid());
               return b;             //call book seat from cancelled method to book in preferred berth
           }
           else {//Preference Nahi Mili

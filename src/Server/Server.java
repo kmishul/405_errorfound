@@ -7,6 +7,7 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 
 /**
@@ -16,9 +17,10 @@ import java.net.Socket;
 public class Server {
     public static ServerSocket serverSocket;
     public static final int port=8806;
-    public static void main(String args[]) throws IOException
+    public static void main(String args[]) throws IOException, SQLException
     {
         new DBConnect();
+        //new DailyUpdate();
         serverSocket=new ServerSocket(port);
         while(true)
         {

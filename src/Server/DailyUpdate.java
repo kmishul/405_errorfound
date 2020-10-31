@@ -77,18 +77,21 @@ public class DailyUpdate {
                     
                     String query1="SELECT * FROM firstClass WHERE trainNum=?";
                     st=con.prepareStatement(query1);
+                    st.setString(1,tnum);
                     ResultSet rs1=st.executeQuery();
                     if(rs1.next())
                     tfirst=rs1.getInt("totalseats");
                     
                     String query2="SELECT * FROM secondClass WHERE trainNum=?";
                     st=con.prepareStatement(query2);
+                    st.setString(1,tnum);
                     ResultSet rs2=st.executeQuery();
                     if(rs2.next())
                     tsecond=rs2.getInt("totalseats");
                     
                     String query3="SELECT * FROM sleeperClass WHERE trainNum=?";
                     st=con.prepareStatement(query3);
+                    st.setString(1,tnum);
                     ResultSet rs3=st.executeQuery();
                     if(rs3.next())
                     tsleeper=rs3.getInt("totalseats");
@@ -191,7 +194,7 @@ public class DailyUpdate {
                         st.execute();
 			}
 		}
-                String q7="SELECT * FROM waitingpassengers WHERE rundate=?";  //To give Refund whoever don't get any seat
+                String q7="SELECT * FROM waitingpassengers WHERE travdate=?";  //To give Refund whoever don't get any seat
                 st=con.prepareStatement(q7);
                 st.setDate(1,date);
                 ResultSet rs1=st.executeQuery();
@@ -207,11 +210,11 @@ public class DailyUpdate {
 
                 }
 
-		String q5="DELETE * FROM waitingpassengers WHERE rundate=?";//To delete whoever don't get any seat
+		String q5="DELETE FROM waitingpassengers WHERE travdate=?";//To delete whoever don't get any seat
 		st=con.prepareStatement(q5);
 		st.setDate(1,date);
 		st.execute();
-                String q6="DELETE * FROM firstClasscancel WHERE rundate=?";//Delete expired records from canceltickets table
+                String q6="DELETE FROM firstClasscancel WHERE rundate=?";//Delete expired records from canceltickets table
 		st=con.prepareStatement(q6);
 		st.setDate(1,date);
 		st.execute();
@@ -278,7 +281,7 @@ public class DailyUpdate {
                         st.execute();
 			}
 		}
-                String q7="SELECT * FROM waitingpassengers WHERE rundate=?";  //To give Refund whoever don't get any seat
+                String q7="SELECT * FROM waitingpassengers WHERE travdate=?";  //To give Refund whoever don't get any seat
                 st=con.prepareStatement(q7);
                 st.setDate(1,date);
                 ResultSet rs1=st.executeQuery();
@@ -295,11 +298,11 @@ public class DailyUpdate {
                 
                 }
 
-		String q5="DELETE * FROM waitingpassengers WHERE rundate=?";//To delete whoever don't get any seat
+		String q5="DELETE FROM waitingpassengers WHERE travdate=?";//To delete whoever don't get any seat
 		st=con.prepareStatement(q5);
 		st.setDate(1,date);
 		st.execute();
-                String q6="DELETE * FROM sleeperClasscancel WHERE rundate=?";//Delete expired records from canceltickets table
+                String q6="DELETE FROM sleeperClasscancel WHERE rundate=?";//Delete expired records from canceltickets table
 		st=con.prepareStatement(q6);
 		st.setDate(1,date);
 		st.execute();
@@ -329,7 +332,7 @@ public class DailyUpdate {
                         String userid=rs1.getString("userId");
                         String fname=rs1.getString("passengerFirstName");
                         String lname=rs1.getString("passengerLastName");
-                    int age=rs1.getInt("passengerAge");
+                        int age=rs1.getInt("passengerAge");
                         String gender=rs1.getString("passengergender");
                         int seatno=rs.getInt("passseatno");
                         String berth=rs.getString("berth");
@@ -367,7 +370,7 @@ public class DailyUpdate {
                         st.execute();
 			}
 		}
-                String q7="SELECT * FROM waitingpassengers WHERE rundate=?";  //To give Refund whoever don't get any seat
+                String q7="SELECT * FROM waitingpassengers WHERE travdate=?";  //To give Refund whoever don't get any seat
                 st=con.prepareStatement(q7);
                 st.setDate(1,date);
                 ResultSet rs1=st.executeQuery();
@@ -383,12 +386,12 @@ public class DailyUpdate {
 
                 }
 
-                String q5="DELETE * FROM waitingpassengers WHERE rundate=?";//To delete whoever don't get any seat
+                String q5="DELETE FROM waitingpassengers WHERE travdate=?";//To delete whoever don't get any seat
 		st=con.prepareStatement(q5);
 		st.setDate(1,date);
 		st.execute();
                 
-                String q6="DELETE * FROM secondClasscancel WHERE rundate=?"; //Delete expired records from canceltickets table
+                String q6="DELETE FROM secondClasscancel WHERE rundate=?"; //Delete expired records from canceltickets table
 		st=con.prepareStatement(q6);
 		st.setDate(1,date);
 		st.execute();

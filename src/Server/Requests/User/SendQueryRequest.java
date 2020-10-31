@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Requests;
+package Server.Requests.User;
 
 import Server.DBConnect;
-import User.Queries;
+import Commmon_LockdownTraveller.*;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;

@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Requests;
+package Server.Requests.Admin;
 
-import Admin.PassDetail;
-import Admin.PassDetails;
+import Commmon_LockdownTraveller.*;
 import Server.DBConnect;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

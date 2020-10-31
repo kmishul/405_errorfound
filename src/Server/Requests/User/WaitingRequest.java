@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Requests;
-import Admin.PassDetail;
+package Server.Requests.User;
+import Commmon_LockdownTraveller.*;
 import Server.DBConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -16,13 +17,32 @@ import java.sql.SQLException;
  */
 public class WaitingRequest {
  private final Connection con;
-    private PreparedStatement st;
+    private PreparedStatement st,st2;
    
     //Constructor
     public WaitingRequest(PassDetail pass ,int discount) throws SQLException {
          con = DBConnect.con;
         
-       int fare=pass.getfare();
+        String tnum=pass.gettrainNum();   //Train Number
+            String qq="";
+            qq="SELECT * FROM traininfo WHERE trainNum=?";//To get Train Info
+            st2=con.prepareStatement(qq);
+            st2.setString(1, tnum);
+            ResultSet rs0=(ResultSet) st2.executeQuery();
+            rs0.next();
+           
+            int fare=0;
+            //Now check in which class user want to travel
+            //then store fare and passclass in respective variables
+            if(pass.getpassclass().equalsIgnoreCase("First AC")) 
+           fare=rs0.getInt("feeFirstClass");
+            else if(pass.getpassclass().equalsIgnoreCase("Second AC"))
+           fare=rs0.getInt("feeSecondClass");
+            else if(pass.getpassclass().equalsIgnoreCase("Sleeper"))
+            fare=rs0.getInt("feeSleeperClass");
+            
+         
+        
         if(fare-discount>=0) //To check if there any discount applied
             {
                 String query="DELETE FROM discounts where userId=?";

@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Requests;
-
-import Admin.AdminLogin;
-import Admin.Admindetail;
+package Server.Requests.User;
 import Server.DBConnect;
-import User.UserLogin;
+import Commmon_LockdownTraveller.*;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -17,35 +14,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Base64;
-
 /**
  *
  * @author kmish
  */
-public class AdminLoginRequest implements Serializable{
+public class UserLoginRequest implements Serializable{
     private final Connection con;
     private static Statement stmt;
     private PreparedStatement st;
-    String Adminid, Adminpass;
-
-    public AdminLoginRequest(Admindetail adminl){
+    private String userid, password;
+    public UserLoginRequest(UserDetail userl){
          con = DBConnect.con;
-         Adminid=adminl.adminid;
-        Adminpass=adminl.adminpass;  
+        userid=userl.getUserid();
+        password=userl.getPass();
     }
-    //Method returning true if password entered by user is correct else returns false
-    public boolean checkadminlogininfo() {
+     //Method returning true if password entered by user is correct else returns false
+    public boolean checklogininfo() {
         
         try{
-            System.out.println("reached checkadminloginifo");
-            System.out.println(Adminid +Adminpass);
-            String query="Select AdminPass From adminaccount where AdminId='"+(Adminid)+"';";
+            System.out.println("reached checkloginifo");
+            System.out.println(userid +password);
+            String query="Select userPass From userlogin where userId='"+(userid)+"';";
             st = con.prepareStatement(query);
+    
+            
             ResultSet rs=st.executeQuery(query);
             rs.next();
-            String actual_password=getDecoded(rs.getString("adminPass"));
+            String actual_password=getDecoded(rs.getString("userPass"));
             rs.close();
-            if (actual_password.equals(Adminpass)){   
+            if (actual_password.equals(password)){
+                
                 return true;
             }
             else{

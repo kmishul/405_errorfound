@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Requests;
+package Server.Requests.User;
 
-import Admin.PassDetail;
+import Commmon_LockdownTraveller.*;
 import Server.DBConnect;
 import java.io.Serializable;
 import java.sql.Connection;

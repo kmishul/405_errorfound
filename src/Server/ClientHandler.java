@@ -5,29 +5,21 @@
  */
 package Server;
 
-import Server.Requests.AddTrainRequest;
-import Server.Requests.AddCoachesRequest;
-import Server.Requests.AdminLoginRequest;
-import Server.Requests.UserLoginRequest;
-import Admin.Admindetail;
-import Admin.PassDetail;
-import Admin.ViewTrain;
-import Server.Requests.*;
-import User.Queries;
-import User.UserDetail;
+import Server.Requests.Admin.*;
+import Server.Requests.User.*;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.net.SocketException;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Commmon_LockdownTraveller.*;
 
 /**
  *
@@ -63,13 +55,10 @@ public class ClientHandler implements Runnable,Serializable{
     
     @Override
     public void run() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String request;
-        System.out.println("\n done2");
         try {   
             while((client.isClosed()==false)){
                 request=(String) OIS.readObject();
-                System.out.println("\n doubt clear");
             
                 if(request.equals("User SignUp")){
                 UserDetail user=(UserDetail)OIS.readObject();
@@ -103,7 +92,7 @@ public class ClientHandler implements Runnable,Serializable{
             }
             if(request.equals("Admin Login")) {
                 System.out.println("reached client handler for adminlogin");
-                Admindetail adminl=(Admindetail)OIS.readObject();
+                AdminDetail adminl=(AdminDetail)OIS.readObject();
                 AdminLoginRequest userlr=new AdminLoginRequest(adminl);
                 if(userlr.checkadminlogininfo()){
                     {OOS.writeObject("validlogindetailsforadmin");
@@ -114,11 +103,10 @@ public class ClientHandler implements Runnable,Serializable{
                 else{
                     OOS.writeObject("Wrong credentials");
                     OOS.flush();
-                    //DOS.writeUTF("Error: this username already exists,try using another one");   
                 }
             }
             if(request.equals("Add Train")){
-                //OOS.reset();
+                
                 ViewTrain train=(ViewTrain)OIS.readObject();
                 AddTrainRequest trainn=new AddTrainRequest(train);
                 if(trainn.addtrain()){
@@ -236,9 +224,6 @@ public class ClientHandler implements Runnable,Serializable{
                     System.out.println("listcheck\n");
                     OOS.writeObject("valid");
                     OOS.writeObject(vt1);
-                    //OOS.flush();
-                    System.out.println("checkview2\n");
-                    //OOS.writeObject(res);
                     OOS.flush();
                 }
             
@@ -276,14 +261,6 @@ public class ClientHandler implements Runnable,Serializable{
                 String Res=cncl.removetrain();
                 OOS.writeObject(Res);
                 OOS.flush();
-//                if(cncl.removetrain()){
-//                    OOS.writeObject("removetrainvalid");
-//                    System.out.println("valid check\n");
-//                }
-//                else{
-//                    OOS.writeObject("Error:this train does not exist");
-//                    System.out.println("unvalid check\n");
-//                }
             }
             
             if(request.equals("Travel Info"))
@@ -560,9 +537,18 @@ public class ClientHandler implements Runnable,Serializable{
                 OOS.writeObject(user);
             }
            }
-        }catch (IOException | ClassNotFoundException ex) {
+        }catch (EOFException e){
+                    System.out.println("Client Disconnected..!!");
+                    return;
+                }
+        catch (SocketException e){
+                    System.out.println("Client Disconnected..!!");
+                    return;
+                }
+        catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(Exception e){
+                }
+        catch(Exception e){
             e.printStackTrace();
         }
         
